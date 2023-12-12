@@ -317,7 +317,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\src\main.cpp" />
+    <ClCompile Include="CompilationChecker.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\ZERO_CHECK.vcxproj">
@@ -326,6 +327,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CompilationChecker.h" />
+    <ClInclude Include="Configurations.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
