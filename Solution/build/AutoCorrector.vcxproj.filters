@@ -12,5 +12,8 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{1A31AEBE-6DC7-3DC8-B17C-10C6415648A7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{3e7eeaf4-ec33-458d-8a57-167ba8f281f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
