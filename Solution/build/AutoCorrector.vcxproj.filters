@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1A31AEBE-6DC7-3DC8-B17C-10C6415648A7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
