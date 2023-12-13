@@ -2,22 +2,27 @@
 
 #include <clang-c/Index.h>
 
+#include <string_view>
+
 class ASTTraverser
 {
 
 public:
 
-	ASTTraverser(const char* inputFile);
+	ASTTraverser(std::string_view translationUnit);
 
 	void traverseAST();
 
+protected:
+
+	unsigned getLineNumber(CXCursor cursor);
+
 private:
 
-	CXChildVisitResult Visitor(CXCursor current_cursor, CXCursor parent, CXClientData client_data);
-	void HandleVariable(CXCursor current_cursor);
+	virtual CXChildVisitResult Visitor(CXCursor currentCursor, CXCursor parent, CXClientData clientData) = 0;
 
 private:
 
-	const char* m_inputFile;
+	std::string_view m_translationUnit;
 
 };

@@ -318,7 +318,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ASTTraverser.cpp" />
+    <ClCompile Include="CleanCodeChecker.cpp" />
     <ClCompile Include="CompilationChecker.cpp" />
+    <ClCompile Include="FunctionIdentifier.cpp" />
+    <ClCompile Include="IsGlobalVariableChecker.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="VariableHandler.cpp" />
   </ItemGroup>
@@ -332,8 +335,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ASTTraverser.h" />
+    <ClInclude Include="CleanCodeChecker.h" />
     <ClInclude Include="CompilationChecker.h" />
     <ClInclude Include="Configurations.h" />
+    <ClInclude Include="FunctionIdentifier.h" />
+    <ClInclude Include="ICursorChecker.h" />
+    <ClInclude Include="IsGlobalVariableChecker.h" />
     <ClInclude Include="VariableHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

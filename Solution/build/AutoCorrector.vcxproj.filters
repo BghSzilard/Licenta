@@ -13,6 +13,11 @@
     <ClCompile Include="VariableHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IsGlobalVariableChecker.cpp" />
+    <ClCompile Include="FunctionIdentifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CleanCodeChecker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\CMakeLists.txt" />
@@ -38,5 +43,13 @@
     <ClInclude Include="VariableHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ICursorChecker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IsGlobalVariableChecker.h" />
+    <ClInclude Include="FunctionIdentifier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CleanCodeChecker.h" />
   </ItemGroup>
 </Project>
