@@ -317,8 +317,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ASTTraverser.cpp" />
     <ClCompile Include="CompilationChecker.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="VariableHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\ZERO_CHECK.vcxproj">
@@ -329,8 +331,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ASTTraverser.h" />
     <ClInclude Include="CompilationChecker.h" />
     <ClInclude Include="Configurations.h" />
+    <ClInclude Include="VariableHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
