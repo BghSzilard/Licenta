@@ -14,4 +14,6 @@ public:
 private:
 
 	CXChildVisitResult Visitor(CXCursor current_cursor, CXCursor parent, CXClientData client_data);
+
+	void traverseCursor(const CXCursor& cursor) override;
 };

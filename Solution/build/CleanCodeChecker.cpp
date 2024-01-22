@@ -23,3 +23,7 @@ CXChildVisitResult CleanCodeChecker::Visitor(CXCursor current_cursor, CXCursor p
 
 	return CXChildVisit_Recurse;
 }
+
+void CleanCodeChecker::traverseCursor(const CXCursor& cursor)
+{
+}

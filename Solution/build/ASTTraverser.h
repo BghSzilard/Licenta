@@ -21,6 +21,8 @@ private:
 
 	virtual CXChildVisitResult Visitor(CXCursor currentCursor, CXCursor parent, CXClientData clientData) = 0;
 
+	virtual void traverseCursor(const CXCursor& cursor) = 0;
+
 private:
 
 	std::string_view m_translationUnit;
