@@ -77,39 +77,7 @@ public class FileProcessor
         }
     }
 
-    public void DeleteSubdirectories(string rootDirectory)
-    {
-        var subdirectories = Directory.GetDirectories(rootDirectory);
-        foreach (var subDirectory in subdirectories)
-        {
-            DeleteDirectory(subDirectory);
-        }
-    }
-
-    public void Asd(string rootDirectory)
-    {
-        var subdirectories = Directory.GetDirectories(rootDirectory);
-        List<string> extensions = new List<string>() { ".txt", ".h", ".hpp", ".cpp" };
-
-        DirectoryInfo directoryInfo = new DirectoryInfo(rootDirectory);
-
-        var files = directoryInfo.GetFiles();
-
-        foreach (var file in files)
-        {
-            string extension = file.Extension;
-
-            if (!extensions.Contains(extension))
-            {
-                file.Delete();
-            }
-        }
-
-        foreach (var subdirectory in subdirectories)
-        {
-            ExtractFiles(rootDirectory, subdirectory, extensions);
-        }
-    }
+    
 
     public void ExtractFiles(string rootDirectory, string currentDirectory, List<string> extensions)
     {

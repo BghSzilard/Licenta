@@ -17,12 +17,48 @@ public class StudentManager
         _unzippedFolderPath = "C:\\Users\\sziba\\Desktop\\MyFolder";
     }
 
-    public async Task GetNames()
+    public async Task Solve()
     {
         UnzipFile();
-        GetStudentNames();
-        await SaveResults();
+
+        var folders = Directory.GetDirectories(_unzippedFolderPath);
+
+        foreach (var folder in folders)
+        {
+            ExtractEssence(folder);
+        }
+
+        //GetStudentNames();
+        //await SaveResults();
     }
+
+    private void ExtractEssence(string path)
+    {
+        _fileProcessor.ExtractArchivesRecursively(path);
+
+        var subdirectories = Directory.GetDirectories(path);
+        List<string> extensions = new() { ".txt", ".h", ".hpp", ".cpp" };
+
+        DirectoryInfo directoryInfo = new(path);
+
+        var files = directoryInfo.GetFiles();
+
+        foreach (var file in files)
+        {
+            string extension = file.Extension;
+
+            if (!extensions.Contains(extension))
+            {
+                file.Delete();
+            }
+        }
+
+        foreach (var subdirectory in subdirectories)
+        {
+            _fileProcessor.ExtractFiles(path, subdirectory, extensions);
+        }
+    }
+
     private void GetStudentNames()
     {
         FileProcessor fileProcessor = new FileProcessor();

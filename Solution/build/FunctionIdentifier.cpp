@@ -5,10 +5,10 @@ FunctionIdentifier::FunctionIdentifier(std::string_view translationUnit) : ASTTr
 	m_translationUnit = translationUnit;
 }
 
-CXCursor FunctionIdentifier::findFunction(std::string_view functionName)
-{
-	traverseAST();
-}
+//CXCursor FunctionIdentifier::findFunction(std::string_view functionName)
+//{
+//	traverseAST();
+//}
 
 CXChildVisitResult FunctionIdentifier::Visitor(CXCursor currentCursor, CXCursor parent, CXClientData clientData)
 {
