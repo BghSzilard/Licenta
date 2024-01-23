@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using SharpCompress.Archives;
+using System.IO.Compression;
 
 namespace AutoCorrector;
 
@@ -9,6 +10,23 @@ public class FileProcessor
         ZipFile.ExtractToDirectory(sourcePath, destinationPath);
     }
 
+    public void ExtractRar(string sourcePath, string destinationPath)
+    {
+        using (var archive = ArchiveFactory.Open(sourcePath))
+        {
+            foreach (var entry in archive.Entries)
+            {
+                if (!entry.IsDirectory)
+                {
+                    entry.WriteToDirectory(destinationPath, new SharpCompress.Common.ExtractionOptions()
+                    {
+                        ExtractFullPath = true,
+                        Overwrite = true
+                    });
+                }
+            }
+        }
+    }
     public List<string> GetSubdirectoryNames(string path)
     {
         var directory = new DirectoryInfo(path);
