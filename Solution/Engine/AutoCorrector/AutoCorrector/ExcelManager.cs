@@ -4,14 +4,17 @@ namespace AutoCorrector;
 
 public class ExcelManager
 {
-    public async Task SaveExcelFile(List<Student> data, string filePath)
+    public ExcelManager() 
     {
-        DeleteIfExists(filePath);
-        FileInfo fileInfo = new FileInfo(filePath);
-
+        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+    }
+    public async Task SaveExcelFile<T>(List<T> data, FileInfo fileInfo)
+    {
+        DeleteIfExists(fileInfo);
+        
         using var package = new ExcelPackage(fileInfo);
 
-        var ws = package.Workbook.Worksheets.Add("MainReport");
+        var ws = package.Workbook.Worksheets.Add("Rezultate");
 
         var range = ws.Cells["A1"].LoadFromCollection(data, true);
         range.AutoFitColumns();
@@ -19,11 +22,11 @@ public class ExcelManager
         await package.SaveAsync();
     } 
 
-    private void DeleteIfExists(string filePath)
+    private void DeleteIfExists(FileInfo fileInfo)
     {
-        if (File.Exists(filePath))
+        if (fileInfo.Exists)
         {
-            File.Delete(filePath);
+            fileInfo.Delete();
         }
     }
 }
