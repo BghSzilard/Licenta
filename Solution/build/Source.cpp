@@ -9,8 +9,8 @@
 
 int main()
 {
-    //CompilationChecker compilationChecker;
-    CleanCodeChecker cleanCodeChecker(Configurations::inputFile);
-    cleanCodeChecker.traverseAST();
+    CompilationChecker compilationChecker;
+    /*CleanCodeChecker cleanCodeChecker(Configurations::inputFile);
+    cleanCodeChecker.traverseAST();*/
     return 0;
 }

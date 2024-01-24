@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(AutoCorrector)
+project(AutoCorrectorLib)  # Change the project name to reflect it's a library
 
 # Set the path to LLVM and Clang
 set(LLVM_PATH "C:/Users/sziba/Desktop/llvm/llvm/llvm")
@@ -20,8 +20,12 @@ set(SOURCES
     # Add your source files here
 )
 
-# Create the executable
-add_executable(AutoCorrector ${SOURCES})
+# Create the library
+add_library(AutoCorrectorLib ${SOURCES})
 
 # Link against LLVM and Clang libraries
-target_link_libraries(AutoCorrector ${LLVM_LIBRARIES} ${CLANG_LIBRARIES})
+target_link_libraries(AutoCorrectorLib ${LLVM_LIBRARIES} ${CLANG_LIBRARIES})
+
+# Optionally, you can set the library's version and visibility
+# set_target_properties(AutoCorrectorLib PROPERTIES VERSION 1.0 SOVERSION 1)
+# target_compile_definitions(AutoCorrectorLib PRIVATE -DAutoCorrectorLib_EXPORTS)
