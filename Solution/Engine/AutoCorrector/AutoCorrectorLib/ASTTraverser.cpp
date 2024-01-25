@@ -11,25 +11,29 @@ ASTTraverser::ASTTraverser(const char* inputFile)
 void ASTTraverser::traverseAST()
 {
     m_foundMain = false;
-	CXIndex index = clang_createIndex(0, 0);
-	CXTranslationUnit unit = clang_parseTranslationUnit(
-		index, m_inputFile, nullptr, 0,
-		nullptr, 0,
-		CXTranslationUnit_None);
+    CXIndex index = clang_createIndex(0, 0);
+    CXTranslationUnit unit = clang_parseTranslationUnit(
+        index, m_inputFile, nullptr, 0,
+        nullptr, 0,
+        CXTranslationUnit_None);
 
-	if (unit == nullptr)
-	{
-		throw std::string("Unable to parse translation unit!");
-	}
+    if (unit == nullptr)
+    {
+        throw std::string("Unable to parse translation unit!");
+    }
 
-	CXCursor cursor = clang_getTranslationUnitCursor(unit);
+    CXCursor cursor = clang_getTranslationUnitCursor(unit);
 
-	auto visitorWrapper = [](CXCursor current_cursor, CXCursor parent, CXClientData client_data) -> CXChildVisitResult {
-		return static_cast<ASTTraverser*>(client_data)->MainVisitor(current_cursor, parent, nullptr);
-		};
+    auto visitorWrapper = [](CXCursor current_cursor, CXCursor parent, CXClientData client_data) -> CXChildVisitResult 
+        {
+        // Cast client_data to ASTTraverser* and call MainVisitor
+        return static_cast<ASTTraverser*>(client_data)->MainVisitor(current_cursor, parent, nullptr);
+        };
 
-	clang_visitChildren(cursor, visitorWrapper, nullptr);
+    // Pass 'this' as client_data
+    clang_visitChildren(cursor, visitorWrapper, this);
 }
+
 
 bool ASTTraverser::foundMain()
 {
@@ -43,10 +47,10 @@ CXChildVisitResult ASTTraverser::MainVisitor(CXCursor current_cursor, CXCursor p
 
     CXSourceLocation location = clang_getCursorLocation(current_cursor);
 
-    if (clang_Location_isInSystemHeader(location) == 0)
+    /*if (clang_Location_isInSystemHeader(location) == 0)
     {
         return CXChildVisit_Recurse;
-    }
+    }*/
 
     if (cursorKind == CXCursor_FunctionDecl)
     {
