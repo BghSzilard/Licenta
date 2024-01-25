@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Wrapper\Wrapper.vcxproj" />
+    <ProjectReference Include="..\AutoCorrectorLibWrapper\AutoCorrectorLibWrapper.vcxproj" />
   </ItemGroup>
 
 </Project>

@@ -21,9 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <EnableManagedPackageReferenceSupport>true</EnableManagedPackageReferenceSupport>
-    <ProjectGuid>{C97675B8-D29F-4942-AB36-A35CBC351E0B}</ProjectGuid>
+    <ProjectGuid>{3651A686-09E1-4378-ACD2-76860A097A8F}</ProjectGuid>
     <Keyword>NetCoreCProj</Keyword>
-    <RootNamespace>Wrapper</RootNamespace>
+    <RootNamespace>AutoCorrectorLibWrapper</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
@@ -116,17 +116,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ASTTraverserWrapper.h" />
+    <ProjectReference Include="..\AutoCorrectorLib\AutoCorrectorLib.vcxproj">
+      <Project>{765a6f57-aa19-4c5c-9639-2369a72cf189}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="CompilationCheckerWrapper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ASTTraverserWrapper.cpp" />
     <ClCompile Include="CompilationCheckerWrapper.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\build\AutoCorrectorLib.vcxproj">
-      <Project>{126df5f9-958f-3cab-8f40-3b3e18c6dfc1}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

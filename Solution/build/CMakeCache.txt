@@ -15,15 +15,6 @@
 ########################
 
 //Value Computed by CMake
-AutoCorrectorLib_BINARY_DIR:STATIC=D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build
-
-//Value Computed by CMake
-AutoCorrectorLib_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-AutoCorrectorLib_SOURCE_DIR:STATIC=D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution
-
-//Value Computed by CMake
 AutoCorrector_BINARY_DIR:STATIC=D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build
 
 //Value Computed by CMake
@@ -130,7 +121,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=AutoCorrectorLib
+CMAKE_PROJECT_NAME:STATIC=AutoCorrector
 
 //RC compiler
 CMAKE_RC_COMPILER:FILEPATH=rc

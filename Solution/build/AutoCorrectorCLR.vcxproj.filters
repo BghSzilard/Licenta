@@ -9,9 +9,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CompilationChecker.h" />
+    <ClInclude Include="CompilationCheckerWrapper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CompilationChecker.cpp" />
+    <ClCompile Include="CompilationCheckerWrapper.cpp" />
   </ItemGroup>
 </Project>

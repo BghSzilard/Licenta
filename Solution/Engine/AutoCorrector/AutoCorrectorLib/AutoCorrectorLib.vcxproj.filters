@@ -15,18 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CompilationCheckerWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ASTTraverserWrapper.h">
+    <ClInclude Include="CompilationChecker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CompilationCheckerWrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ASTTraverserWrapper.cpp">
+    <ClCompile Include="CompilationChecker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,7 +4,7 @@
 #include <format>
 #include <cstdio>
 
-bool CompilationChecker::compiles(const std::string& translationUnit)
+MYNATIVELIB_API bool CompilationChecker::compiles(const std::string& translationUnit)
 {
     std::string command = std::format("clang++ {} 2> NUL 1> NUL", translationUnit);
     int result = std::system(command.c_str());
@@ -12,7 +12,7 @@ bool CompilationChecker::compiles(const std::string& translationUnit)
     return result == 0;
 }
 
-std::optional<std::string> CompilationChecker::getCompilationErrorMessage(const std::string& translationUnit)
+MYNATIVELIB_API std::optional<std::string> CompilationChecker::getCompilationErrorMessage(const std::string& translationUnit)
 {
     std::string tempFile = "error.txt";
     std::string command = std::format("clang++ {} 2> {} 1> NUL", translationUnit, tempFile);

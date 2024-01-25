@@ -3,8 +3,7 @@
 
 CompilationCheckerWrapper::CompilationCheckerWrapper()
 {
-	m_compilationChecker = new CompilationChecker();
-
+    m_compilationChecker = new CompilationChecker();
 }
 
 bool CompilationCheckerWrapper::compiles(String^ translationUnit)

@@ -24,7 +24,7 @@ events:
       The output was:
       0
       MSBuild version 17.7.2+d6990bcfa for .NET Framework
-      Build started 12/12/2023 2:42:52 PM.
+      Build started 1/24/2024 5:58:30 PM.
       
       Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\3.28.0\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -61,7 +61,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:02.04
+      Time Elapsed 00:00:01.42
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -87,7 +87,7 @@ events:
       The output was:
       0
       MSBuild version 17.7.2+d6990bcfa for .NET Framework
-      Build started 12/12/2023 2:42:55 PM.
+      Build started 1/24/2024 5:58:31 PM.
       
       Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\3.28.0\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -124,7 +124,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:01.51
+      Time Elapsed 00:00:01.03
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -143,8 +143,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-6aoc24"
-      binary: "D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-6aoc24"
+      source: "D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-9peuvc"
+      binary: "D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-9peuvc"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
       CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -153,48 +153,48 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-6aoc24'
+        Change Dir: 'D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-9peuvc'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_eb2f8.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_68bfb.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.7.2+d6990bcfa for .NET Framework
-        Build started 12/12/2023 2:42:57 PM.
+        Build started 1/24/2024 5:58:33 PM.
         
-        Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6aoc24\\cmTC_eb2f8.vcxproj" on node 1 (default targets).
+        Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9peuvc\\cmTC_68bfb.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_eb2f8.dir\\Debug\\".
-          Creating directory "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6aoc24\\Debug\\".
-          Creating directory "cmTC_eb2f8.dir\\Debug\\cmTC_eb2f8.tlog\\".
+          Creating directory "cmTC_68bfb.dir\\Debug\\".
+          Creating directory "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9peuvc\\Debug\\".
+          Creating directory "cmTC_68bfb.dir\\Debug\\cmTC_68bfb.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_eb2f8.dir\\Debug\\cmTC_eb2f8.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_eb2f8.dir\\Debug\\cmTC_eb2f8.tlog\\unsuccessfulbuild".
+          Creating "cmTC_68bfb.dir\\Debug\\cmTC_68bfb.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_68bfb.dir\\Debug\\cmTC_68bfb.tlog\\unsuccessfulbuild".
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_eb2f8.dir\\Debug\\\\" /Fd"cmTC_eb2f8.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_68bfb.dir\\Debug\\\\" /Fd"cmTC_68bfb.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.37.32825 for x64
           CMakeCCompilerABI.c
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /I"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_eb2f8.dir\\Debug\\\\" /Fd"cmTC_eb2f8.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
+          cl /c /I"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_68bfb.dir\\Debug\\\\" /Fd"cmTC_68bfb.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCCompilerABI.c"
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6aoc24\\Debug\\cmTC_eb2f8.exe" /INCREMENTAL /ILK:"cmTC_eb2f8.dir\\Debug\\cmTC_eb2f8.ilk" /NOLOGO /LIBPATH:"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-6aoc24/Debug/cmTC_eb2f8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-6aoc24/Debug/cmTC_eb2f8.lib" /MACHINE:X64  /machine:x64 cmTC_eb2f8.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_eb2f8.vcxproj -> D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6aoc24\\Debug\\cmTC_eb2f8.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9peuvc\\Debug\\cmTC_68bfb.exe" /INCREMENTAL /ILK:"cmTC_68bfb.dir\\Debug\\cmTC_68bfb.ilk" /NOLOGO /LIBPATH:"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-9peuvc/Debug/cmTC_68bfb.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-9peuvc/Debug/cmTC_68bfb.lib" /MACHINE:X64  /machine:x64 cmTC_68bfb.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_68bfb.vcxproj -> D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9peuvc\\Debug\\cmTC_68bfb.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6aoc24\\Debug\\cmTC_eb2f8.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_eb2f8.dir\\Debug\\cmTC_eb2f8.tlog\\cmTC_eb2f8.write.1u.tlog" "cmTC_eb2f8.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9peuvc\\Debug\\cmTC_68bfb.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_68bfb.dir\\Debug\\cmTC_68bfb.tlog\\cmTC_68bfb.write.1u.tlog" "cmTC_68bfb.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' is not recognized as an internal or external command,
           operable program or batch file.
-          The command "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6aoc24\\Debug\\cmTC_eb2f8.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_eb2f8.dir\\Debug\\cmTC_eb2f8.tlog\\cmTC_eb2f8.write.1u.tlog" "cmTC_eb2f8.dir\\Debug\\vcpkg.applocal.log"" exited with code 9009.
-          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6aoc24\\Debug\\cmTC_eb2f8.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_eb2f8.dir\\Debug\\cmTC_eb2f8.tlog\\cmTC_eb2f8.write.1u.tlog" "cmTC_eb2f8.dir\\Debug\\vcpkg.applocal.log"
+          The command "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9peuvc\\Debug\\cmTC_68bfb.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_68bfb.dir\\Debug\\cmTC_68bfb.tlog\\cmTC_68bfb.write.1u.tlog" "cmTC_68bfb.dir\\Debug\\vcpkg.applocal.log"" exited with code 9009.
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9peuvc\\Debug\\cmTC_68bfb.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_68bfb.dir\\Debug\\cmTC_68bfb.tlog\\cmTC_68bfb.write.1u.tlog" "cmTC_68bfb.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          Deleting file "cmTC_eb2f8.dir\\Debug\\cmTC_eb2f8.tlog\\unsuccessfulbuild".
-          Touching "cmTC_eb2f8.dir\\Debug\\cmTC_eb2f8.tlog\\cmTC_eb2f8.lastbuildstate".
-        Done Building Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6aoc24\\cmTC_eb2f8.vcxproj" (default targets).
+          Deleting file "cmTC_68bfb.dir\\Debug\\cmTC_68bfb.tlog\\unsuccessfulbuild".
+          Touching "cmTC_68bfb.dir\\Debug\\cmTC_68bfb.tlog\\cmTC_68bfb.lastbuildstate".
+        Done Building Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-9peuvc\\cmTC_68bfb.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:01.72
+        Time Elapsed 00:00:00.98
         
       exitCode: 0
   -
@@ -206,8 +206,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-r0hp1v"
-      binary: "D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-r0hp1v"
+      source: "D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-hz3mmx"
+      binary: "D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-hz3mmx"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -216,48 +216,48 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-r0hp1v'
+        Change Dir: 'D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-hz3mmx'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_a4b22.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d0e46.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.7.2+d6990bcfa for .NET Framework
-        Build started 12/12/2023 2:42:59 PM.
+        Build started 1/24/2024 5:58:34 PM.
         
-        Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r0hp1v\\cmTC_a4b22.vcxproj" on node 1 (default targets).
+        Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hz3mmx\\cmTC_d0e46.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_a4b22.dir\\Debug\\".
-          Creating directory "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r0hp1v\\Debug\\".
-          Creating directory "cmTC_a4b22.dir\\Debug\\cmTC_a4b22.tlog\\".
+          Creating directory "cmTC_d0e46.dir\\Debug\\".
+          Creating directory "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hz3mmx\\Debug\\".
+          Creating directory "cmTC_d0e46.dir\\Debug\\cmTC_d0e46.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_a4b22.dir\\Debug\\cmTC_a4b22.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_a4b22.dir\\Debug\\cmTC_a4b22.tlog\\unsuccessfulbuild".
+          Creating "cmTC_d0e46.dir\\Debug\\cmTC_d0e46.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_d0e46.dir\\Debug\\cmTC_d0e46.tlog\\unsuccessfulbuild".
         VcpkgTripletSelection:
           Using triplet "x64-windows" from "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\"
           Using normalized configuration "Release"
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_a4b22.dir\\Debug\\\\" /Fd"cmTC_a4b22.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\CL.exe /c /I"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_d0e46.dir\\Debug\\\\" /Fd"cmTC_d0e46.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.37.32825 for x64
           CMakeCXXCompilerABI.cpp
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /I"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_a4b22.dir\\Debug\\\\" /Fd"cmTC_a4b22.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /I"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_d0e46.dir\\Debug\\\\" /Fd"cmTC_d0e46.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r0hp1v\\Debug\\cmTC_a4b22.exe" /INCREMENTAL /ILK:"cmTC_a4b22.dir\\Debug\\cmTC_a4b22.ilk" /NOLOGO /LIBPATH:"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-r0hp1v/Debug/cmTC_a4b22.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-r0hp1v/Debug/cmTC_a4b22.lib" /MACHINE:X64  /machine:x64 cmTC_a4b22.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_a4b22.vcxproj -> D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r0hp1v\\Debug\\cmTC_a4b22.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.37.32822\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hz3mmx\\Debug\\cmTC_d0e46.exe" /INCREMENTAL /ILK:"cmTC_d0e46.dir\\Debug\\cmTC_d0e46.ilk" /NOLOGO /LIBPATH:"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-hz3mmx/Debug/cmTC_d0e46.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/CMakeScratch/TryCompile-hz3mmx/Debug/cmTC_d0e46.lib" /MACHINE:X64  /machine:x64 cmTC_d0e46.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_d0e46.vcxproj -> D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hz3mmx\\Debug\\cmTC_d0e46.exe
         AppLocalFromInstalled:
-          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r0hp1v\\Debug\\cmTC_a4b22.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_a4b22.dir\\Debug\\cmTC_a4b22.tlog\\cmTC_a4b22.write.1u.tlog" "cmTC_a4b22.dir\\Debug\\vcpkg.applocal.log"
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hz3mmx\\Debug\\cmTC_d0e46.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_d0e46.dir\\Debug\\cmTC_d0e46.tlog\\cmTC_d0e46.write.1u.tlog" "cmTC_d0e46.dir\\Debug\\vcpkg.applocal.log"
           'pwsh.exe' is not recognized as an internal or external command,
           operable program or batch file.
-          The command "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r0hp1v\\Debug\\cmTC_a4b22.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_a4b22.dir\\Debug\\cmTC_a4b22.tlog\\cmTC_a4b22.write.1u.tlog" "cmTC_a4b22.dir\\Debug\\vcpkg.applocal.log"" exited with code 9009.
-          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r0hp1v\\Debug\\cmTC_a4b22.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_a4b22.dir\\Debug\\cmTC_a4b22.tlog\\cmTC_a4b22.write.1u.tlog" "cmTC_a4b22.dir\\Debug\\vcpkg.applocal.log"
+          The command "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hz3mmx\\Debug\\cmTC_d0e46.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_d0e46.dir\\Debug\\cmTC_d0e46.tlog\\cmTC_d0e46.write.1u.tlog" "cmTC_d0e46.dir\\Debug\\vcpkg.applocal.log"" exited with code 9009.
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hz3mmx\\Debug\\cmTC_d0e46.exe" "D:\\Sok hülyeség\\Vcpkg\\vcpkg\\installed\\x64-windows\\bin" "cmTC_d0e46.dir\\Debug\\cmTC_d0e46.tlog\\cmTC_d0e46.write.1u.tlog" "cmTC_d0e46.dir\\Debug\\vcpkg.applocal.log"
         FinalizeBuildStatus:
-          Deleting file "cmTC_a4b22.dir\\Debug\\cmTC_a4b22.tlog\\unsuccessfulbuild".
-          Touching "cmTC_a4b22.dir\\Debug\\cmTC_a4b22.tlog\\cmTC_a4b22.lastbuildstate".
-        Done Building Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-r0hp1v\\cmTC_a4b22.vcxproj" (default targets).
+          Deleting file "cmTC_d0e46.dir\\Debug\\cmTC_d0e46.tlog\\unsuccessfulbuild".
+          Touching "cmTC_d0e46.dir\\Debug\\cmTC_d0e46.tlog\\cmTC_d0e46.lastbuildstate".
+        Done Building Project "D:\\UNITBV\\Anul 3\\LIC\\Licenta\\Licenta\\Solution\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hz3mmx\\cmTC_d0e46.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:02.04
+        Time Elapsed 00:00:00.94
         
       exitCode: 0
 ...

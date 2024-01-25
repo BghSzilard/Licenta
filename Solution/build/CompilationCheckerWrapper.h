@@ -1,6 +1,6 @@
 #pragma once
 
-#include "D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\CompilationChecker.h"
+#include "CompilationChecker.h"
 
 using namespace System;
 
@@ -12,7 +12,6 @@ private:
 
 public:
 
-	CompilationCheckerWrapper();
-
 	bool compiles(String^ translationUnit);
+	CompilationCheckerWrapper();
 };

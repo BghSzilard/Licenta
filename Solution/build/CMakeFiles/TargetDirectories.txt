@@ -1,3 +1,5 @@
 D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/AutoCorrectorLib.dir
+D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/AutoCorrector.dir
+D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/AutoCorrectorCLR.dir
 D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/ALL_BUILD.dir
 D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/CMakeFiles/ZERO_CHECK.dir

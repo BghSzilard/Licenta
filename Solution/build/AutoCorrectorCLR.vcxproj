@@ -22,33 +22,90 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{126DF5F9-958F-3CAB-8F40-3B3E18C6DFC1}</ProjectGuid>
+    <ProjectGuid>{54B14A58-F782-364E-BAE7-797F28AB32AC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
-    <ProjectName>AutoCorrectorLib</ProjectName>
+    <ProjectName>AutoCorrectorCLR</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+    <ManagedAssembly>true</ManagedAssembly>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <OutputPath>D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\Debug\</OutputPath>
     <PlatformToolset>v143</PlatformToolset>
+    <AssemblyName>AutoCorrectorCLR</AssemblyName>
+    <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+    <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+    <CompileAsManaged>true</CompileAsManaged>
+    <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    <ExceptionHandling>Async</ExceptionHandling>
+    <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+    <Optimization>Disabled</Optimization>
+    <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    <UseFullPaths>false</UseFullPaths>
+    <WarningLevel>Level3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <OutputPath>D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\Release\</OutputPath>
     <PlatformToolset>v143</PlatformToolset>
+    <AssemblyName>AutoCorrectorCLR</AssemblyName>
+    <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+    <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+    <CompileAsManaged>true</CompileAsManaged>
+    <ExceptionHandling>Async</ExceptionHandling>
+    <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+    <Optimization>MaxSpeed</Optimization>
+    <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    <UseFullPaths>false</UseFullPaths>
+    <WarningLevel>Level3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <OutputPath>D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\MinSizeRel\</OutputPath>
     <PlatformToolset>v143</PlatformToolset>
+    <AssemblyName>AutoCorrectorCLR</AssemblyName>
+    <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+    <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+    <CompileAsManaged>true</CompileAsManaged>
+    <ExceptionHandling>Async</ExceptionHandling>
+    <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+    <Optimization>MinSpace</Optimization>
+    <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    <UseFullPaths>false</UseFullPaths>
+    <WarningLevel>Level3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <OutputPath>D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\RelWithDebInfo\</OutputPath>
     <PlatformToolset>v143</PlatformToolset>
+    <AssemblyName>AutoCorrectorCLR</AssemblyName>
+    <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+    <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+    <CompileAsManaged>true</CompileAsManaged>
+    <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    <ExceptionHandling>Async</ExceptionHandling>
+    <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+    <Optimization>MaxSpeed</Optimization>
+    <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    <UseFullPaths>false</UseFullPaths>
+    <WarningLevel>Level3</WarningLevel>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -60,29 +117,39 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AutoCorrectorLib.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AutoCorrectorLib</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AutoCorrectorCLR.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AutoCorrectorCLR</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AutoCorrectorLib.dir\Release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AutoCorrectorLib</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AutoCorrectorCLR.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AutoCorrectorCLR</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\MinSizeRel\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">AutoCorrectorLib.dir\MinSizeRel\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">AutoCorrectorLib</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">AutoCorrectorCLR.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">AutoCorrectorCLR</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\RelWithDebInfo\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">AutoCorrectorLib.dir\RelWithDebInfo\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">AutoCorrectorLib</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">AutoCorrectorCLR.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">AutoCorrectorCLR</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\sziba\Desktop\llvm\llvm\llvm\include;C:\Users\sziba\Desktop\clang\clang\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CompileAsManaged>true</CompileAsManaged>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExceptionHandling>Async</ExceptionHandling>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -90,12 +157,12 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug";AutoCorrectorCLR_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\";AutoCorrectorCLR_EXPORTS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\sziba\Desktop\llvm\llvm\llvm\include;C:\Users\sziba\Desktop\clang\clang\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -106,15 +173,27 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <Lib>
+    <Link>
+      <AdditionalDependencies>Debug\AutoCorrectorLib.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVM-C.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAggressiveInstCombine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAnalysis.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAsmParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAsmPrinter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBinaryFormat.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitWriter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitstreamReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCFGuard.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCFIVerify.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCodeGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCore.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCoroutines.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCoverage.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDWARFLinker.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDWP.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoCodeView.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoDWARF.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoGSYM.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoMSF.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoPDB.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDemangle.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDlltoolDriver.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExecutionEngine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExegesis.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExegesisX86.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExtensions.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFileCheck.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFrontendOpenACC.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFrontendOpenMP.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFuzzMutate.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMGlobalISel.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMIRReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInstCombine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInstrumentation.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInterfaceStub.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInterpreter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMJITLink.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLTO.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLibDriver.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLineEditor.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLinker.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMC.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCA.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCDisassembler.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCJIT.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMIRParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObjCARCOpts.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObject.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObjectYAML.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOption.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcJIT.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcShared.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcTargetProcess.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMPasses.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMProfileData.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMRemarks.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMRuntimeDyld.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMScalarOpts.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSelectionDAG.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSupport.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSymbolize.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTableGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTableGenGlobalISel.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTarget.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTextAPI.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTransformUtils.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMVectorize.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMWindowsManifest.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86AsmParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86CodeGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Desc.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Disassembler.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Info.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMXRay.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMipo.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LTO.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\Remarks.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAPINotes.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangARCMigrate.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAST.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangASTMatchers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAnalysis.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangBasic.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangCodeGen.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangCrossTU.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDependencyScanning.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDirectoryWatcher.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDriver.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDynamicASTMatchers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangEdit.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFormat.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFrontendTool.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangHandleCXX.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangHandleLLVM.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangIndex.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangIndexSerialization.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangInterpreter.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangLex.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangParse.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangRewrite.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangRewriteFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangSema.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangSerialization.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerCheckers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerCore.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTesting.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTooling.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingASTDiff.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingCore.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingInclusions.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingRefactoring.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingSyntax.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTransformer.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\libclang.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-    </Lib>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/Debug/AutoCorrectorCLR.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/Debug/AutoCorrectorCLR.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\sziba\Desktop\llvm\llvm\llvm\include;C:\Users\sziba\Desktop\clang\clang\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CompileAsManaged>true</CompileAsManaged>
+      <ExceptionHandling>Async</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -122,14 +201,14 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";AutoCorrectorCLR_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";AutoCorrectorCLR_EXPORTS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\sziba\Desktop\llvm\llvm\llvm\include;C:\Users\sziba\Desktop\clang\clang\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -140,15 +219,27 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <Lib>
+    <Link>
+      <AdditionalDependencies>Release\AutoCorrectorLib.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVM-C.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAggressiveInstCombine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAnalysis.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAsmParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAsmPrinter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBinaryFormat.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitWriter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitstreamReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCFGuard.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCFIVerify.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCodeGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCore.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCoroutines.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCoverage.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDWARFLinker.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDWP.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoCodeView.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoDWARF.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoGSYM.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoMSF.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoPDB.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDemangle.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDlltoolDriver.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExecutionEngine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExegesis.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExegesisX86.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExtensions.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFileCheck.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFrontendOpenACC.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFrontendOpenMP.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFuzzMutate.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMGlobalISel.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMIRReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInstCombine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInstrumentation.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInterfaceStub.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInterpreter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMJITLink.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLTO.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLibDriver.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLineEditor.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLinker.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMC.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCA.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCDisassembler.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCJIT.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMIRParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObjCARCOpts.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObject.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObjectYAML.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOption.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcJIT.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcShared.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcTargetProcess.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMPasses.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMProfileData.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMRemarks.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMRuntimeDyld.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMScalarOpts.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSelectionDAG.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSupport.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSymbolize.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTableGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTableGenGlobalISel.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTarget.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTextAPI.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTransformUtils.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMVectorize.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMWindowsManifest.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86AsmParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86CodeGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Desc.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Disassembler.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Info.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMXRay.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMipo.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LTO.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\Remarks.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAPINotes.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangARCMigrate.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAST.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangASTMatchers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAnalysis.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangBasic.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangCodeGen.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangCrossTU.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDependencyScanning.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDirectoryWatcher.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDriver.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDynamicASTMatchers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangEdit.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFormat.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFrontendTool.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangHandleCXX.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangHandleLLVM.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangIndex.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangIndexSerialization.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangInterpreter.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangLex.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangParse.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangRewrite.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangRewriteFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangSema.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangSerialization.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerCheckers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerCore.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTesting.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTooling.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingASTDiff.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingCore.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingInclusions.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingRefactoring.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingSyntax.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTransformer.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\libclang.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-    </Lib>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/Release/AutoCorrectorCLR.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/Release/AutoCorrectorCLR.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\sziba\Desktop\llvm\llvm\llvm\include;C:\Users\sziba\Desktop\clang\clang\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
-      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CompileAsManaged>true</CompileAsManaged>
+      <ExceptionHandling>Async</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -156,14 +247,14 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel";AutoCorrectorCLR_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";AutoCorrectorCLR_EXPORTS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\sziba\Desktop\llvm\llvm\llvm\include;C:\Users\sziba\Desktop\clang\clang\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -174,16 +265,28 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <Lib>
+    <Link>
+      <AdditionalDependencies>MinSizeRel\AutoCorrectorLib.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVM-C.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAggressiveInstCombine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAnalysis.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAsmParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAsmPrinter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBinaryFormat.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitWriter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitstreamReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCFGuard.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCFIVerify.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCodeGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCore.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCoroutines.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCoverage.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDWARFLinker.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDWP.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoCodeView.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoDWARF.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoGSYM.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoMSF.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoPDB.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDemangle.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDlltoolDriver.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExecutionEngine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExegesis.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExegesisX86.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExtensions.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFileCheck.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFrontendOpenACC.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFrontendOpenMP.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFuzzMutate.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMGlobalISel.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMIRReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInstCombine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInstrumentation.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInterfaceStub.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInterpreter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMJITLink.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLTO.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLibDriver.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLineEditor.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLinker.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMC.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCA.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCDisassembler.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCJIT.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMIRParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObjCARCOpts.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObject.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObjectYAML.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOption.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcJIT.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcShared.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcTargetProcess.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMPasses.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMProfileData.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMRemarks.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMRuntimeDyld.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMScalarOpts.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSelectionDAG.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSupport.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSymbolize.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTableGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTableGenGlobalISel.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTarget.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTextAPI.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTransformUtils.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMVectorize.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMWindowsManifest.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86AsmParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86CodeGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Desc.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Disassembler.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Info.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMXRay.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMipo.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LTO.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\Remarks.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAPINotes.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangARCMigrate.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAST.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangASTMatchers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAnalysis.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangBasic.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangCodeGen.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangCrossTU.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDependencyScanning.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDirectoryWatcher.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDriver.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDynamicASTMatchers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangEdit.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFormat.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFrontendTool.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangHandleCXX.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangHandleLLVM.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangIndex.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangIndexSerialization.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangInterpreter.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangLex.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangParse.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangRewrite.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangRewriteFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangSema.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangSerialization.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerCheckers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerCore.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTesting.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTooling.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingASTDiff.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingCore.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingInclusions.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingRefactoring.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingSyntax.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTransformer.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\libclang.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-    </Lib>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/MinSizeRel/AutoCorrectorCLR.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/MinSizeRel/AutoCorrectorCLR.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\sziba\Desktop\llvm\llvm\llvm\include;C:\Users\sziba\Desktop\clang\clang\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <CompileAsManaged>true</CompileAsManaged>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExceptionHandling>Async</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -191,12 +294,12 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo";AutoCorrectorCLR_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";AutoCorrectorCLR_EXPORTS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\sziba\Desktop\llvm\llvm\llvm\include;C:\Users\sziba\Desktop\clang\clang\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -207,9 +310,19 @@
       <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
-    <Lib>
+    <Link>
+      <AdditionalDependencies>RelWithDebInfo\AutoCorrectorLib.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVM-C.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAggressiveInstCombine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAnalysis.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAsmParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMAsmPrinter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBinaryFormat.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitWriter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMBitstreamReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCFGuard.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCFIVerify.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCodeGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCore.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCoroutines.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMCoverage.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDWARFLinker.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDWP.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoCodeView.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoDWARF.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoGSYM.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoMSF.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDebugInfoPDB.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDemangle.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMDlltoolDriver.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExecutionEngine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExegesis.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExegesisX86.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMExtensions.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFileCheck.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFrontendOpenACC.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFrontendOpenMP.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMFuzzMutate.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMGlobalISel.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMIRReader.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInstCombine.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInstrumentation.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInterfaceStub.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMInterpreter.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMJITLink.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLTO.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLibDriver.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLineEditor.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMLinker.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMC.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCA.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCDisassembler.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCJIT.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMCParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMMIRParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObjCARCOpts.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObject.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMObjectYAML.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOption.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcJIT.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcShared.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMOrcTargetProcess.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMPasses.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMProfileData.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMRemarks.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMRuntimeDyld.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMScalarOpts.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSelectionDAG.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSupport.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMSymbolize.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTableGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTableGenGlobalISel.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTarget.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTextAPI.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMTransformUtils.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMVectorize.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMWindowsManifest.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86AsmParser.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86CodeGen.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Desc.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Disassembler.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMX86Info.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMXRay.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LLVMipo.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\LTO.lib;C:\Users\sziba\Desktop\llvm\llvm\llvm\lib\Remarks.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAPINotes.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangARCMigrate.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAST.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangASTMatchers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangAnalysis.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangBasic.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangCodeGen.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangCrossTU.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDependencyScanning.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDirectoryWatcher.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDriver.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangDynamicASTMatchers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangEdit.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFormat.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangFrontendTool.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangHandleCXX.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangHandleLLVM.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangIndex.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangIndexSerialization.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangInterpreter.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangLex.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangParse.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangRewrite.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangRewriteFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangSema.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangSerialization.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerCheckers.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerCore.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangStaticAnalyzerFrontend.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTesting.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTooling.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingASTDiff.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingCore.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingInclusions.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingRefactoring.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangToolingSyntax.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\clangTransformer.lib;C:\Users\sziba\Desktop\clang\clang\clang\lib\libclang.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-    </Lib>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/RelWithDebInfo/AutoCorrectorCLR.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/UNITBV/Anul 3/LIC/Licenta/Licenta/Solution/build/RelWithDebInfo/AutoCorrectorCLR.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\CMakeLists.txt">
@@ -275,12 +388,16 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+    <ProjectReference Include="D:\UNITBV\Anul 3\LIC\Licenta\Licenta\Solution\build\AutoCorrectorLib.vcxproj">
+      <Project>{126DF5F9-958F-3CAB-8F40-3B3E18C6DFC1}</Project>
+      <Name>AutoCorrectorLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CompilationChecker.h" />
+    <ClInclude Include="CompilationCheckerWrapper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CompilationChecker.cpp" />
+    <ClCompile Include="CompilationCheckerWrapper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
