@@ -18,9 +18,15 @@
     <ClInclude Include="CompilationChecker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ASTTraverser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CompilationChecker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ASTTraverser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

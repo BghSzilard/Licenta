@@ -18,4 +18,6 @@ public:
 	}
 
 	bool Compiles(String^ translationUnit);
+
+	bool ContainsMain(String^ translatinoUnit);
 };

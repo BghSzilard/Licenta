@@ -15,5 +15,8 @@ class MYNATIVELIB_API CompilationChecker
 public:
 
 	bool compiles(const std::string& translationUnit);
+
+	bool containsMainFunction(const std::string& translationUnit);
+
 	std::optional<std::string> getCompilationErrorMessage(const std::string& translationUnit);
 };

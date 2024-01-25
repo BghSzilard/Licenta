@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ASTTraverser.h" />
     <ClInclude Include="CompilationChecker.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ASTTraverser.cpp" />
     <ClCompile Include="CompilationChecker.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

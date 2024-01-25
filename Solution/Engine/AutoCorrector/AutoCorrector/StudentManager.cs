@@ -16,7 +16,6 @@ public class StudentManager
         _zipPath = "C:\\Users\\sziba\\Desktop\\AF_2023-Testare Parțial 1 - 17 noiembrie 1600-53027.zip";
         _unzippedFolderPath = "C:\\Users\\sziba\\Desktop\\MyFolder";
     }
-
     public async Task Solve()
     {
         UnzipFile();

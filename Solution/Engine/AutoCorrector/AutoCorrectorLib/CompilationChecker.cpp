@@ -1,8 +1,12 @@
 #include "CompilationChecker.h"
 
+#include "ASTTraverser.h"
+
 #include <fstream>
 #include <format>
 #include <cstdio>
+
+#include <clang-c/Index.h>
 
 MYNATIVELIB_API bool CompilationChecker::compiles(const std::string& translationUnit)
 {
@@ -11,6 +15,13 @@ MYNATIVELIB_API bool CompilationChecker::compiles(const std::string& translation
 
     return result == 0;
 }
+
+bool CompilationChecker::containsMainFunction(const std::string& translationUnit)
+{
+    ASTTraverser astTraverser(translationUnit.c_str());
+    return astTraverser.foundMain();
+}
+
 
 MYNATIVELIB_API std::optional<std::string> CompilationChecker::getCompilationErrorMessage(const std::string& translationUnit)
 {

@@ -138,4 +138,14 @@ public class FileProcessor
     {
         return stringToSeparate.Split(separator)[0];
     }
+
+    //public string FindStartingFile(string path)
+    //{
+    //    var files = Directory.GetFiles(path, ".cpp");
+        
+    //    foreach (var file in files)
+    //    {
+
+    //    }
+    //}
 }
