@@ -14,23 +14,41 @@ public class StudentManager
         _students = new List<StudentInfo>();
         _resultsPath = "C:\\Users\\sziba\\Desktop\\New folder\\rezultate.xlsx";
         _zipPath = "C:\\Users\\sziba\\Desktop\\AF_2023-Testare Parțial 1 - 17 noiembrie 1600-53027.zip";
-        _unzippedFolderPath = "C:\\Users\\sziba\\Desktop\\MyFolder";
+        _unzippedFolderPath = "C:\\Users\\sziba\\Desktop\\MyFolder2";
     }
     public async Task Solve()
     {
-        UnzipFile();
+        //UnzipFile();
 
-        var folders = Directory.GetDirectories(_unzippedFolderPath);
+        //var folders = Directory.GetDirectories(_unzippedFolderPath);
 
-        foreach (var folder in folders)
-        {
-            ExtractEssence(folder);
-        }
+        //foreach (var folder in folders)
+        //{
+        //    ExtractEssence(folder);
+        //}
 
-        //GetStudentNames();
-        //await SaveResults();
+        GetStudentNames();
+        CheckCompilations();
+        await SaveResults();
     }
 
+    private void CheckCompilations()
+    {
+        foreach (var student in _students)
+        {
+            var folderPath = _fileProcessor.GetFolder(_unzippedFolderPath, student.Name);
+            var sourceFile = _fileProcessor.FindSourceFile(folderPath);
+
+            if (sourceFile != null)
+            {
+                student.CodeCompiles = _fileProcessor.Compiles(sourceFile);
+            }
+            else
+            {
+                student.CodeCompiles = false;
+            }
+        }
+    }
     private void ExtractEssence(string path)
     {
         _fileProcessor.ExtractArchivesRecursively(path);

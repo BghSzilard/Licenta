@@ -10,7 +10,7 @@
 
 MYNATIVELIB_API bool CompilationChecker::compiles(const std::string& translationUnit)
 {
-    std::string command = std::format("clang++ {} 2> NUL 1> NUL", translationUnit);
+    std::string command = std::format("clang++ \"{}\" 2> NUL 1> NUL", translationUnit);
     int result = std::system(command.c_str());
 
     return result == 0;

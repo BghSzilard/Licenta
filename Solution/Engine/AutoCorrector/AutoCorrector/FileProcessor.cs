@@ -139,13 +139,35 @@ public class FileProcessor
         return stringToSeparate.Split(separator)[0];
     }
 
-    //public string FindStartingFile(string path)
-    //{
-    //    var files = Directory.GetFiles(path, ".cpp");
-        
-    //    foreach (var file in files)
-    //    {
+    public string? FindSourceFile(string path)
+    {
+        var files = Directory.GetFiles(path, "*.cpp");
 
-    //    }
-    //}
+        CompilationCheckerWrapper compilationCheckerWrapper = new CompilationCheckerWrapper();
+
+        foreach (var file in files)
+        {
+            if (compilationCheckerWrapper.ContainsMain(file))
+            {
+                return file;
+            }
+        }
+
+        return null;
+    }
+
+    public bool Compiles(string path)
+    {
+        CompilationCheckerWrapper compilationCheckerWrapper = new CompilationCheckerWrapper();
+
+        return compilationCheckerWrapper.Compiles(path);
+    }
+
+    public string GetFolder(string path, string name)
+    {
+        var subfolder = Directory.EnumerateDirectories(path, "*", SearchOption.AllDirectories)
+    .FirstOrDefault(folder => folder.Contains(name));
+
+        return subfolder;
+    }
 }
