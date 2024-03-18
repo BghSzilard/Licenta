@@ -21,10 +21,12 @@
   <ItemGroup>
     <ClInclude Include="ASTTraverser.h" />
     <ClInclude Include="CompilationChecker.h" />
+    <ClInclude Include="FunctionSignatureExtractor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ASTTraverser.cpp" />
     <ClCompile Include="CompilationChecker.cpp" />
+    <ClCompile Include="FunctionSignatureExtractor.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
