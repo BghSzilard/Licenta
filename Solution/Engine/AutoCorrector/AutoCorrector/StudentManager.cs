@@ -12,20 +12,20 @@ public class StudentManager
         _excelManager = new ExcelManager();
         _fileProcessor = new FileProcessor();
         _students = new List<StudentInfo>();
-        _resultsPath = "C:\\Users\\sziba\\Desktop\\New folder\\rezultate.xlsx";
-        _zipPath = "C:\\Users\\sziba\\Desktop\\AF_2023-Testare Parțial 1 - 17 noiembrie 1600-53027.zip";
-        _unzippedFolderPath = "C:\\Users\\sziba\\Desktop\\MyFolder2";
+        _resultsPath = "C:\\Users\\z004w26z\\Desktop\\results.xlsx";
+        _zipPath = "C:\\Users\\z004w26z\\Desktop\\temp.zip";
+        _unzippedFolderPath = "C:\\Users\\z004w26z\\Desktop\\unzipped";
     }
     public async Task Solve()
     {
-        //UnzipFile();
+        UnzipFile();
 
-        //var folders = Directory.GetDirectories(_unzippedFolderPath);
+        var folders = Directory.GetDirectories(_unzippedFolderPath);
 
-        //foreach (var folder in folders)
-        //{
-        //    ExtractEssence(folder);
-        //}
+        foreach (var folder in folders)
+        {
+            ExtractEssence(folder);
+        }
 
         GetStudentNames();
         CheckCompilations();
