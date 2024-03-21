@@ -80,6 +80,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -110,6 +111,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -122,9 +124,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CompilationCheckerWrapper.h" />
+    <ClInclude Include="FunctionExtractorWrapper.h" />
+    <ClInclude Include="FunctionSignatureExtractorWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CompilationCheckerWrapper.cpp" />
+    <ClCompile Include="FunctionExtractorWrapper.cpp" />
+    <ClCompile Include="FunctionSignatureExtractorWrapper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
