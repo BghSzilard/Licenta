@@ -23,6 +23,7 @@ class Program
     }
     public static async Task Main()
     {
+        DateTime startTime = DateTime.Now;
         string requirement = "Scrieți o funcție care ia ca argument un vector de int și returnează suma elementelor";
         //string subrequirement = "Check for the following input output pairs: (12 65 3 5 1 2) -> (1 2 3 5 12 65); (6 5 4 9) -> (4 5 6 9)";
         LLMManager lLMManager = new LLMManager();
@@ -52,5 +53,12 @@ class Program
         var function = includes;
         function += functionExtractor.GetFunction(pathTestFile, functionMatch);
         Console.WriteLine(function);
+        DateTime endTime = DateTime.Now;
+        TimeSpan elapsedTime = endTime - startTime;
+
+        // Get the total number of seconds passed
+        double secondsPassed = elapsedTime.TotalSeconds;
+
+        Console.WriteLine("Seconds passed: " + secondsPassed);
     }
 }
