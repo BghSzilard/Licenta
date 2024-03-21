@@ -10,12 +10,15 @@
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="7.0.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="OpenAI" Version="1.10.0" />
     <PackageReference Include="SharpCompress" Version="0.36.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AutoCorrectorLibWrapper\AutoCorrectorLibWrapper.vcxproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;C:\Users\z004w26z\Desktop\Material\Licenta\Licenta\Solution\Engine\AutoCorrector\x64\$(Configuration)\*&quot; &quot;C:\Users\z004w26z\Desktop\Material\Licenta\Licenta\Solution\Engine\AutoCorrector\AutoCorrector\bin\$(Configuration)\net7.0-windows7.0\&quot; /Y" />
+  </Target>
 
 </Project>
