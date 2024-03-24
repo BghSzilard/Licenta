@@ -22,7 +22,11 @@ public class ProcessExecutor
             process.StartInfo = processStartInfo;
             process.Start();
 
-            process.StandardInput.WriteLine(input);
+            if (input != "")
+            {
+                process.StandardInput.WriteLine(input);
+            }
+
             process.StandardInput.Flush();
             process.StandardInput.Close();
 

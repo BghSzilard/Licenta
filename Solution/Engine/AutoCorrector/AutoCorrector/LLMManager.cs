@@ -2,31 +2,59 @@
 
 public class LLMManager
 {
+    private string RunModel(string modelName, string requirement)
+    {
+        Translate translate = new Translate();
+        string requirementEnglish = translate.TranslateToEnglish(requirement);
+
+        string script = $@"
+        $response = Invoke-RestMethod -Method Post -Uri 'http://localhost:11434/api/generate' -ContentType 'application/json' -Body (@{{
+            model = '{modelName}'
+            prompt = '{requirementEnglish}'
+        }} | ConvertTo-Json)
+
+        $response";
+
+        ProcessExecutor processExecutor = new ProcessExecutor();
+        string result = processExecutor.ExecuteProcess("powershell.exe", "-Command \"& {" + script + "}\"", "");
+
+
+        var lines = result.Trim().Split('\n');
+        var concatenatedResponse = string.Concat(lines.Select(line =>
+        {
+            var startIndex = line.IndexOf("\"response\":\"") + "\"response\":\"".Length;
+            var endIndex = line.IndexOf("\",", startIndex);
+            var response = line.Substring(startIndex, endIndex - startIndex);
+            return response.Replace("\\u003e", ">").Replace("\\\"", "\"");
+        }));
+
+        return concatenatedResponse;
+    }
     public string GetFunctionSignature(string requirement)
     {
-        Translate translate = new Translate();
-        string requirementEnglish = translate.TranslateToEnglish(requirement);
-        ProcessExecutor processExecutor = new ProcessExecutor();
-        var functionSignature = processExecutor.ExecuteProcess("ollama", "run extractor", requirementEnglish);
-        functionSignature = functionSignature.Replace("\n", "");
-        return functionSignature;
+        return RunModel("extractor", requirement);
     }
 
-    public string RequirementCorrectionDecider(string requirement)
+    public string RequirementCorrectionDecider(string requirement, string functionName, string headerPath)
     {
-        ProcessExecutor processExecutor = new ProcessExecutor();
-        Translate translate = new Translate();
-        string requirementEnglish = translate.TranslateToEnglish(requirement);
-        var answer = processExecutor.ExecuteProcess("ollama", "run m3", requirementEnglish);
-        if (answer.Contains("Check correctness"))
+        var fileContent = RunModel("m4", requirement);
+
+        if (fileContent.Contains("Check correctness"))
         {
-            answer = answer[18..];
-            answer = answer.Replace(".", "");
-            answer = answer.Replace("\n", "");
-            string argument = "\"'1 7 6' '1 7 6' - '1 3 4' '1 3 4'\"";
-            answer = processExecutor.ExecuteProcess("python", "C:\\Users\\z004w26z\\Desktop\\UnitTester.py " + argument, "");
+            fileContent = fileContent[18..];
+            fileContent = fileContent.Insert(0, "\"");
+            fileContent += "\"";
+            fileContent = fileContent.Replace(".", "");
+            fileContent = fileContent.Replace("\n", "");
+            functionName = functionName.Insert(0, "\"");
+            functionName += "\"";
+            headerPath = headerPath.Insert(0, "\"");
+            headerPath += "\"";
+            var arguemnts = fileContent + " " + functionName + " " + headerPath;
+            ProcessExecutor processExecutor = new ProcessExecutor();
+            fileContent = processExecutor.ExecuteProcess("python", "C:\\Users\\z004w26z\\Desktop\\UnitTester.py " + arguemnts, "");
         }
 
-        return answer;
+        return fileContent;
     }
 }
