@@ -1,6 +1,12 @@
 ﻿using SharpCompress;
 using SharpCompress.Archives;
 using System.IO.Compression;
+using System.Text.RegularExpressions;
+using System.Text;
+using AutoCorrectorEngine;
+using CsvHelper;
+using SharpCompress.Common;
+using System.Xml;
 
 namespace AutoCorrector;
 
@@ -170,4 +176,52 @@ public class FileProcessor
 
         return subfolder;
     }
+
+    public string FindIncludes(string filePath)
+    {
+        StringBuilder includesBuilder = new StringBuilder();
+        using (StreamReader reader = new StreamReader(filePath))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                Match match = Regex.Match(line, @"^\s*#include\s*[<""](.*)[>""]\s*$");
+                if (match.Success)
+                {
+                    includesBuilder.AppendLine(line);
+                }
+            }
+        }
+        return includesBuilder.ToString();
+    }
+
+    string[] ParseCSVLine(string line)
+    {
+        var parts = new List<string>();
+        var sb = new StringBuilder();
+        bool inQuotes = false;
+
+        foreach (char c in line)
+        {
+            if (c == '\"')
+            {
+                inQuotes = !inQuotes;
+            }
+            else if (c == ',' && !inQuotes)
+            {
+                parts.Add(sb.ToString());
+                sb.Clear();
+            }
+            else
+            {
+                sb.Append(c);
+            }
+        }
+
+        parts.Add(sb.ToString());
+
+        return parts.ToArray();
+    }
+
+   
 }
