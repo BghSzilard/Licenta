@@ -35,6 +35,11 @@ public class LLMManager
         return RunModel("extractor", requirement);
     }
 
+    public string ProcessSubtask(string subtask)
+    {
+        var fileContent = RunModel("m4", subtask);
+        return fileContent;
+    }
     public string RequirementCorrectionDecider(string requirement, string functionName, string headerPath)
     {
         var fileContent = RunModel("m4", requirement);

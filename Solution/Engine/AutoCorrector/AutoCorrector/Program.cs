@@ -47,6 +47,7 @@ class Program
        
 
         string path = "C:\\Users\\z004w26z\\Desktop\\barem.xml";
-
+        ScaleProcessor scaleProcessor = new ScaleProcessor();
+        scaleProcessor.ProcessScale(path);
     }
 }

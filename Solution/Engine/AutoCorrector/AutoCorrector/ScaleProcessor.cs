@@ -5,7 +5,34 @@ namespace AutoCorrectorEngine;
 
 public class ScaleProcessor
 {
-    public string GetFunctionSignature(string requirement)
+    public List<Requirement> ProcessScale(string path)
+    {
+        var now = DateTime.Now;
+        var requirements = ReadXMLFile(path);
+        List<Requirement> processedScale = new List<Requirement>();
+        foreach (var requirement in requirements)
+        {
+            Requirement processedRequirement = new Requirement();
+            processedRequirement.MainRequirement = GetFunctionSignature(requirement.MainRequirement);
+            foreach (var subrequirement in requirement.SubRequirements)
+            {
+                processedRequirement.SubRequirements.Add(ProcessSubtask(subrequirement));
+            }
+            processedScale.Add(processedRequirement);
+        }
+
+        
+        var elapsedTime = DateTime.Now - now;
+        Console.WriteLine(elapsedTime.ToString());
+
+        return processedScale;
+    }
+    private string ProcessSubtask(string subrequirement)
+    {
+        LLMManager lLMManager = new LLMManager();
+        return lLMManager.ProcessSubtask(subrequirement);
+    }
+    private string GetFunctionSignature(string requirement)
     {
         LLMManager lLMManager = new LLMManager();
         string functionSignature = "\"";
@@ -17,8 +44,7 @@ public class ScaleProcessor
 
         return functionSignature;
     }
-
-    public List<Requirement> ReadXMLFile(string filePath)
+    private List<Requirement> ReadXMLFile(string filePath)
     {
         List<Requirement> list = new List<Requirement>();
         // Specify the file path of the XML document
