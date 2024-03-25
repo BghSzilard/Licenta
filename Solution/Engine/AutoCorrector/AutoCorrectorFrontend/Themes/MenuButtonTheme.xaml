@@ -11,10 +11,10 @@
                               HorizontalAlignment="Stretch"
                               Background="{TemplateBinding Background}">
 
-                            <TextBlock Text="{TemplateBinding Property=Content}"
-                                       VerticalAlignment="Center"
-                                       Margin="50, 0, 0, 0"></TextBlock>
-                            
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                      VerticalAlignment="Center"
+                                      Margin="50, 0, 0, 0"/>
+
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -27,11 +27,12 @@
 
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#22202f"/>
+                <Setter Property="Background" Value="#423d38 "/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Foreground" Value="Red"/>
+                <Setter Property="Background" Value="#423d38"/>
             </Trigger>
         </Style.Triggers>
 

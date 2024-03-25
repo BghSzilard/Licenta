@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\fire.png" />
     <None Remove="Images\logo.png" />
     <None Remove="Images\Upload.png" />
   </ItemGroup>
@@ -22,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\fire.png" />
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\Upload.png" />
   </ItemGroup>
