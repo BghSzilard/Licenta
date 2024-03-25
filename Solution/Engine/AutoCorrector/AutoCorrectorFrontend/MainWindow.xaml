@@ -4,9 +4,66 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoCorrectorFrontend"
+        xmlns:viewModel="clr-namespace:AutoCorrectorFrontend.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        
+        Background="Transparent"
+       
+        Height="600"
+        Width="900">
 
-    </Grid>
+    <Window.DataContext>
+        <viewModel:MainViewModel></viewModel:MainViewModel>
+    </Window.DataContext>
+        
+        
+    <Border Background="#272537">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Source="Images/logo.png"></Image>
+
+            <Border BorderBrush="Black" BorderThickness="3" Grid.Row="1">
+
+                <StackPanel Grid.Row="1" Background="Black">
+                    <RadioButton Content="Home"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding NavigateHomeCommand}"
+                             IsChecked="True"></RadioButton>
+                    <RadioButton Content="Sanyi"
+                              Height="50"
+                              Foreground="White"
+                              FontSize="14"
+                              Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding NavigateDiscoveryCommand}"></RadioButton>
+                    <RadioButton Content="Pisti"
+                              Height="50"
+                              Foreground="White"
+                              FontSize="14"
+                              Style="{StaticResource MenuButtonTheme}"></RadioButton>
+                </StackPanel>
+
+            </Border>
+            
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="30"
+                            Content="{Binding CurrentView}"
+                ></ContentControl>
+            
+        </Grid>
+
+
+    </Border>
 </Window>
