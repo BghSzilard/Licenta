@@ -12,12 +12,14 @@
         Height="600"
         Width="900">
 
+
     <Window.DataContext>
         <viewModel:MainViewModel></viewModel:MainViewModel>
     </Window.DataContext>
-        
-        
-    <Border Background="#272537">
+
+    <Grid>
+    
+    <Border Background="#272537" BorderBrush="Black" BorderThickness="1">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"></ColumnDefinition>
@@ -29,48 +31,52 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Border BorderBrush="Black" BorderThickness="1" Grid.Row="0" Grid.RowSpan="2">
 
-                <StackPanel Background="Black">
-                    <Image Source="Images/logo.png"></Image>
+                <StackPanel Background="Black" Grid.Row="0" Grid.RowSpan="2">
+                    <Image Source="Images/logo.png" Height="59" Width="64"></Image>
                     <RadioButton
-                             Height="50"
-                             Foreground="White"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding NavigateHomeCommand}"
-                             IsChecked="True">
+                 Height="50"
+                 Foreground="White"
+                 FontSize="14"
+                            Margin="0 0 0 0"
+                 Style="{StaticResource MenuButtonTheme}"
+                 Command="{Binding NavigateHomeCommand}"
+                 IsChecked="True">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="Images/fire.png" Margin="-50 0 0 0"></Image>
+                            <Image Source="Images/fire.png" Height="40" Margin="-50 0 0 0"></Image>
                             <TextBlock Text="Home" Margin="0 15 0 0"></TextBlock>
                         </StackPanel>
-                    </RadioButton>
-                    <RadioButton
-                              Height="50"
-                              Foreground="White"
-                              FontSize="14"
-                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding NavigateDiscoveryCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="Images/logo.png" Margin="-50 0 0 0"></Image>
-                            <TextBlock Text="Sanyi" Margin="0 15 0 0"></TextBlock>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton
-                              Height="50"
-                              Foreground="White"
-                              FontSize="14"
-                              Style="{StaticResource MenuButtonTheme}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="Images/logo.png" Margin="-50 0 0 0"></Image>
-                            <TextBlock Text="Help" Margin="0 15 0 0"></TextBlock>
-                        </StackPanel>
-                    </RadioButton>
-                </StackPanel>
 
-            </Border>
-            
-            <ContentControl Grid.Row="1"
+                    </RadioButton>
+                    <RadioButton
+                  Height="50"
+                  Foreground="White"
+                  FontSize="14"
+                  Style="{StaticResource MenuButtonTheme}"
+                            Margin="0 5 0 0"
+                 Command="{Binding NavigateDiscoveryCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="35" Source="Images/results.png" Margin="-50 0 0 0"></Image>
+                            <TextBlock Text="Results" Margin="0 15 0 0"></TextBlock>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton
+                 Height="50"
+                 Foreground="White"
+                 FontSize="14"
+                 Style="{StaticResource MenuButtonTheme}"
+                           Margin="0 5 0 0"
+                Command="{Binding NavigateDiscoveryCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Height="35" Source="Images/help.png" Margin="-50 0 0 0"></Image>
+                                    <TextBlock Text="Help" Margin="0 15 0 0"></TextBlock>
+                                </StackPanel>
+                            </RadioButton>  
+                </StackPanel>   
+
+
+
+                <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Margin="30"
                             Content="{Binding CurrentView}"
@@ -80,4 +86,9 @@
 
 
     </Border>
+      
+
+
+
+    </Grid>
 </Window>

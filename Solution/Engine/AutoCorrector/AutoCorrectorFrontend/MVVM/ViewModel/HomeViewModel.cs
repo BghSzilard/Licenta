@@ -2,6 +2,17 @@
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
-class HomeViewModel: ObservableObject
+public partial class HomeViewModel: ObservableObject
 {
+    [ObservableProperty]
+    private string _uploadedScale;
+
+    [ObservableProperty]
+    private string _uploadedZip;
+
+    public HomeViewModel() 
+    {
+        UploadedScale = "None";
+        UploadedZip = "None";
+    }
 }
