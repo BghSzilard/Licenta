@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutoCorrectorFrontend.MVVM.View
 {
@@ -23,6 +12,51 @@ namespace AutoCorrectorFrontend.MVVM.View
         public HomeView()
         {
             InitializeComponent();
+        }
+
+        private void ScaleDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                foreach (string file in files)
+                {
+                    if (Path.GetExtension(file).Equals(".txt", System.StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Process dropped text file here
+                        MessageBox.Show("Dropped text file: " + file);
+                    }
+                    else
+                    {
+                        // Not a text file, handle accordingly
+                        MessageBox.Show("Please drop only text files.");
+                    }
+                }
+            }
+        }
+
+
+        private void ProjectsDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                foreach (string file in files)
+                {
+                    if (Path.GetExtension(file).Equals(".txt", System.StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Process dropped text file here
+                        MessageBox.Show("Dropped project: " + file);
+                    }
+                    else
+                    {
+                        // Not a text file, handle accordingly
+                        MessageBox.Show("Please drop only text files.");
+                    }
+                }
+            }
         }
     }
 }

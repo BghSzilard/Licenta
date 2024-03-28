@@ -28,7 +28,7 @@ public partial class HomeViewModel: ObservableObject
         {
             string selectedFileName = openFileDialog.FileName;
             // Process selected file here
-            MessageBox.Show("Selected file: " + selectedFileName);
+            MessageBox.Show("Selected Scale: " + selectedFileName);
         }
     }
 
@@ -42,7 +42,7 @@ public partial class HomeViewModel: ObservableObject
         {
             string selectedFileName = openFileDialog.FileName;
             // Process selected file here
-            MessageBox.Show("Selected file: " + selectedFileName);
+            MessageBox.Show("Selected Projects: " + selectedFileName);
         }
     }
 }
