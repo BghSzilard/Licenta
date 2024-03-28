@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
@@ -14,5 +17,32 @@ public partial class HomeViewModel: ObservableObject
     {
         UploadedScale = "None";
         UploadedZip = "None";
+    }
+
+    [RelayCommand]
+    public void OpenScale()
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+        openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+        if (openFileDialog.ShowDialog() == true)
+        {
+            string selectedFileName = openFileDialog.FileName;
+            // Process selected file here
+            MessageBox.Show("Selected file: " + selectedFileName);
+        }
+    }
+
+
+    [RelayCommand]
+    public void OpenProjects()
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+        openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+        if (openFileDialog.ShowDialog() == true)
+        {
+            string selectedFileName = openFileDialog.FileName;
+            // Process selected file here
+            MessageBox.Show("Selected file: " + selectedFileName);
+        }
     }
 }
