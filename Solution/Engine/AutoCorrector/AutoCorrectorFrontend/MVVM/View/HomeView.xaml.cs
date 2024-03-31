@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using AutoCorrectorFrontend.MVVM.ViewModel;
 
 namespace AutoCorrectorFrontend.MVVM.View
 {
@@ -12,25 +13,25 @@ namespace AutoCorrectorFrontend.MVVM.View
         public HomeView()
         {
             InitializeComponent();
+           
         }
 
         private void ScaleDrop(object sender, DragEventArgs e)
         {
+            HomeViewModel homeViewModel = DataContext as HomeViewModel;
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
                 foreach (string file in files)
                 {
-                    if (Path.GetExtension(file).Equals(".txt", System.StringComparison.OrdinalIgnoreCase))
+                    if (Path.GetExtension(file).Equals(".xml", System.StringComparison.OrdinalIgnoreCase))
                     {
-                        // Process dropped text file here
-                        MessageBox.Show("Dropped text file: " + file);
+                        homeViewModel.UploadedScale = file;
                     }
                     else
                     {
-                        // Not a text file, handle accordingly
-                        MessageBox.Show("Please drop only text files.");
+                        MessageBox.Show("Please drop only .xml files.");
                     }
                 }
             }
@@ -39,6 +40,7 @@ namespace AutoCorrectorFrontend.MVVM.View
 
         private void ProjectsDrop(object sender, DragEventArgs e)
         {
+            HomeViewModel homeViewModel = DataContext as HomeViewModel;
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -47,13 +49,12 @@ namespace AutoCorrectorFrontend.MVVM.View
                 {
                     if (Path.GetExtension(file).Equals(".txt", System.StringComparison.OrdinalIgnoreCase))
                     {
-                        // Process dropped text file here
-                        MessageBox.Show("Dropped project: " + file);
+                        homeViewModel.UploadedZip = file;
                     }
                     else
                     {
                         // Not a text file, handle accordingly
-                        MessageBox.Show("Please drop only text files.");
+                        MessageBox.Show("Please drop only zip files.");
                     }
                 }
             }
