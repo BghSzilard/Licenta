@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
-
 public partial class HomeViewModel : ObservableObject
 {
 

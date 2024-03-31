@@ -3,9 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
-public partial class MainViewModel: ObservableObject
+public partial class MainViewModel : ObservableObject
 {
-
     [RelayCommand]
     public void NavigateHome()
     {
@@ -15,6 +14,12 @@ public partial class MainViewModel: ObservableObject
     public void NavigateDiscovery()
     {
         CurrentView = new Discovery();
+    }
+
+    [RelayCommand]
+    public void NavigateSettings()
+    {
+        CurrentView = new SettingsViewModel();
     }
 
     [ObservableProperty]

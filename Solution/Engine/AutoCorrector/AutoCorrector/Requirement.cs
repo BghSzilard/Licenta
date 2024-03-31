@@ -2,12 +2,12 @@
 
 public class Requirement
 {
-    public string MainRequirement { get; set; }
-    public List<string> SubRequirements { get; set; }
-
+    public string Title { get; set; }
+    public List<SubRequirement> SubRequirements { get; set; }
+    public float Points { get; set; }
     public Requirement()
     {
-        MainRequirement = string.Empty;
-        SubRequirements = new List<string>();
+        Title = string.Empty;
+        SubRequirements = new List<SubRequirement>();
     }
 }

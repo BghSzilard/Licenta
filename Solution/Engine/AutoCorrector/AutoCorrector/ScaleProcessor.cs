@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using System.Xml.Linq;
 using AutoCorrector;
 
 namespace AutoCorrectorEngine;
@@ -13,10 +14,10 @@ public class ScaleProcessor
         foreach (var requirement in requirements)
         {
             Requirement processedRequirement = new Requirement();
-            processedRequirement.MainRequirement = GetFunctionSignature(requirement.MainRequirement);
+            processedRequirement.Title = GetFunctionSignature(requirement.Title);
             foreach (var subrequirement in requirement.SubRequirements)
-            {
-                processedRequirement.SubRequirements.Add(ProcessSubtask(subrequirement));
+            { 
+                processedRequirement.SubRequirements.Add(subrequirement);
             }
             processedScale.Add(processedRequirement);
         }
@@ -46,40 +47,28 @@ public class ScaleProcessor
     }
     private List<Requirement> ReadXMLFile(string filePath)
     {
-        List<Requirement> list = new List<Requirement>();
-        // Specify the file path of the XML document
-        string xmlFilePath = filePath;
+        List<Requirement> requirements = new List<Requirement>();
 
-        // Load the XML document from the file path
-        XmlDocument xmlDoc = new XmlDocument();
-        xmlDoc.Load(xmlFilePath);
-
-        // Get the root element
-        XmlElement root = xmlDoc.DocumentElement;
-
-        // Get a list of all task nodes
-        XmlNodeList taskNodes = root.SelectNodes("//task");
-
-        // Iterate through each task node
-        foreach (XmlNode taskNode in taskNodes)
+        try
         {
-            string taskName = taskNode.SelectSingleNode("main_task").InnerText;
-            Requirement requirement = new Requirement();
-            requirement.MainRequirement = taskName;
+            XDocument doc = XDocument.Load(filePath);
 
-            // Get a list of subtask nodes
-            XmlNodeList subtaskNodes = taskNode.SelectNodes("subtasks/subtask");
-
-            // Iterate through each subtask node
-            foreach (XmlNode subtaskNode in subtaskNodes)
+            requirements = doc.Descendants("task").Select(taskElement => new Requirement
             {
-                string subtaskName = subtaskNode.InnerText;
-                requirement.SubRequirements.Add(subtaskName);
-            }
-
-            list.Add(requirement);
+                Title = taskElement.Element("title")?.Value,
+                Points = float.Parse(taskElement.Element("points")?.Value ?? "0"),
+                SubRequirements = taskElement.Descendants("subtask").Select(subtaskElement => new SubRequirement
+                {
+                    Title = subtaskElement.Element("title")?.Value,
+                    Points = float.Parse(subtaskElement.Element("points")?.Value ?? "0")
+                }).ToList()
+            }).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error parsing XML file: {ex.Message}");
         }
 
-        return list;
+        return requirements;
     }
 }

@@ -14,6 +14,7 @@
     <None Remove="Images\help.png" />
     <None Remove="Images\logo.png" />
     <None Remove="Images\results.png" />
+    <None Remove="Images\settings.png" />
     <None Remove="Images\Upload.png" />
     <None Remove="Images\zip.png" />
   </ItemGroup>
@@ -39,6 +40,7 @@
     <Resource Include="Images\fire.png" />
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\results.png" />
+    <Resource Include="Images\settings.png" />
     <Resource Include="Images\Upload.png" />
     <Resource Include="Images\zip.png" />
   </ItemGroup>

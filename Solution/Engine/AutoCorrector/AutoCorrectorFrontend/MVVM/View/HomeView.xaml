@@ -62,9 +62,11 @@
         </Grid>
 
 
-
-        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Width="300" Height="80"
+        <Grid ToolTipService.ShowOnDisabled="True" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" >
+            <Button Width="300" Height="80"
   FontSize="28" FontWeight="Bold" Content="Grade Projects" IsEnabled="{Binding DependenciesUploaded}" Style="{StaticResource ModernButtonStyle}" Command="{Binding GradeProjectsCommand}"></Button>
+
+        </Grid>
 
 
     </Grid>
