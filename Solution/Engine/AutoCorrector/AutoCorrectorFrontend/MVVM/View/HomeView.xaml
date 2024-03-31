@@ -18,35 +18,51 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock FontSize="46" Foreground="White" Text="Automatically Grade C++ Projects" HorizontalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
-        <Border Background="Transparent" Margin="10" Grid.Row="1" AllowDrop="True" Drop="ScaleDrop">
-            <StackPanel>
-                <TextBlock Foreground="White" Text="Upload Scale" FontSize="30" HorizontalAlignment="Center"></TextBlock>
-                <Image Height="150" Width="150" Source="/Images/Document.png"></Image>
-                <TextBlock Foreground="White" Text="Drag &amp; Drop (.xml file)" FontSize="18" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Text="OR" FontSize="16" HorizontalAlignment="Center"></TextBlock>
-                <Button Content="Browse Scale" Style="{StaticResource ModernButtonStyle}" Command="{Binding OpenScaleCommand}"></Button>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="Selected Scale: "></TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="{Binding UploadedScale}"></TextBlock>
+        <Grid Grid.Column="0" Grid.Row="1" Margin="30 10 30 5">
+            <Border BorderThickness="1,0,1,1" Background="Transparent" Margin="10" AllowDrop="True" Drop="ScaleDrop">
+                <StackPanel>
+                    <TextBlock Foreground="White" Text="Upload Scale" FontSize="30" HorizontalAlignment="Center"></TextBlock>
+                    <Image Height="150" Width="150" Source="/Images/Document.png"></Image>
+                    <TextBlock Foreground="White" Text="Drag &amp; Drop (.xml file)" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Foreground="White" Text="OR" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                    <Button Content="Browse Scale" Style="{StaticResource ModernButtonStyle}" Command="{Binding OpenScaleCommand}"></Button>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="Selected Scale: "></TextBlock>
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="{Binding UploadedScale}"></TextBlock>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </Border>
+            </Border>
 
-        <Border Background="Transparent" Margin="10" Grid.Column="1" Grid.Row="1" AllowDrop="True" Drop="ProjectsDrop">
 
-            <StackPanel Grid.Column="1" Margin="10" Grid.Row="1">
-                <TextBlock Foreground="White" Text="Upload Projects" FontSize="30" HorizontalAlignment="Center"></TextBlock>
-                <Image Height="150" Width="200" Source="/Images/Zip.png"></Image>
-                <TextBlock Foreground="White" Text="Drag &amp; Drop (.zip file)" FontSize="18" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock Foreground="White" Text="OR" FontSize="16" HorizontalAlignment="Center"></TextBlock>
-                <Button Content="Browse Projects" Style="{StaticResource ModernButtonStyle}" Command="{Binding OpenProjectsCommand}"></Button>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="Selected Solutions: "></TextBlock>
-                    <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="{Binding UploadedZip}"></TextBlock>
+            <Rectangle Stroke="White" StrokeThickness="1" StrokeDashArray="4 4"
+               SnapsToDevicePixels="True" RadiusX="5" RadiusY="5"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="30 10 30 5">
+            <Border BorderThickness="1,0,1,1" Background="Transparent" Margin="10" AllowDrop="True" Drop="ProjectsDrop">
+                <StackPanel>
+                    <TextBlock Foreground="White" Text="Upload Projects" FontSize="30" HorizontalAlignment="Center"></TextBlock>
+                    <Image Height="150" Width="150" Source="/Images/Zip.png"></Image>
+                    <TextBlock Foreground="White" Text="Drag &amp; Drop (.xml file)" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Foreground="White" Text="OR" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                    <Button Content="Browse Scale" Style="{StaticResource ModernButtonStyle}" Command="{Binding OpenProjectsCommand}"></Button>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="Selected Projects: "></TextBlock>
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="{Binding UploadedZip}"></TextBlock>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </Border>
+            </Border>
+
+
+            <Rectangle Stroke="White" StrokeThickness="1" StrokeDashArray="4 4"
+       SnapsToDevicePixels="True" RadiusX="5" RadiusY="5"/>
+        </Grid>
+
+
+
         <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Width="300" Height="80" Background="#FFC73939" BorderBrush="#FFC73939" Foreground="White"
   FontSize="28" FontWeight="Bold" Content="Grade Projects" Style="{StaticResource ModernButtonStyle}"></Button>
 
