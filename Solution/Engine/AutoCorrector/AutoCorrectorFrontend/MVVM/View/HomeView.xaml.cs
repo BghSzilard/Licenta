@@ -47,7 +47,7 @@ namespace AutoCorrectorFrontend.MVVM.View
 
                 foreach (string file in files)
                 {
-                    if (Path.GetExtension(file).Equals(".txt", System.StringComparison.OrdinalIgnoreCase))
+                    if (Path.GetExtension(file).Equals(".zip", System.StringComparison.OrdinalIgnoreCase))
                     {
                         homeViewModel.UploadedZip = file;
                     }

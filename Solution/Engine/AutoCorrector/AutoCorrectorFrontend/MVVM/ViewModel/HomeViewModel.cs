@@ -1,12 +1,10 @@
-﻿using System.IO;
-using System.Windows;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
-public partial class HomeViewModel: ObservableObject
+public partial class HomeViewModel : ObservableObject
 {
     [ObservableProperty]
     private string _uploadedScale;
@@ -14,7 +12,7 @@ public partial class HomeViewModel: ObservableObject
     [ObservableProperty]
     private string _uploadedZip;
 
-    public HomeViewModel() 
+    public HomeViewModel()
     {
         UploadedScale = "None";
         UploadedZip = "None";
@@ -24,7 +22,7 @@ public partial class HomeViewModel: ObservableObject
     public void OpenScale()
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+        openFileDialog.Filter = "XML files (*.xml)|*.xml";
         if (openFileDialog.ShowDialog() == true)
         {
             string selectedFileName = openFileDialog.FileName;
@@ -37,7 +35,7 @@ public partial class HomeViewModel: ObservableObject
     public void OpenProjects()
     {
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+        openFileDialog.Filter = "Zip files (*.zip)|*.zip";
         if (openFileDialog.ShowDialog() == true)
         {
             string selectedFileName = openFileDialog.FileName;
