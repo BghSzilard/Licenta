@@ -29,6 +29,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="75"></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
 
@@ -89,19 +90,28 @@
 
 
 
+            
+            
                 <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Margin="30"
                             Content="{Binding CurrentView}"
                 ></ContentControl>
-            
-        </Grid>
+
+                <Border Background="Black" Width="10000" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <TextBlock 
+Text="{Binding NotificationService.NotificationText}"
+       FontSize="28"
+Margin="10 0 0 0" Foreground="White" TextWrapping="Wrap"/>
+                </Border>
+                
 
 
-    </Border>
-      
+            </Grid>
 
-
+     
+        </Border>
+        
 
     </Grid>
 </Window>

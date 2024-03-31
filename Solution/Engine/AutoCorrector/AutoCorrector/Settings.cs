@@ -2,5 +2,5 @@
 
 public class Settings
 {
-    public static string LLMRunningLocation { get; set; }
+    public static string LLMRunningLocation { get; set; } = "Local";
 }

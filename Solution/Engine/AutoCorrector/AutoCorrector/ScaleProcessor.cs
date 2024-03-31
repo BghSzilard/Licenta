@@ -1,6 +1,4 @@
-﻿using System.Xml;
-using System.Xml.Linq;
-using AutoCorrector;
+﻿using System.Xml.Linq;
 
 namespace AutoCorrectorEngine;
 
@@ -16,13 +14,16 @@ public class ScaleProcessor
             Requirement processedRequirement = new Requirement();
             processedRequirement.Title = GetFunctionSignature(requirement.Title);
             foreach (var subrequirement in requirement.SubRequirements)
-            { 
-                processedRequirement.SubRequirements.Add(subrequirement);
+            {
+                SubRequirement processedSubrequirement = new SubRequirement();
+                processedSubrequirement.Points = subrequirement.Points;
+                processedSubrequirement.Title = ProcessSubtask(subrequirement.Title);
+                processedRequirement.SubRequirements.Add(processedSubrequirement);
             }
             processedScale.Add(processedRequirement);
         }
 
-        
+
         var elapsedTime = DateTime.Now - now;
         Console.WriteLine(elapsedTime.ToString());
 

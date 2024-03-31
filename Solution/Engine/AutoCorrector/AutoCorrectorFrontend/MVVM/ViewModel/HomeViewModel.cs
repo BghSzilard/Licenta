@@ -51,6 +51,6 @@ public partial class HomeViewModel : ObservableObject
     public void GradeProjects()
     {
         ScaleProcessor scaleProcessor = new ScaleProcessor();
-        scaleProcessor.ProcessScale(UploadedScale);
+        var processedScale = scaleProcessor.ProcessScale(UploadedScale);
     }
 }

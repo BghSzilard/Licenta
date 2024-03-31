@@ -7,8 +7,19 @@ public class LLMManager
         Translate translate = new Translate();
         string requirementEnglish = translate.TranslateToEnglish(requirement);
 
+        string apiLocation = "/api/generate";
+
+        if (Settings.LLMRunningLocation == "Local")
+        {
+            apiLocation = apiLocation.Insert(0, "http://localhost:11434");
+        }
+        else
+        {
+            apiLocation = apiLocation.Insert(0, Settings.LLMRunningLocation);
+        }
+
         string script = $@"
-        $response = Invoke-RestMethod -Method Post -Uri 'http://localhost:11434/api/generate' -ContentType 'application/json' -Body (@{{
+        $response = Invoke-RestMethod -Method Post -Uri '{apiLocation}' -ContentType 'application/json' -Body (@{{
             model = '{modelName}'
             prompt = '{requirementEnglish}'
         }} | ConvertTo-Json)
@@ -37,7 +48,7 @@ public class LLMManager
 
     public string ProcessSubtask(string subtask)
     {
-        var fileContent = RunModel("m4", subtask);
+        var fileContent = RunModel("moddec3", subtask);
         return fileContent;
     }
     public string RequirementCorrectionDecider(string requirement, string functionName, string headerPath)
