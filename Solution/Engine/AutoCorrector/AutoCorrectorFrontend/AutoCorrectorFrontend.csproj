@@ -32,6 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AutoCorrector\AutoCorrectorEngine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\fire.png" />
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\results.png" />

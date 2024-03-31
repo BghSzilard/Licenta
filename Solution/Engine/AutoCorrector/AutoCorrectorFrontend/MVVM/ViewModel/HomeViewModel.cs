@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
+using AutoCorrectorEngine;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 
@@ -6,17 +9,23 @@ namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
 public partial class HomeViewModel : ObservableObject
 {
+    
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(DependenciesUploaded))]
     private string _uploadedScale;
 
     [ObservableProperty]
-    private string _uploadedZip;
+    [NotifyPropertyChangedFor(nameof(DependenciesUploaded))]
 
+    private string _uploadedZip;
+    public bool DependenciesUploaded => _uploadedScale != "None" && _uploadedZip != "None";
     public HomeViewModel()
     {
         UploadedScale = "None";
         UploadedZip = "None";
     }
+
+   
 
     [RelayCommand]
     public void OpenScale()
@@ -41,5 +50,12 @@ public partial class HomeViewModel : ObservableObject
             string selectedFileName = openFileDialog.FileName;
             UploadedZip = selectedFileName;
         }
+    }
+
+    [RelayCommand]
+    public void GradeProjects()
+    {
+        ScaleProcessor scaleProcessor = new ScaleProcessor();
+        scaleProcessor.ProcessScale(UploadedScale);
     }
 }
