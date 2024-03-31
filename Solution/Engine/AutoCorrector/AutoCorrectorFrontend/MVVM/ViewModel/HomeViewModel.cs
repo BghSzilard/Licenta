@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
-using AutoCorrectorEngine;
+﻿using AutoCorrectorEngine;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
@@ -9,7 +7,7 @@ namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
 public partial class HomeViewModel : ObservableObject
 {
-    
+
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(DependenciesUploaded))]
     private string _uploadedScale;
@@ -24,8 +22,6 @@ public partial class HomeViewModel : ObservableObject
         UploadedScale = "None";
         UploadedZip = "None";
     }
-
-   
 
     [RelayCommand]
     public void OpenScale()
