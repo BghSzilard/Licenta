@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="MVVM\Model\" />
+    <Folder Include="MVVM\Services\" />
   </ItemGroup>
 
   <ItemGroup>

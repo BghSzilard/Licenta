@@ -1,26 +1,22 @@
-﻿namespace AutoCorrector;
+﻿using AutoCorrectorEngine;
+
+namespace AutoCorrector;
 public class StudentManager
 {
     private readonly ExcelManager _excelManager;
     private readonly FileProcessor _fileProcessor;
     private readonly List<StudentInfo> _students;
-    private readonly string _resultsPath;
-    private readonly string _zipPath;
-    private readonly string _unzippedFolderPath;
     public StudentManager() 
     {
         _excelManager = new ExcelManager();
         _fileProcessor = new FileProcessor();
         _students = new List<StudentInfo>();
-        _resultsPath = "C:\\Users\\z004w26z\\Desktop\\results.xlsx";
-        _zipPath = "C:\\Users\\z004w26z\\Desktop\\temp.zip";
-        _unzippedFolderPath = "C:\\Users\\z004w26z\\Desktop\\unzipped";
     }
     public async Task Solve()
     {
-        UnzipFile();
+        await UnzipFile();
 
-        var folders = Directory.GetDirectories(_unzippedFolderPath);
+        var folders = Directory.GetDirectories(Settings.UnzippedFolderPath);
 
         foreach (var folder in folders)
         {
@@ -28,16 +24,16 @@ public class StudentManager
         }
 
         GetStudentNames();
-        CheckCompilations();
+        await CheckCompilations();
         await SaveResults();
     }
 
-    private void CheckCompilations()
+    private async Task CheckCompilations()
     {
         foreach (var student in _students)
         {
-            var folderPath = _fileProcessor.GetFolder(_unzippedFolderPath, student.Name);
-            var sourceFile = _fileProcessor.FindSourceFile(folderPath);
+            var folderPath = _fileProcessor.GetFolder(Settings.UnzippedFolderPath, student.Name);
+            var sourceFile = await _fileProcessor.FindSourceFile(folderPath);
 
             if (sourceFile != null)
             {
@@ -49,9 +45,9 @@ public class StudentManager
             }
         }
     }
-    private void ExtractEssence(string path)
+    private async Task ExtractEssence(string path)
     {
-        _fileProcessor.ExtractArchivesRecursively(path);
+        await _fileProcessor.ExtractArchivesRecursively(path);
 
         var subdirectories = Directory.GetDirectories(path);
         List<string> extensions = new() { ".txt", ".h", ".hpp", ".cpp" };
@@ -79,7 +75,7 @@ public class StudentManager
     private void GetStudentNames()
     {
         FileProcessor fileProcessor = new FileProcessor();
-        var subdirectoryNames = fileProcessor.GetSubdirectoryNames(_unzippedFolderPath);
+        var subdirectoryNames = fileProcessor.GetSubdirectoryNames(Settings.UnzippedFolderPath);
 
         foreach (var subdirectoryName in subdirectoryNames)
         {
@@ -87,13 +83,13 @@ public class StudentManager
             _students.Add(new StudentInfo() { Name = studentName });
         }
     }
-    private void UnzipFile()
+    private async Task UnzipFile()
     {
-        _fileProcessor.ExtractZip(_zipPath, _unzippedFolderPath);
+        await _fileProcessor.ExtractZip(Settings.ZipPath, Settings.UnzippedFolderPath);
     }
     private async Task SaveResults()
     {
-        FileInfo fileInfo = new FileInfo(_resultsPath);
+        FileInfo fileInfo = new FileInfo(Settings.ResultsPath);
         await _excelManager.SaveExcelFile(_students, fileInfo);
     }
 }

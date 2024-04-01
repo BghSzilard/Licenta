@@ -1,4 +1,6 @@
-﻿using AutoCorrectorEngine;
+﻿using AutoCorrector;
+using AutoCorrectorEngine;
+using AutoCorrectorFrontend.MVVM.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
@@ -16,10 +18,12 @@ public partial class HomeViewModel : ObservableObject
 
     private string _uploadedZip;
     public bool DependenciesUploaded => _uploadedScale != "None" && _uploadedZip != "None";
-    public HomeViewModel()
+    private NotificationService _notificationService { get; set; }
+    public HomeViewModel(NotificationService notificationService)
     {
         UploadedScale = "None";
         UploadedZip = "None";
+        _notificationService = notificationService;
     }
 
     [RelayCommand]
@@ -30,6 +34,7 @@ public partial class HomeViewModel : ObservableObject
         if (openFileDialog.ShowDialog() == true)
         {
             string selectedFileName = openFileDialog.FileName;
+            Settings.ProjectsPath = selectedFileName;
             UploadedScale = selectedFileName;
         }
     }
@@ -38,19 +43,24 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand]
     public void OpenProjects()
     {
+        _notificationService.NotificationText = "kecske";
         OpenFileDialog openFileDialog = new OpenFileDialog();
         openFileDialog.Filter = "Zip files (*.zip)|*.zip";
         if (openFileDialog.ShowDialog() == true)
         {
             string selectedFileName = openFileDialog.FileName;
+            Settings.ZipPath = selectedFileName;
             UploadedZip = selectedFileName;
         }
     }
 
     [RelayCommand]
-    public void GradeProjects()
+    public async Task GradeProjects()
     {
-        ScaleProcessor scaleProcessor = new ScaleProcessor();
-        var processedScale = scaleProcessor.ProcessScale(UploadedScale);
+        _notificationService.NotificationText = "asd";
+        ScaleProcessor scaleProcessor = new ScaleProcessor(_notificationService);
+        //var processedScale = await scaleProcessor.ProcessScale(UploadedScale);
+        StudentManager studentManager = new StudentManager();
+        await studentManager.Solve();
     }
 }

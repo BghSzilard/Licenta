@@ -1,24 +1,33 @@
 ﻿using System.Xml.Linq;
+using AutoCorrectorFrontend.MVVM.Services;
 
 namespace AutoCorrectorEngine;
 
 public class ScaleProcessor
 {
-    public List<Requirement> ProcessScale(string path)
+    private NotificationService _notificationService;
+    public ScaleProcessor(NotificationService notificationService)
+    {
+        _notificationService = notificationService;
+    }
+    public async Task<List<Requirement>> ProcessScale(string path)
     {
         var now = DateTime.Now;
         var requirements = ReadXMLFile(path);
+        _notificationService.NotificationText = "Scale Read!";
         List<Requirement> processedScale = new List<Requirement>();
         foreach (var requirement in requirements)
         {
             Requirement processedRequirement = new Requirement();
-            processedRequirement.Title = GetFunctionSignature(requirement.Title);
+            processedRequirement.Title = await GetFunctionSignature(requirement.Title);
+            _notificationService.NotificationText = $"{requirement.Title} processed!";
             foreach (var subrequirement in requirement.SubRequirements)
             {
                 SubRequirement processedSubrequirement = new SubRequirement();
                 processedSubrequirement.Points = subrequirement.Points;
-                processedSubrequirement.Title = ProcessSubtask(subrequirement.Title);
+                processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
                 processedRequirement.SubRequirements.Add(processedSubrequirement);
+                _notificationService.NotificationText = $"{subrequirement.Title} processed!";
             }
             processedScale.Add(processedRequirement);
         }
@@ -29,17 +38,17 @@ public class ScaleProcessor
 
         return processedScale;
     }
-    private string ProcessSubtask(string subrequirement)
+    private async Task<string> ProcessSubtask(string subrequirement)
     {
         LLMManager lLMManager = new LLMManager();
-        return lLMManager.ProcessSubtask(subrequirement);
+        return await lLMManager.ProcessSubtask(subrequirement);
     }
-    private string GetFunctionSignature(string requirement)
+    private async Task<string> GetFunctionSignature(string requirement)
     {
         LLMManager lLMManager = new LLMManager();
         string functionSignature = "\"";
 
-        functionSignature += lLMManager.GetFunctionSignature(requirement);
+        functionSignature += await lLMManager.GetFunctionSignature(requirement);
         functionSignature = functionSignature.Replace("\n", "");
         functionSignature = functionSignature.Replace("\r", "");
         functionSignature += "\"";

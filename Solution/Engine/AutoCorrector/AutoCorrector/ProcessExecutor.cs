@@ -4,7 +4,7 @@ namespace AutoCorrectorEngine;
 
 public class ProcessExecutor
 {
-    public string ExecuteProcess(string command, string arguments, string input)
+    public async Task<string> ExecuteProcess(string command, string arguments, string input)
     {
         ProcessStartInfo processStartInfo = new ProcessStartInfo
         {
@@ -33,7 +33,7 @@ public class ProcessExecutor
             string stdout = process.StandardOutput.ReadToEnd();
             string stderr = process.StandardError.ReadToEnd();
 
-            process.WaitForExit();
+            await process.WaitForExitAsync();
 
             return stdout;
         }

@@ -12,11 +12,11 @@ namespace AutoCorrector;
 
 public class FileProcessor
 {
-    public void ExtractZip(string sourcePath, string destinationPath)
+    public async Task ExtractZip(string sourcePath, string destinationPath)
     {
         try
         {
-            ZipFile.ExtractToDirectory(sourcePath, destinationPath, true);
+            await Task.Run(() => ZipFile.ExtractToDirectory(sourcePath, destinationPath, true));
         }
         catch (Exception ex) 
         {
@@ -47,14 +47,14 @@ public class FileProcessor
         }
     }
 
-    public void ExtractArchivesRecursively(string rootDirectory)
+    public async Task ExtractArchivesRecursively(string rootDirectory)
     {
         string[] zipFiles = Directory.GetFiles(rootDirectory, "*.zip");
         string[] rarFiles = Directory.GetFiles(rootDirectory, "*.rar");
 
         foreach (string zipFile in zipFiles)
         {
-            ExtractZip(zipFile, rootDirectory);
+            await ExtractZip(zipFile, rootDirectory);
             File.Delete(zipFile);
         }
 
@@ -68,7 +68,7 @@ public class FileProcessor
 
         foreach (string subDirectory in subDirectories)
         {        
-            ExtractArchivesRecursively(subDirectory);
+            await ExtractArchivesRecursively(subDirectory);
         }
 
         Array.Clear(zipFiles);
@@ -79,7 +79,7 @@ public class FileProcessor
 
         if (zipFiles.Length > 0 || rarFiles.Length > 0)
         {
-            ExtractArchivesRecursively(rootDirectory);
+            await ExtractArchivesRecursively(rootDirectory);
         }
     }
 
@@ -145,7 +145,7 @@ public class FileProcessor
         return stringToSeparate.Split(separator)[0];
     }
 
-    public string? FindSourceFile(string path)
+    public async Task<string?> FindSourceFile(string path)
     {
         var files = Directory.GetFiles(path, "*.cpp");
 
@@ -153,7 +153,8 @@ public class FileProcessor
 
         foreach (var file in files)
         {
-            if (compilationCheckerWrapper.ContainsMain(file))
+            bool containsMain = await Task.Run(() => compilationCheckerWrapper.ContainsMain(file)).ConfigureAwait(false);
+            if (containsMain)
             {
                 return file;
             }

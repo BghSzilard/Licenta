@@ -10,7 +10,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     public void NavigateHome()
     {
-        CurrentView = new HomeViewModel();
+        CurrentView = new HomeViewModel(NotificationService);
         NotificationService.NotificationText = "Navigated to Home";
     }
     [RelayCommand]
@@ -30,7 +30,7 @@ public partial class MainViewModel : ObservableObject
     private ObservableObject _currentView;
     public MainViewModel()
     {
-        CurrentView = new HomeViewModel();
         NotificationService = new NotificationService();
+        CurrentView = new HomeViewModel(NotificationService);
     }
 }

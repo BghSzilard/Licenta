@@ -2,10 +2,10 @@
 
 public class LLMManager
 {
-    private string RunModel(string modelName, string requirement)
+    private async Task<string> RunModel(string modelName, string requirement)
     {
         Translate translate = new Translate();
-        string requirementEnglish = translate.TranslateToEnglish(requirement);
+        string requirementEnglish = await translate.TranslateToEnglish(requirement);
 
         string apiLocation = "/api/generate";
 
@@ -27,7 +27,7 @@ public class LLMManager
         $response";
 
         ProcessExecutor processExecutor = new ProcessExecutor();
-        string result = processExecutor.ExecuteProcess("powershell.exe", "-Command \"& {" + script + "}\"", "");
+        string result = await processExecutor.ExecuteProcess("powershell.exe", "-Command \"& {" + script + "}\"", "");
 
 
         var lines = result.Trim().Split('\n');
@@ -41,19 +41,21 @@ public class LLMManager
 
         return concatenatedResponse;
     }
-    public string GetFunctionSignature(string requirement)
+    public async Task<string> GetFunctionSignature(string requirement)
     {
-        return RunModel("extractor", requirement);
+        return await RunModel("extractor", requirement);
     }
 
-    public string ProcessSubtask(string subtask)
+    public async Task<string> ProcessSubtask(string subtask)
     {
-        var fileContent = RunModel("moddec3", subtask);
+        var fileContent = await RunModel("moddec3", subtask);
         return fileContent;
     }
-    public string RequirementCorrectionDecider(string requirement, string functionName, string headerPath)
+    public Task<string> RequirementCorrectionDecider(string requirement, string functionName, string headerPath)
     {
-        var fileContent = RunModel("m4", requirement);
+        string fileContent = RunModel("m4", requirement).Result;
+
+        dynamic result = "";
 
         if (fileContent.Contains("Check correctness"))
         {
@@ -68,9 +70,9 @@ public class LLMManager
             headerPath += "\"";
             var arguemnts = fileContent + " " + functionName + " " + headerPath;
             ProcessExecutor processExecutor = new ProcessExecutor();
-            fileContent = processExecutor.ExecuteProcess("python", "C:\\Users\\z004w26z\\Desktop\\UnitTester.py " + arguemnts, "");
+            result = processExecutor.ExecuteProcess("python", "C:\\Users\\z004w26z\\Desktop\\UnitTester.py " + arguemnts, "").Result;
         }
 
-        return fileContent;
+        return result;
     }
 }
