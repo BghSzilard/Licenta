@@ -1,4 +1,5 @@
 ﻿using AutoCorrectorEngine;
+using AutoCorrectorFrontend.MVVM.Services;
 
 namespace AutoCorrector;
 public class StudentManager
@@ -6,11 +7,13 @@ public class StudentManager
     private readonly ExcelManager _excelManager;
     private readonly FileProcessor _fileProcessor;
     private readonly List<StudentInfo> _students;
-    public StudentManager() 
+    private readonly NotificationService _notificationService;
+    public StudentManager(NotificationService notificationService) 
     {
         _excelManager = new ExcelManager();
         _fileProcessor = new FileProcessor();
         _students = new List<StudentInfo>();
+        _notificationService = notificationService;
     }
     public async Task Solve()
     {
@@ -20,7 +23,7 @@ public class StudentManager
 
         foreach (var folder in folders)
         {
-            ExtractEssence(folder);
+            await ExtractEssence(folder);
         }
 
         GetStudentNames();
@@ -43,6 +46,8 @@ public class StudentManager
             {
                 student.CodeCompiles = false;
             }
+
+            _notificationService.NotificationText = $"Compilation check made for {student.Name}";
         }
     }
     private async Task ExtractEssence(string path)

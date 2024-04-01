@@ -60,7 +60,8 @@ public partial class HomeViewModel : ObservableObject
         _notificationService.NotificationText = "asd";
         ScaleProcessor scaleProcessor = new ScaleProcessor(_notificationService);
         //var processedScale = await scaleProcessor.ProcessScale(UploadedScale);
-        StudentManager studentManager = new StudentManager();
+        StudentManager studentManager = new StudentManager(_notificationService);
         await studentManager.Solve();
+        _notificationService.NotificationText = "";
     }
 }
