@@ -1,4 +1,5 @@
-﻿using AutoCorrector;
+﻿using System.IO;
+using AutoCorrector;
 using AutoCorrectorEngine;
 using AutoCorrectorFrontend.MVVM.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -43,7 +44,6 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand]
     public void OpenProjects()
     {
-        _notificationService.NotificationText = "kecske";
         OpenFileDialog openFileDialog = new OpenFileDialog();
         openFileDialog.Filter = "Zip files (*.zip)|*.zip";
         if (openFileDialog.ShowDialog() == true)
@@ -57,11 +57,12 @@ public partial class HomeViewModel : ObservableObject
     [RelayCommand]
     public async Task GradeProjects()
     {
-        _notificationService.NotificationText = "asd";
+        
+
         ScaleProcessor scaleProcessor = new ScaleProcessor(_notificationService);
-        //var processedScale = await scaleProcessor.ProcessScale(UploadedScale);
+        var processedScale = await scaleProcessor.ProcessScale(UploadedScale);
         StudentManager studentManager = new StudentManager(_notificationService);
         await studentManager.Solve();
-        _notificationService.NotificationText = "";
+        _notificationService.NotificationText = "Results Saved!";
     }
 }

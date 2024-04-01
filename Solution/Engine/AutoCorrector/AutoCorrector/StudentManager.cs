@@ -17,17 +17,23 @@ public class StudentManager
     }
     public async Task Solve()
     {
+        _notificationService.NotificationText = "Unzipping Projects...";
         await UnzipFile();
-
+        _notificationService.NotificationText = "Projects Unzipped!";
         var folders = Directory.GetDirectories(Settings.UnzippedFolderPath);
+
+        _notificationService.NotificationText = "Extracting Source Files...";
 
         foreach (var folder in folders)
         {
             await ExtractEssence(folder);
         }
 
+        _notificationService.NotificationText = "Source Files Extracted!";
+
         GetStudentNames();
         await CheckCompilations();
+        _notificationService.NotificationText = "Saving Results...";
         await SaveResults();
     }
 

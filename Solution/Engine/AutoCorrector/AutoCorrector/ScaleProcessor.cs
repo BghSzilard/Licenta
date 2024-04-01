@@ -12,29 +12,23 @@ public class ScaleProcessor
     }
     public async Task<List<Requirement>> ProcessScale(string path)
     {
-        var now = DateTime.Now;
         var requirements = ReadXMLFile(path);
-        _notificationService.NotificationText = "Scale Read!";
         List<Requirement> processedScale = new List<Requirement>();
         foreach (var requirement in requirements)
         {
             Requirement processedRequirement = new Requirement();
+            _notificationService.NotificationText = $"Processing Requirement: {requirement.Title}";
             processedRequirement.Title = await GetFunctionSignature(requirement.Title);
-            _notificationService.NotificationText = $"{requirement.Title} processed!";
             foreach (var subrequirement in requirement.SubRequirements)
             {
                 SubRequirement processedSubrequirement = new SubRequirement();
                 processedSubrequirement.Points = subrequirement.Points;
+                _notificationService.NotificationText = $"Processing Subrequirement: {subrequirement.Title}";
                 processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
                 processedRequirement.SubRequirements.Add(processedSubrequirement);
-                _notificationService.NotificationText = $"{subrequirement.Title} processed!";
             }
             processedScale.Add(processedRequirement);
         }
-
-
-        var elapsedTime = DateTime.Now - now;
-        Console.WriteLine(elapsedTime.ToString());
 
         return processedScale;
     }

@@ -70,7 +70,7 @@ public class LLMManager
             headerPath += "\"";
             var arguemnts = fileContent + " " + functionName + " " + headerPath;
             ProcessExecutor processExecutor = new ProcessExecutor();
-            result = processExecutor.ExecuteProcess("python", "C:\\Users\\z004w26z\\Desktop\\UnitTester.py " + arguemnts, "").Result;
+            result = processExecutor.ExecuteProcess("python", $"{Settings.UnitTestScriptPath} " + arguemnts, "").Result;
         }
 
         return result;

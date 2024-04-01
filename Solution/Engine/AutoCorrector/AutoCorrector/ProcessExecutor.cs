@@ -30,7 +30,7 @@ public class ProcessExecutor
             process.StandardInput.Flush();
             process.StandardInput.Close();
 
-            string stdout = process.StandardOutput.ReadToEnd();
+            string stdout = await Task.Run(() => process.StandardOutput.ReadToEnd());
             string stderr = process.StandardError.ReadToEnd();
 
             await process.WaitForExitAsync();
