@@ -8,12 +8,42 @@
 
 #include <clang-c/Index.h>
 
+#include <windows.h> 
+
 MYNATIVELIB_API bool CompilationChecker::compiles(const std::string& translationUnit)
 {
-    std::string command = std::format("clang++ \"{}\" 2> NUL 1> NUL", translationUnit);
-    int result = std::system(command.c_str());
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
 
-    return result == 0;
+    // Initialize STARTUPINFO structure
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    si.dwFlags = STARTF_USESHOWWINDOW; // Specify that we will use the wShowWindow field.
+    si.wShowWindow = SW_HIDE; // Hide the window
+
+    // Create the command to execute
+    std::string command = std::format("clang++ \"{}\" 2> NUL 1> NUL", translationUnit);
+
+    // Create the process without showing the window
+    if (!CreateProcess(NULL, const_cast<char*>(command.c_str()), NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
+    {
+        // Failed to create the process
+        return false;
+    }
+
+    // Wait for the process to finish
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    // Get the exit code of the process
+    DWORD exitCode;
+    GetExitCodeProcess(pi.hProcess, &exitCode);
+
+    // Close process and thread handles
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+
+    // Check if the process exited successfully
+    return exitCode == 0;
 }
 
 bool CompilationChecker::containsMainFunction(const std::string& translationUnit)
