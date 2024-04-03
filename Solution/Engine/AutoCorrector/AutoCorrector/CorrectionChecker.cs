@@ -8,7 +8,7 @@ public class CorrectionChecker
     {
         if (fileContent.Contains("correctness"))
         {
-            await MakeUnitTests(fileContent, functionName, headerPath);
+            return await MakeUnitTests(fileContent, functionName, headerPath);
         }
 
         return true;

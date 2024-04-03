@@ -54,7 +54,6 @@ public class StudentManager
             var folderPath = _fileProcessor.GetFolder(Settings.UnzippedFolderPath, student.Name);
             var sourceFile = await _fileProcessor.FindSourceFile(folderPath);
            
-
             if (sourceFile != null)
             {
                 //student.CodeCompiles = _fileProcessor.Compiles(sourceFile);
@@ -123,6 +122,7 @@ public class StudentManager
 
     public async Task GradeStudents(List<Requirement> processedScalde)
     {
+        _notificationService.NotificationText = "Grading Students...";
         foreach (var student in _students)
         {
             if (!student.CodeCompiles)
@@ -160,12 +160,6 @@ public class StudentManager
                 var tempFile = Path.Combine(Settings.SolutionPath, "temp.h");
 
                 File.WriteAllText(tempFile, function);
-
-                foreach (var subreq in requirement.SubRequirements)
-                {
-                    await checker.CheckCorrectness(subreq.Title, functionMatch, tempFile);
-                }
-
 
                 foreach (var subrequirement in requirement.SubRequirements)
                 {

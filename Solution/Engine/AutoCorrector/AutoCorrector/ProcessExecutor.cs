@@ -14,13 +14,15 @@ public class ProcessExecutor
         startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
         startInfo.FileName = $"{command}";
         startInfo.Arguments = $"\"{arguments}\" ";
+        startInfo.EnvironmentVariables["OLLAMA_HOST"] = "https://41d8-35-229-215-119.ngrok-free.app";
+
 
         if (input != "") 
         {
             if (startInfo.FileName.Contains("powershell"))
             {
                 startInfo.Arguments += $"'{input}'";
-                //startInfo.EnvironmentVariables["OLLAMA_HOST"] = "https://5883-34-138-156-158.ngrok-free.app";
+                startInfo.EnvironmentVariables["OLLAMA_HOST"] = "https://41d8-35-229-215-119.ngrok-free.app";
             }
             else
             {

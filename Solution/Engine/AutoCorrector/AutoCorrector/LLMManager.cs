@@ -45,8 +45,8 @@ public class LLMManager
         requirement = await translate.TranslateToEnglish(requirement);
 
         ProcessExecutor processExecutor = new ProcessExecutor();
-        string command = $"ollama run {modelName}";
-        return await processExecutor.ExecuteProcess("powershell", command, requirement);
+        string command = $"ollama run {modelName} '{requirement}'";
+        return await processExecutor.ExecuteProcess("powershell", command, "");
     }
     public async Task<string> GetFunctionSignature(string requirement)
     {
@@ -55,7 +55,10 @@ public class LLMManager
 
     public async Task<string> ProcessSubtask(string subtask)
     {
-        var fileContent = await RunModel("engine2", subtask);
+        var fileContent = await RunModel("engine3", subtask);
+
+        Translate translate = new Translate();
+        subtask = await translate.TranslateToEnglish(subtask);
 
         if (fileContent.Contains("correctness"))
         {
