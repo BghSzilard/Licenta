@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text;
 
 namespace AutoCorrectorEngine;
 
@@ -6,36 +7,72 @@ public class ProcessExecutor
 {
     public async Task<string> ExecuteProcess(string command, string arguments, string input)
     {
-        ProcessStartInfo processStartInfo = new ProcessStartInfo
+        arguments = arguments.Replace("\r", "");
+        arguments = arguments.Replace("\n", "");
+        System.Diagnostics.Process process = new System.Diagnostics.Process();
+        System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+        startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+        startInfo.FileName = $"{command}";
+        startInfo.Arguments = $"\"{arguments}\" ";
+
+        if (input != "") 
         {
-            FileName = command,
-            Arguments = arguments,
-            RedirectStandardInput = true,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
+            if (startInfo.FileName.Contains("powershell"))
+            {
+                startInfo.Arguments += $"'{input}'";
+                //startInfo.EnvironmentVariables["OLLAMA_HOST"] = "https://5883-34-138-156-158.ngrok-free.app";
+            }
+            else
+            {
+                startInfo.Arguments += $"\"{input}\"";
+
+            }
+        }
+
+        startInfo.UseShellExecute = false;
+        startInfo.RedirectStandardOutput = true;
+        startInfo.RedirectStandardError = true;
+        startInfo.CreateNoWindow = true;
+
+        process.StartInfo = startInfo;
+
+        // StringBuilder to store the output and error messages
+        StringBuilder outputBuilder = new StringBuilder();
+        StringBuilder errorBuilder = new StringBuilder();
+
+        // Event handlers to capture output and error messages
+        process.OutputDataReceived += (sender, e) =>
+        {
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                outputBuilder.AppendLine(e.Data);
+            }
         };
 
-        using (Process process = new Process())
+        process.ErrorDataReceived += (sender, e) =>
         {
-            process.StartInfo = processStartInfo;
-            process.Start();
-
-            if (input != "")
+            if (!string.IsNullOrEmpty(e.Data))
             {
-                process.StandardInput.WriteLine(input);
+                errorBuilder.AppendLine(e.Data);
             }
+        };
 
-            process.StandardInput.Flush();
-            process.StandardInput.Close();
 
-            string stdout = await Task.Run(() => process.StandardOutput.ReadToEnd());
-            string stderr = process.StandardError.ReadToEnd();
+        process.Start();
 
-            await process.WaitForExitAsync();
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
 
-            return stdout;
-        }
+
+        // Wait for the process to exit asynchronously
+        await Task.Run(() =>
+        {
+            process.WaitForExit();
+        });
+
+        var result = outputBuilder.ToString();
+        result = result.Replace("failed to get console mode for stdout: The handle is invalid.\r\nfailed to get console mode for stderr: The handle is invalid.\r\n", "");
+
+        return result;
     }
 }

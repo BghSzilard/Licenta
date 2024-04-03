@@ -18,7 +18,9 @@ def parse_arguments(argument):
 
     pairs_dict = dict(zip(args.pairs[::2], args.pairs[1::2]))
 
-    return pairs_dict
+    dict_without_dollars = {k.replace('$', ''): v.replace('$', '') for k, v in pairs_dict.items()}
+
+    return dict_without_dollars
 
 def create_library(function_name, include_header):
     file_path = r"C:\Users\z004w26z\Desktop\Module\main.cpp"
@@ -61,9 +63,9 @@ arg1 = sys.argv[1]
 functionName = sys.argv[2]
 include_header = sys.argv[3]
 
-# arg1 = '"1 8 4 5" "1 5 8"'
-# functionName = "bubbleSort"
-# include_header = "C:\\Users\\z004w26z\\Desktop\\extractedTest.h"
+# arg1 = '$5$ $1200$'
+# functionName = "factorial"
+# include_header = "C:\\Users\\z004w26z\\Desktop\\asd.h"
 
 create_library(functionName, include_header)
 compile_library()
@@ -76,11 +78,11 @@ for key, value in parse_arguments(arg1).items():
     new_key = convert_to_numerical_or_boolean(key)
     new_value = convert_to_numerical_or_boolean(value)
     result = mylibrary.test(new_key)
-    print(result)
-    print(new_value)
+    # print(result)
+    # print(new_value)
     if result != new_value:
         print("Fail!")
         success = False
         break
 if success == True:
-    print("Success!")
+    print("0")

@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Text;
+using System.Xml.Linq;
 using AutoCorrectorFrontend.MVVM.Services;
 
 namespace AutoCorrectorEngine;
@@ -6,6 +7,22 @@ namespace AutoCorrectorEngine;
 public class ScaleProcessor
 {
     private NotificationService _notificationService;
+    private void SaveProcessedScale(List<Requirement> requirements)
+    {
+        StringBuilder scale = new StringBuilder();
+        foreach (var req in requirements)
+        {
+            scale.AppendLine(req.Title);
+            foreach (var subreq in req.SubRequirements)
+            {
+                scale.AppendLine($"-{subreq.Title}");
+            }
+        }
+
+        string result = scale.ToString();
+        File.WriteAllText("C:\\Users\\z004w26z\\Desktop\\processedBarem.txt", result);
+
+    }
     public ScaleProcessor(NotificationService notificationService)
     {
         _notificationService = notificationService;
@@ -29,6 +46,9 @@ public class ScaleProcessor
             }
             processedScale.Add(processedRequirement);
         }
+
+        SaveProcessedScale(processedScale);
+
 
         return processedScale;
     }

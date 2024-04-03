@@ -195,34 +195,4 @@ public class FileProcessor
         }
         return includesBuilder.ToString();
     }
-
-    string[] ParseCSVLine(string line)
-    {
-        var parts = new List<string>();
-        var sb = new StringBuilder();
-        bool inQuotes = false;
-
-        foreach (char c in line)
-        {
-            if (c == '\"')
-            {
-                inQuotes = !inQuotes;
-            }
-            else if (c == ',' && !inQuotes)
-            {
-                parts.Add(sb.ToString());
-                sb.Clear();
-            }
-            else
-            {
-                sb.Append(c);
-            }
-        }
-
-        parts.Add(sb.ToString());
-
-        return parts.ToArray();
-    }
-
-   
 }

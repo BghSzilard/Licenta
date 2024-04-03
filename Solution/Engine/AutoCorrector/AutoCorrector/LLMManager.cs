@@ -4,42 +4,49 @@ public class LLMManager
 {
     private async Task<string> RunModel(string modelName, string requirement)
     {
+        //Translate translate = new Translate();
+        //string requirementEnglish = await translate.TranslateToEnglish(requirement);
+
+        //string apiLocation = "/api/generate";
+
+        //if (Settings.LLMRunningLocation == "Local")
+        //{
+        //    apiLocation = apiLocation.Insert(0, "http://localhost:11434");
+        //}
+        //else
+        //{
+        //    apiLocation = apiLocation.Insert(0, Settings.LLMRunningLocation);
+        //}
+
+        //string script = $@"
+        //$response = Invoke-RestMethod -Method Post -Uri '{apiLocation}' -ContentType 'application/json' -Body (@{{
+        //    model = '{modelName}'
+        //    prompt = '{requirementEnglish}'
+        //}} | ConvertTo-Json)
+
+        //$response";
+
+        //ProcessExecutor processExecutor = new ProcessExecutor();
+        //string result = await processExecutor.ExecuteProcess("powershell.exe", "-Command \"& {" + script + "}\"", "");
+
+
+        //var lines = result.Trim().Split('\n');
+        //var concatenatedResponse = string.Concat(lines.Select(line =>
+        //{
+        //    var startIndex = line.IndexOf("\"response\":\"") + "\"response\":\"".Length;
+        //    var endIndex = line.IndexOf("\",", startIndex);
+        //    var response = line.Substring(startIndex, endIndex - startIndex);
+        //    return response.Replace("\\u003e", ">").Replace("\\\"", "\"");
+        //}));
+
+        //return concatenatedResponse;
+
         Translate translate = new Translate();
-        string requirementEnglish = await translate.TranslateToEnglish(requirement);
-
-        string apiLocation = "/api/generate";
-
-        if (Settings.LLMRunningLocation == "Local")
-        {
-            apiLocation = apiLocation.Insert(0, "http://localhost:11434");
-        }
-        else
-        {
-            apiLocation = apiLocation.Insert(0, Settings.LLMRunningLocation);
-        }
-
-        string script = $@"
-        $response = Invoke-RestMethod -Method Post -Uri '{apiLocation}' -ContentType 'application/json' -Body (@{{
-            model = '{modelName}'
-            prompt = '{requirementEnglish}'
-        }} | ConvertTo-Json)
-
-        $response";
+        requirement = await translate.TranslateToEnglish(requirement);
 
         ProcessExecutor processExecutor = new ProcessExecutor();
-        string result = await processExecutor.ExecuteProcess("powershell.exe", "-Command \"& {" + script + "}\"", "");
-
-
-        var lines = result.Trim().Split('\n');
-        var concatenatedResponse = string.Concat(lines.Select(line =>
-        {
-            var startIndex = line.IndexOf("\"response\":\"") + "\"response\":\"".Length;
-            var endIndex = line.IndexOf("\",", startIndex);
-            var response = line.Substring(startIndex, endIndex - startIndex);
-            return response.Replace("\\u003e", ">").Replace("\\\"", "\"");
-        }));
-
-        return concatenatedResponse;
+        string command = $"ollama run {modelName}";
+        return await processExecutor.ExecuteProcess("powershell", command, requirement);
     }
     public async Task<string> GetFunctionSignature(string requirement)
     {
@@ -48,31 +55,15 @@ public class LLMManager
 
     public async Task<string> ProcessSubtask(string subtask)
     {
-        var fileContent = await RunModel("moddec3", subtask);
-        return fileContent;
-    }
-    public Task<string> RequirementCorrectionDecider(string requirement, string functionName, string headerPath)
-    {
-        string fileContent = RunModel("m4", requirement).Result;
+        var fileContent = await RunModel("engine2", subtask);
 
-        dynamic result = "";
-
-        if (fileContent.Contains("Check correctness"))
+        if (fileContent.Contains("correctness"))
         {
-            fileContent = fileContent[18..];
-            fileContent = fileContent.Insert(0, "\"");
-            fileContent += "\"";
-            fileContent = fileContent.Replace(".", "");
-            fileContent = fileContent.Replace("\n", "");
-            functionName = functionName.Insert(0, "\"");
-            functionName += "\"";
-            headerPath = headerPath.Insert(0, "\"");
-            headerPath += "\"";
-            var arguemnts = fileContent + " " + functionName + " " + headerPath;
             ProcessExecutor processExecutor = new ProcessExecutor();
-            result = processExecutor.ExecuteProcess("python", $"{Settings.UnitTestScriptPath} " + arguemnts, "").Result;
+            var input = await processExecutor.ExecuteProcess("powershell", $"ollama run unitTester '{subtask}'", "");
+            return input;
         }
 
-        return result;
+        return fileContent;
     }
 }

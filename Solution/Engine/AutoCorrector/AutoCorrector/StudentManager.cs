@@ -8,12 +8,16 @@ public class StudentManager
     private readonly FileProcessor _fileProcessor;
     private readonly List<StudentInfo> _students;
     private readonly NotificationService _notificationService;
-    public StudentManager(NotificationService notificationService) 
+    private string _scale { get; set; }
+    private string _zip { get; set; }
+    public StudentManager(NotificationService notificationService, string uploadedZip, string scale) 
     {
         _excelManager = new ExcelManager();
         _fileProcessor = new FileProcessor();
         _students = new List<StudentInfo>();
         _notificationService = notificationService;
+        _scale = scale;
+        _zip = uploadedZip;
     }
     public async Task Solve()
     {
@@ -33,20 +37,33 @@ public class StudentManager
 
         GetStudentNames();
         await CheckCompilations();
+
+        ScaleProcessor scaleprocessor = new ScaleProcessor(_notificationService);
+        var processedscale = await scaleprocessor.ProcessScale(_scale);
+
+        await GradeStudents(processedscale);
         _notificationService.NotificationText = "Saving Results...";
         await SaveResults();
     }
 
     private async Task CheckCompilations()
     {
+        ProcessExecutor processExecutor = new ProcessExecutor();
         foreach (var student in _students)
         {
             var folderPath = _fileProcessor.GetFolder(Settings.UnzippedFolderPath, student.Name);
             var sourceFile = await _fileProcessor.FindSourceFile(folderPath);
+           
 
             if (sourceFile != null)
             {
-                student.CodeCompiles = _fileProcessor.Compiles(sourceFile);
+                //student.CodeCompiles = _fileProcessor.Compiles(sourceFile);
+                if (await processExecutor.ExecuteProcess("powershell.exe", "clang++", sourceFile) == "")
+                {
+                    student.CodeCompiles = true;
+                }
+
+                student.SourceFile = sourceFile;
             }
             else
             {
@@ -102,5 +119,63 @@ public class StudentManager
     {
         FileInfo fileInfo = new FileInfo(Settings.ResultsPath);
         await _excelManager.SaveExcelFile(_students, fileInfo);
+    }
+
+    public async Task GradeStudents(List<Requirement> processedScalde)
+    {
+        foreach (var student in _students)
+        {
+            if (!student.CodeCompiles)
+            {
+                continue;
+            }
+
+            foreach (var requirement in processedScalde)
+            {
+                FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
+                var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
+
+                string allSignatures = "";
+                foreach (var signature in signatures)
+                {
+                    allSignatures += signature;
+                    allSignatures += ";";
+                }
+                allSignatures = allSignatures.Remove(allSignatures.Length - 1);
+
+                ProcessExecutor executor = new ProcessExecutor();
+                requirement.Title = requirement.Title.Replace("\"", ""); ;
+                var args = $"python '{Settings.MatchFinderScriptPath}' '{allSignatures}' '{requirement.Title}'";
+                var functionMatch = await executor.ExecuteProcess("powershell", args, "");
+                functionMatch = functionMatch.Replace("\n", "");
+                functionMatch = functionMatch.Replace("\r", "");
+                FunctionExtractorWrapper functionExtractor = new FunctionExtractorWrapper();
+
+                FileProcessor fileProcessor = new FileProcessor();
+                var includes = fileProcessor.FindIncludes(student.SourceFile!);
+                var function = includes;
+                function += functionExtractor.GetFunction(student.SourceFile, functionMatch);
+
+                CorrectionChecker checker = new CorrectionChecker();
+                var tempFile = Path.Combine(Settings.SolutionPath, "temp.h");
+
+                File.WriteAllText(tempFile, function);
+
+                foreach (var subreq in requirement.SubRequirements)
+                {
+                    await checker.CheckCorrectness(subreq.Title, functionMatch, tempFile);
+                }
+
+
+                foreach (var subrequirement in requirement.SubRequirements)
+                {
+                    if (await checker.CheckCorrectness(subrequirement.Title, functionMatch, tempFile))
+                    {
+                        student.Grade += subrequirement.Points;
+                    }
+                }
+
+            }
+        }
     }
 }

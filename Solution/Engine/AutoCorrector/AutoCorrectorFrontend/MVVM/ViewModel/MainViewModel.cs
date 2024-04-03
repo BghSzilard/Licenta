@@ -11,7 +11,6 @@ public partial class MainViewModel : ObservableObject
     public void NavigateHome()
     {
         CurrentView = new HomeViewModel(NotificationService);
-        NotificationService.NotificationText = "Navigated to Home";
     }
     [RelayCommand]
     public void NavigateDiscovery()
@@ -23,7 +22,6 @@ public partial class MainViewModel : ObservableObject
     public void NavigateSettings()
     {
         CurrentView = new SettingsViewModel();
-        NotificationService.NotificationText = "Navigated to Settings";
     }
 
     [ObservableProperty]
