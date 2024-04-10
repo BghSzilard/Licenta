@@ -1,5 +1,4 @@
-﻿using System.IO;
-using AutoCorrector;
+﻿using AutoCorrector;
 using AutoCorrectorEngine;
 using AutoCorrectorFrontend.MVVM.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -18,7 +17,7 @@ public partial class HomeViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(DependenciesUploaded))]
 
     private string _uploadedZip;
-    public bool DependenciesUploaded => _uploadedScale != "None" && _uploadedZip != "None";
+    public bool DependenciesUploaded => UploadedScale != "None" && UploadedZip != "None";
     private NotificationService _notificationService { get; set; }
     public HomeViewModel(NotificationService notificationService)
     {
@@ -54,44 +53,9 @@ public partial class HomeViewModel : ObservableObject
         }
     }
 
-    private async Task RunSetting(string name, string path)
-    {
-        string fileContent = File.ReadAllText(path);
-        string apiLocation = "/api/create";
-        apiLocation = apiLocation.Insert(0, Settings.LLMRunningLocation);
-
-        string script = $@"$modelfileContent = Get-Content -Path ""{path}"" -Raw
-
-            $body = @{{
-              ""name"" = ""{name}""
-              ""modelfile"" = $modelfileContent | Out-String
-            }} | ConvertTo-Json
-            
-            Invoke-WebRequest -Uri {apiLocation} -Method Post -Body $body -ContentType ""application/json""
-            ";
-
-        //string script = $@"
-        //$response = Invoke-RestMethod -Method Post -Uri '{apiLocation}' -ContentType 'application/json' -Body (@{{
-        //    name = '{name}'
-        //    modelfile = '{fileContent}'
-        //}} | ConvertTo-Json)
-
-        //$response";
-        ProcessExecutor processExecutor = new ProcessExecutor();
-        await processExecutor.ExecuteProcess("powershell.exe", "-Command \"& {" + script + "}\"", "");
-    }
-
     [RelayCommand]
     public async Task GradeProjects()
     {
-        //if (Settings.LLMRunningLocation != "Local")
-        //{
-        //    _notificationService.NotificationText = "Setting Up Models...";
-        //    await RunSetting("extractor", Settings.ExtractorPath);
-        //    await RunSetting("converter", Settings.ConverterPath);
-        //    await RunSetting("moddec", Settings.ModDecPath);
-        //}
-        
         StudentManager studentManager = new StudentManager(_notificationService, UploadedZip, UploadedScale);
         await studentManager.Solve();
         _notificationService.NotificationText = "Results Saved!";

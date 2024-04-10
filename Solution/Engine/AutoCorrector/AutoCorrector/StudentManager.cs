@@ -154,7 +154,13 @@ public class StudentManager
                 FileProcessor fileProcessor = new FileProcessor();
                 var includes = fileProcessor.FindIncludes(student.SourceFile!);
                 var function = includes;
-                function += functionExtractor.GetFunction(student.SourceFile, functionMatch);
+                var extractedFunction = functionExtractor.GetFunction(student.SourceFile, functionMatch);
+                function += extractedFunction;
+
+                Requirement studReq = new Requirement();
+                studReq.Title = functionMatch;
+
+                student.Requirements.Add(studReq);
 
                 CorrectionChecker checker = new CorrectionChecker();
                 var tempFile = Path.Combine(Settings.SolutionPath, "temp.h");
@@ -163,12 +169,14 @@ public class StudentManager
 
                 foreach (var subrequirement in requirement.SubRequirements)
                 {
-                    if (await checker.CheckCorrectness(subrequirement.Title, functionMatch, tempFile))
+                    if (await checker.CheckCorrectness(subrequirement.Title, functionMatch, tempFile, studReq))
                     {
-                        student.Grade += subrequirement.Points;
+                        studReq.SubRequirements.Last().Points = subrequirement.Points;
+                        studReq.Points += studReq.SubRequirements.Last().Points;
                     }
                 }
 
+                student.Grade += studReq.Points;
             }
         }
     }

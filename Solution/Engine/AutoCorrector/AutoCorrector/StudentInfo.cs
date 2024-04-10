@@ -1,4 +1,6 @@
-﻿namespace AutoCorrector;
+﻿using AutoCorrectorEngine;
+
+namespace AutoCorrector;
 
 public class StudentInfo
 {
@@ -6,4 +8,5 @@ public class StudentInfo
     public float Grade { get; set; }
     public bool CodeCompiles { get; set; }
     public string? SourceFile { get; set; }
+    public List<Requirement> Requirements { get; set; } = new List<Requirement>();
 }

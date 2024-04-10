@@ -1,19 +1,28 @@
 ﻿using System.Diagnostics;
+using AutoCorrector;
 
 namespace AutoCorrectorEngine;
 
 public class CorrectionChecker
 {
-    public async Task<bool> CheckCorrectness(string fileContent, string functionName, string headerPath)
+    public async Task<bool> CheckCorrectness(string fileContent, string functionName, string headerPath, Requirement requirement)
     {
         if (fileContent.Contains("correctness"))
         {
-            return await MakeUnitTests(fileContent, functionName, headerPath);
+            string result = await MakeUnitTests(fileContent, functionName, headerPath);
+            requirement.SubRequirements.Add(new SubRequirement() { Title = result.Replace("Success!", "").Replace("Fail!", "")}) ;
+
+            if(result.Contains("Success!"))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         return true;
     }
-    public async Task<bool> MakeUnitTests(string fileContent, string functionName, string headerPath)
+    public async Task<string> MakeUnitTests(string fileContent, string functionName, string headerPath)
     {
         fileContent = fileContent[12..];
         fileContent = fileContent.Insert(0, "\"");
@@ -30,6 +39,6 @@ public class CorrectionChecker
         result = result.Replace("\n", "");
         result = result.Replace("\r", "");
 
-        return result == "0";
+        return result;
     }
 }
