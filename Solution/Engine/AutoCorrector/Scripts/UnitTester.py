@@ -78,11 +78,10 @@ for key, value in parse_arguments(arg1).items():
     new_key = convert_to_numerical_or_boolean(key)
     new_value = convert_to_numerical_or_boolean(value)
     result = mylibrary.test(new_key)
-    # print(result)
-    # print(new_value)
+    print("Input: " + str(new_key) + " Expected Output: " + str(new_value) + " Actual Output: " + str(result))
     if result != new_value:
         print("Fail!")
         success = False
         break
 if success == True:
-    print("0")
+    print("Success!")
