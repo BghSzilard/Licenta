@@ -143,22 +143,31 @@ public class StudentManager
                 }
                 allSignatures = allSignatures.Remove(allSignatures.Length - 1);
 
-                ProcessExecutor executor = new ProcessExecutor();
-                requirement.Title = requirement.Title.Replace("\"", ""); ;
-                var args = $"python '{Settings.MatchFinderScriptPath}' '{allSignatures}' '{requirement.Title}'";
-                var functionMatch = await executor.ExecuteProcess("powershell", args, "");
-                functionMatch = functionMatch.Replace("\n", "");
-                functionMatch = functionMatch.Replace("\r", "");
+                //ProcessExecutor executor = new ProcessExecutor();
+                //requirement.Title = requirement.Title.Replace("\"", ""); ;
+                //var args = $"python '{Settings.MatchFinderScriptPath}' '{allSignatures}' '{requirement.Title}'";
+                //var functionMatch = await executor.ExecuteProcess("powershell", args, "");
+                //functionMatch = functionMatch.Replace("\n", "");
+                //functionMatch = functionMatch.Replace("\r", "");
+
+                LLMManager lLMManager = new LLMManager();
+                var functionName = await lLMManager.GetFunctionName($"{allSignatures} \n{requirement.Title}");
+
+                if (functionName.Contains("None"))
+                {
+                    return;
+                }
+
                 FunctionExtractorWrapper functionExtractor = new FunctionExtractorWrapper();
 
                 FileProcessor fileProcessor = new FileProcessor();
                 var includes = fileProcessor.FindIncludes(student.SourceFile!);
                 var function = includes;
-                var extractedFunction = functionExtractor.GetFunction(student.SourceFile, functionMatch);
+                var extractedFunction = functionExtractor.GetFunction(student.SourceFile, functionName);
                 function += extractedFunction;
 
                 Requirement studReq = new Requirement();
-                studReq.Title = functionMatch;
+                studReq.Title = functionName;
 
                 student.Requirements.Add(studReq);
 
@@ -169,7 +178,7 @@ public class StudentManager
 
                 foreach (var subrequirement in requirement.SubRequirements)
                 {
-                    if (await checker.CheckCorrectness(subrequirement.Title, functionMatch, tempFile, studReq))
+                    if (await checker.CheckCorrectness(subrequirement.Title, functionName, tempFile, studReq))
                     {
                         studReq.SubRequirements.Last().Points = subrequirement.Points;
                         studReq.Points += studReq.SubRequirements.Last().Points;
