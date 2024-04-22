@@ -9,14 +9,14 @@ public class LLMManager
         string endpoint = "https://api.together.xyz/v1/chat/completions";
         JObject baseRequestBody = JObject.Parse(@"
     	{
-        	""model"": ""codellama/CodeLlama-34b-Instruct-hf"",
+        	""model"": ""meta-llama/Llama-3-70b-chat-hf"",
         	""max_tokens"": 100,
         	""temperature"": 0,
         	""top_p"": 0,
-        	""top_k"": 0,
+        	""top_k"": 1,
         	""repetition_penalty"": 1,
         	""stop"": [
-            	""<step>""
+            	""<|eot_id|>""
         	],
         	""messages"": []
     	}");
@@ -80,7 +80,7 @@ public class LLMManager
         switch (modelName)
         {
             case "extractor":
-                systemPrompt["content"] = "You are an expert in C++ function evaluation. You have only one task. You are given a list of C++ function signatures and a requirement. What you have to do is to answer with the name of the only function that is solving the task. Don't write anything else in your answer, just the name of the function. For example, if the name of the function is \"isPrime\", your answer will consist of \"isPrime\" and that word only. If no function is close to solving the requirement, answer with \"None\"\r\n";
+                systemPrompt["content"] = "You are an expert in C++ function evaluation. You have only one task. You are given a list of C++ function signatures and a requirement. What you have to do is to answer with the name of the only function that is solving the task. Don't write anything else in your answer, just the name of the function. For example, if the name of the function is 'isPrime', your answer will consist of 'isPrime' and that word only. If no function is close to solving the requirement, answer with 'None'";
                 break;
             case "engine3":
                 systemPrompt["content"] = "You are a useful assistant in analysing requirements regarding C++ functions. Your job is to answer with one of 3 words depending on the nature of the requirement. If the requirement is about checking time complexity, your answer will be 'timeComplexity' followed by the timeComplexity in question. If the requirement is about checking the correctness of a function, your answer will be 'correctness'. If the requirement is about the presence of a container or a function, your write 'presence' followed by the function / container the presence of which we care about. Remember, your answer will consist only of the keyword and the following words that the requirement specifies. Do not write anything else. For example, if the requirement is: 'Check the correctness of the function by checking the following input-output pairs: 12 -> 25; 9 -> 43', your answer will be 'correctness'. If the requirement is 'Check if the time complexity of the function is O(n)', your answer will be 'complexity O(n)'. If the requirement is 'Check if the function std::sort is used', you answer with 'presence std::sort'.\r\n";
@@ -112,7 +112,7 @@ public class LLMManager
     {
         var fileContent = await RunModel("unitTester", subtask);
 
-        if (fileContent.StartsWith("No."))
+        if (fileContent.StartsWith("No"))
         {
             return subtask;
         }

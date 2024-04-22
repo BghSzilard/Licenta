@@ -1,6 +1,7 @@
 ﻿using AutoCorrectorEngine;
 using AutoCorrectorFrontend.MVVM.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
@@ -42,5 +43,12 @@ public partial class SettingsViewModel : ObservableObject
     {
         Settings.PlagiarismThreshold = PlagiarismThreshold;
         _notificationService.NotificationText = $"Plagiarism threshold changed to {Settings.PlagiarismThreshold}";
+    }
+
+    [RelayCommand]
+    public void ApplyChanges()
+    {
+        Settings.PlagiarismThreshold = PlagiarismThreshold;
+        _notificationService.NotificationText = "Changes Applied!";
     }
 }

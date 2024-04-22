@@ -38,7 +38,8 @@ public class ScaleProcessor
             Requirement processedRequirement = new Requirement();
             _notificationService.NotificationText = $"Processing Requirement: {requirement.Title}";
             //processedRequirement.Title = await GetFunctionSignature(requirement.Title);
-            processedRequirement.Title = await translate.TranslateToEnglish(requirement.Title);
+            //processedRequirement.Title = await translate.TranslateToEnglish(requirement.Title);
+            processedRequirement.Title = requirement.Title;
             foreach (var subrequirement in requirement.SubRequirements)
             {
                 //SubRequirement processedSubrequirement = new SubRequirement();
@@ -46,7 +47,7 @@ public class ScaleProcessor
                 //_notificationService.NotificationText = $"Processing Subrequirement: {subrequirement.Title}";
                 //processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
                 var processedSubrequirement = subrequirement;
-                processedSubrequirement.Title = await translate.TranslateToEnglish(subrequirement.Title);
+                //processedSubrequirement.Title = await translate.TranslateToEnglish(subrequirement.Title);
                 processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
                 processedRequirement.SubRequirements.Add(processedSubrequirement);
             }

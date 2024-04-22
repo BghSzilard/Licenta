@@ -26,12 +26,22 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <Rectangle Fill="#333333" RadiusX="5" RadiusY="5"/>
+            <Rectangle Fill="#333333" RadiusX="5" RadiusY="5" x:Name="SettingRectangle">
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Fill" Value="#555555"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
             <StackPanel Margin="10">
                 <TextBlock Foreground="White" Height="40" FontSize="20" Text="Plagiarism Threshold: "/>
                 <TextBlock Foreground="White" Text="Enter a plagiarism threshold value between 0 and 100"/>
             </StackPanel>
-            <TextBox HorizontalAlignment="Right" Margin="0 0 50 0" Height="30" Width="90" FontSize="20" Grid.Column="1" Grid.Row="0" Text="{Binding PlagiarismThreshold}">
+            <TextBox x:Name="ThresholdTextBox" HorizontalAlignment="Right" Margin="0 0 50 0" Height="30" Width="90" FontSize="20" Grid.Column="1" Grid.Row="0" Text="{Binding PlagiarismThreshold}">
                 <TextBox.Template>
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         <Border CornerRadius="5"
@@ -43,7 +53,7 @@
             </TextBox>
         </Grid>
 
-        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply Changes" Background="#007ACC" Foreground="White" BorderBrush="#007ACC" BorderThickness="1" Padding="10,5" Margin="10" />
+        <Button Command="{Binding ApplyChangesCommand}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply Changes" Background="#007ACC" Foreground="White" BorderBrush="#007ACC" BorderThickness="1" Padding="10,5" Margin="10" />
 
     </Grid>
 
