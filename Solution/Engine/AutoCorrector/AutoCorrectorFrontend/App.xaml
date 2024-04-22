@@ -16,8 +16,8 @@
                 <view:HomeView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModel:Discovery}">
-                <view:Discovery/>
+            <DataTemplate DataType="{x:Type viewModel:ResultsViewModel}">
+                <view:ResultsView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">

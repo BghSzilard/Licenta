@@ -15,7 +15,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     public void NavigateDiscovery()
     {
-        CurrentView = new Discovery();
+        CurrentView = new ResultsViewModel();
     }
 
     [RelayCommand]

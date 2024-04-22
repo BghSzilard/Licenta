@@ -2,7 +2,7 @@
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
-class Discovery: ObservableObject
+class ResultsViewModel: ObservableObject
 {
 
 }
