@@ -6,22 +6,46 @@
              xmlns:local="clr-namespace:AutoCorrectorFrontend.MVVM.View" xmlns:viewmodel="clr-namespace:AutoCorrectorFrontend.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <viewmodel:SettingsViewModel></viewmodel:SettingsViewModel>
-    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="350"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Foreground="White" Margin="20 10 10 10" FontSize="28" Text="Run LLM: "></TextBlock>
-        <ComboBox SelectedItem="{Binding SelectedOption}" ItemsSource="{Binding Options}" Grid.Column="1"></ComboBox>
-        <TextBox IsEnabled="{Binding IsServerSelected}" Text="{Binding SelectedServer}" Grid.Column="0" Grid.Row="1"></TextBox>
+        <Rectangle RadiusX="10" RadiusY="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Fill="#202020"></Rectangle>
+
+        <TextBlock FontSize="30" Margin="40 10 0 0" Grid.Row="0" Text="Settings" Foreground="White"></TextBlock>
+        
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="30 10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="#333333" RadiusX="5" RadiusY="5"/>
+            <StackPanel Margin="10">
+                <TextBlock Foreground="White" Height="40" FontSize="20" Text="Plagiarism Threshold: "/>
+                <TextBlock Foreground="White" Text="Enter a plagiarism threshold value between 0 and 100"/>
+            </StackPanel>
+            <TextBox HorizontalAlignment="Right" Margin="0 0 50 0" Height="30" Width="90" FontSize="20" Grid.Column="1" Grid.Row="0" Text="{Binding PlagiarismThreshold}">
+                <TextBox.Template>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border CornerRadius="5"
+                                Background="White" BorderBrush="#007ACC">
+                            <ScrollViewer x:Name="PART_ContentHost" Foreground="White"></ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
         </Grid>
+
+        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Apply Changes" Background="#007ACC" Foreground="White" BorderBrush="#007ACC" BorderThickness="1" Padding="10,5" Margin="10" />
+
+    </Grid>
+
+
 </UserControl>

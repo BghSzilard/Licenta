@@ -29,6 +29,8 @@ public class ScaleProcessor
     }
     public async Task<List<Requirement>> ProcessScale(string path)
     {
+        Translate translate = new Translate();
+
         var requirements = ReadXMLFile(path);
         List<Requirement> processedScale = new List<Requirement>();
         foreach (var requirement in requirements)
@@ -36,12 +38,15 @@ public class ScaleProcessor
             Requirement processedRequirement = new Requirement();
             _notificationService.NotificationText = $"Processing Requirement: {requirement.Title}";
             //processedRequirement.Title = await GetFunctionSignature(requirement.Title);
-            processedRequirement.Title = requirement.Title;
+            processedRequirement.Title = await translate.TranslateToEnglish(requirement.Title);
             foreach (var subrequirement in requirement.SubRequirements)
             {
-                SubRequirement processedSubrequirement = new SubRequirement();
-                processedSubrequirement.Points = subrequirement.Points;
-                _notificationService.NotificationText = $"Processing Subrequirement: {subrequirement.Title}";
+                //SubRequirement processedSubrequirement = new SubRequirement();
+                //processedSubrequirement.Points = subrequirement.Points;
+                //_notificationService.NotificationText = $"Processing Subrequirement: {subrequirement.Title}";
+                //processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
+                var processedSubrequirement = subrequirement;
+                processedSubrequirement.Title = await translate.TranslateToEnglish(subrequirement.Title);
                 processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
                 processedRequirement.SubRequirements.Add(processedSubrequirement);
             }
@@ -58,18 +63,7 @@ public class ScaleProcessor
         LLMManager lLMManager = new LLMManager();
         return await lLMManager.ProcessSubtask(subrequirement);
     }
-    //private async Task<string> GetFunctionSignature(string requirement)
-    //{
-    //    LLMManager lLMManager = new LLMManager();
-    //    string functionSignature = "\"";
-
-    //    functionSignature += await lLMManager.GetFunctionSignature(requirement);
-    //    functionSignature = functionSignature.Replace("\n", "");
-    //    functionSignature = functionSignature.Replace("\r", "");
-    //    functionSignature += "\"";
-
-    //    return functionSignature;
-    //}
+   
     private List<Requirement> ReadXMLFile(string filePath)
     {
         List<Requirement> requirements = new List<Requirement>();

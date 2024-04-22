@@ -1,10 +1,17 @@
 ﻿using AutoCorrectorEngine;
+using AutoCorrectorFrontend.MVVM.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
 public partial class SettingsViewModel : ObservableObject
 {
+    private NotificationService _notificationService;
+    public SettingsViewModel(NotificationService notificationService)
+    {
+        _notificationService = notificationService;
+    }
+
     public enum LLMOptions { Local, Server }
     public List<string> Options { get; } = Enum.GetNames(typeof(LLMOptions)).ToList();
     [ObservableProperty]
@@ -14,6 +21,9 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty]
     private string _selectedServer = "";
     public bool IsServerSelected => SelectedOption == "Server";
+
+    [ObservableProperty]
+    private int _plagiarismThreshold = 50;
 
     partial void OnSelectedServerChanged(string value)
     {
@@ -26,5 +36,11 @@ public partial class SettingsViewModel : ObservableObject
         {
             Settings.LLMRunningLocation = "Local";
         }
+    }
+
+    partial void OnPlagiarismThresholdChanged(int value)
+    {
+        Settings.PlagiarismThreshold = PlagiarismThreshold;
+        _notificationService.NotificationText = $"Plagiarism threshold changed to {Settings.PlagiarismThreshold}";
     }
 }

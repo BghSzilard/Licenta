@@ -1,39 +1,41 @@
 ﻿using System.Diagnostics;
 using AutoCorrector;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AutoCorrectorEngine;
 
 public class CorrectionChecker
 {
-    public async Task<bool> CheckCorrectness(string fileContent, string functionName, string headerPath, Requirement requirement)
+    public async Task<string> CheckCorrectness(string function, string requirement, string functionName)
     {
-        if (fileContent.Contains("correctness"))
+        if (requirement.Contains("correctness"))
         {
-            string result = await MakeUnitTests(fileContent, functionName, headerPath);
-            requirement.SubRequirements.Add(new SubRequirement() { Title = result.Replace("Success!", "").Replace("Fail!", "")}) ;
-
-            if(result.Contains("Success!"))
-            {
-                return true;
-            }
-
-            return false;
+            return await MakeUnitTests(requirement, function, functionName);
         }
-
-        return true;
+        else
+        {
+            LLMManager lLMManager = new LLMManager();
+            var result = await lLMManager.DetermineCorrectness(requirement, function);
+            return result;
+        }
     }
-    public async Task<string> MakeUnitTests(string fileContent, string functionName, string headerPath)
+    public async Task<string> MakeUnitTests(string processedReq, string function, string functionName)
     {
-        fileContent = fileContent[12..];
-        fileContent = fileContent.Insert(0, "\"");
-        fileContent += "\"";
-        fileContent = fileContent.Replace(".", "");
-        fileContent = fileContent.Replace("\n", "");
+        processedReq = processedReq[12..];
+        processedReq = processedReq.Insert(0, "\"");
+        processedReq += "\"";
+        processedReq = processedReq.Replace(".", "");
+        processedReq = processedReq.Replace("\n", "");
         functionName = functionName.Insert(0, "\"");
         functionName += "\"";
-        headerPath = headerPath.Insert(0, "\"");
-        headerPath += "\"";
-        var arguemnts = $"python '{Settings.UnitTestScriptPath}' '{fileContent}' '{functionName}' '{headerPath}'";
+
+        var tempFile = Path.Combine(Settings.SolutionPath, "temp.h");
+
+        File.WriteAllText(tempFile, function);
+
+        tempFile = tempFile.Insert(0, "\"");
+        tempFile += "\"";
+        var arguemnts = $"python '{Settings.UnitTestScriptPath}' '{processedReq}' '{functionName}' '{tempFile}'";
         ProcessExecutor processExecutor = new ProcessExecutor();
         string result = await processExecutor.ExecuteProcess("powershell", arguemnts, "");
         result = result.Replace("\n", "");

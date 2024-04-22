@@ -21,7 +21,7 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     public void NavigateSettings()
     {
-        CurrentView = new SettingsViewModel();
+        CurrentView = new SettingsViewModel(NotificationService);
     }
 
     [ObservableProperty]

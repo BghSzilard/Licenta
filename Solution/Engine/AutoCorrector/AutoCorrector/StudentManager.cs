@@ -143,13 +143,6 @@ public class StudentManager
                 }
                 allSignatures = allSignatures.Remove(allSignatures.Length - 1);
 
-                //ProcessExecutor executor = new ProcessExecutor();
-                //requirement.Title = requirement.Title.Replace("\"", ""); ;
-                //var args = $"python '{Settings.MatchFinderScriptPath}' '{allSignatures}' '{requirement.Title}'";
-                //var functionMatch = await executor.ExecuteProcess("powershell", args, "");
-                //functionMatch = functionMatch.Replace("\n", "");
-                //functionMatch = functionMatch.Replace("\r", "");
-
                 LLMManager lLMManager = new LLMManager();
                 var functionName = await lLMManager.GetFunctionName($"{allSignatures} \n{requirement.Title}");
 
@@ -172,17 +165,26 @@ public class StudentManager
                 student.Requirements.Add(studReq);
 
                 CorrectionChecker checker = new CorrectionChecker();
-                var tempFile = Path.Combine(Settings.SolutionPath, "temp.h");
-
-                File.WriteAllText(tempFile, function);
+               
 
                 foreach (var subrequirement in requirement.SubRequirements)
                 {
-                    if (await checker.CheckCorrectness(subrequirement.Title, functionName, tempFile, studReq))
+                    var result = await checker.CheckCorrectness(function, subrequirement.Title, functionName);
+                    SubRequirement subStudReq = new SubRequirement();
+
+                    if (result.Contains("Yes:") || result.Contains("Success!"))
                     {
-                        studReq.SubRequirements.Last().Points = subrequirement.Points;
-                        studReq.Points += studReq.SubRequirements.Last().Points;
+                        subStudReq.Title = result.Replace("Yes:", "");
+                        subStudReq.Title = subStudReq.Title.Replace("Success!:", "");
+                        subStudReq.Points = subrequirement.Points;
+                        studReq.Points += subStudReq.Points;
                     }
+                    else
+                    {
+                        subStudReq.Title = result.Replace("No:", "");
+                        subStudReq.Title = subStudReq.Title.Replace("Fail!", "");
+                    }
+                    studReq.SubRequirements.Add(subStudReq);
                 }
 
                 student.Grade += studReq.Points;

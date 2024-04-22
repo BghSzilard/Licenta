@@ -16,6 +16,7 @@ public class Settings
     public static string MatchFinderScriptPath { get; set; }
     public static string ResultsPath  { get; set; }
     public static string UnzippedFolderPath { get; set; }
+    public static int PlagiarismThreshold {  get; set; }
     static Settings()
     {
         SolutionPath = Directory.GetCurrentDirectory();

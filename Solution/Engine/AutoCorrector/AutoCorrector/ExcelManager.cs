@@ -39,6 +39,7 @@ public class ExcelManager
                 column++;
                 ws.Cells[1, column].Value = $"Task {index}.{subIndex} reason";
                 column++;
+                subIndex++;
             }
         }
 
