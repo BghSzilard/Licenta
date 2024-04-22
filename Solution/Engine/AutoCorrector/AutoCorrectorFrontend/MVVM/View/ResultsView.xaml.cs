@@ -10,6 +10,7 @@ namespace AutoCorrectorFrontend.MVVM.View
     public partial class ResultsView : UserControl
     {
         private List<StudentInfo> _students = new List<StudentInfo>();
+        private ProcessExecutor _processExecutor = new ProcessExecutor();
         
         public ResultsView()
         {
@@ -26,6 +27,7 @@ namespace AutoCorrectorFrontend.MVVM.View
         Name = "John Doe",
         Grade = 85.5f,
         CodeCompiles = true,
+        SourceFile = "C:\\Users\\z004w26z\\Desktop\\Exams\\Alexe Robert George_116960_assignsubmission_file\\source.cpp",
         Requirements = new List<Requirement>
         {
             new Requirement
@@ -110,15 +112,16 @@ namespace AutoCorrectorFrontend.MVVM.View
             dataGrid.ItemsSource = _students;
         }
 
-        private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DataGridCell cell = sender as DataGridCell;
             if (cell != null)
             {
                 DataGridColumn column = cell.Column;
-                if (column.Header.ToString().Contains("function"))
+                if (column.Header.ToString().Contains("Task"))
                 {
-                    MessageBox.Show($"You double-clicked on function:" );
+                    StudentInfo student = cell.DataContext as StudentInfo;
+                    await _processExecutor.ExecuteProcess("powershell", "code", student.SourceFile);
                 }
             }
         }
