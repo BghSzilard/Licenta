@@ -1,5 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using AutoCorrector;
 using AutoCorrectorEngine;
 
@@ -107,5 +109,19 @@ namespace AutoCorrectorFrontend.MVVM.View
 
             dataGrid.ItemsSource = _students;
         }
+
+        private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridCell cell = sender as DataGridCell;
+            if (cell != null)
+            {
+                DataGridColumn column = cell.Column;
+                if (column.Header.ToString().Contains("function"))
+                {
+                    MessageBox.Show($"You double-clicked on function:" );
+                }
+            }
+        }
+
     }
 }
