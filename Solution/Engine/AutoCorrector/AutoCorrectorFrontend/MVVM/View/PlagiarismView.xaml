@@ -3,10 +3,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AutoCorrectorFrontend.MVVM.View"
+             xmlns:local="clr-namespace:AutoCorrectorFrontend.MVVM.View" xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Rectangle RadiusX="10" RadiusY="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Fill="#202020"></Rectangle>
+        <TextBlock  FontSize="30" Margin="40 10 0 0" Grid.Row="0" Foreground="White" Text="Plagiarism"></TextBlock>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="30 10">
+            <Rectangle Fill="#333333" RadiusX="5" RadiusY="5" x:Name="SettingRectangle">
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Fill" Value="#555555"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+            <StackPanel Margin="10 0 0 0">
+                <TextBlock Foreground="White" Height="40" FontSize="20" Text="Plagiarism Threshold: "/>
+                <TextBlock Foreground="White" Text="Enter a plagiarism threshold value between 0 and 100"/>
+            </StackPanel>
+        </Grid>
+
+        <TextBox x:Name="ThresholdTextBox" HorizontalAlignment="Right" Margin="0 10 50 0" Height="30" Width="90" FontSize="20" Grid.Column="1" Grid.Row="1" Text="{Binding PlagiarismThreshold, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.Template>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border CornerRadius="5"
+                     Background="White" BorderBrush="#007ACC">
+                        <ScrollViewer x:Name="PART_ContentHost" Foreground="White"></ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
+        <DataGrid Margin="0 0 0 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="2" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#FF3F3F46"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="FontFamily" Value="Segoe UI"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                </Style>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="BorderBrush" Value="#FF3F3F46"/>
+                    <Setter Property="BorderThickness" Value="0 0 1 0"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Padding" Value="10,0"/>
+                    <Setter Property="FontFamily" Value="Segoe UI"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+
     </Grid>
 </UserControl>

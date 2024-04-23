@@ -22,7 +22,7 @@ public class Settings
     public static StudentInfo StudentSample {  get; set; }
     public static List<StudentInfo> Students { get; set; }
     public static string PlagiarismResFolder {  get; set; }
-    public static List<PlagiarismPair> plagiarismPairs { get; set; }
+    public static List<PlagiarismPair> PlagiarismPairs { get; set; }
     static Settings()
     {
         SolutionPath = Directory.GetCurrentDirectory();
@@ -41,5 +41,7 @@ public class Settings
         ConverterPath = Path.Combine(ModelFilesPath, "converter");
         MatchFinderScriptPath = Path.Combine(ScriptsPath, "MatchFinder.py");
         PlagiarismResFolder = "C:\\Users\\z004w26z\\Desktop\\res";
+        Students = new List<StudentInfo>();
+        PlagiarismPairs = new List<PlagiarismPair>();
     }
 }

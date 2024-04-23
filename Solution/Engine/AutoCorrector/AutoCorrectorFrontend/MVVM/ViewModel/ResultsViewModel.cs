@@ -14,8 +14,7 @@ public partial class ResultsViewModel : ObservableObject
             _students.Add(stud);
         }
     }
-    [ObservableProperty]
-    private List<PlagiarismPair> _plagiarismPairs = new List<PlagiarismPair>();
+    
     [ObservableProperty]
     private string? _selectedReason;
     [ObservableProperty]

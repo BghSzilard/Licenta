@@ -9,7 +9,6 @@ public class StudentManager
     private readonly List<StudentInfo> _students;
     private readonly NotificationService _notificationService;
     private string _scale { get; set; }
-    private string _zip { get; set; }
     public StudentManager(NotificationService notificationService, string uploadedZip, string scale) 
     {
         _excelManager = new ExcelManager();
@@ -17,7 +16,6 @@ public class StudentManager
         _students = new List<StudentInfo>();
         _notificationService = notificationService;
         _scale = scale;
-        _zip = uploadedZip;
     }
     public async Task Solve()
     {
@@ -208,6 +206,6 @@ public class StudentManager
 
         PlagiarismChecker plagiarismChecker = new PlagiarismChecker();
 
-        Settings.plagiarismPairs = await plagiarismChecker.CheckPlagiarism(_students);
+        Settings.PlagiarismPairs = await plagiarismChecker.CheckPlagiarism(_students);
     }
 }

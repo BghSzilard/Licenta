@@ -1,6 +1,8 @@
-﻿namespace AutoCorrectorEngine
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace AutoCorrectorEngine
 {
-    public class PlagiarismPair
+    public class PlagiarismPair: ObservableObject
     {
         public string FirstStudent {get; set;}
         public string SecondStudent {get; set;}
