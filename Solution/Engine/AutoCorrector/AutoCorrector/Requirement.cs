@@ -1,13 +1,17 @@
-﻿namespace AutoCorrectorEngine;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-public class Requirement
+namespace AutoCorrectorEngine;
+
+public partial class Requirement: ObservableObject
 {
-    public string Title { get; set; }
-    public List<SubRequirement> SubRequirements { get; set; }
-    public float Points { get; set; }
+    [ObservableProperty] private string _title;
+    public ObservableCollection<SubRequirement> SubRequirements { get; set; }
+    
+    [ObservableProperty] private float _points;
     public Requirement()
     {
         Title = string.Empty;
-        SubRequirements = new List<SubRequirement>();
+        SubRequirements = new ObservableCollection<SubRequirement>();
     }
 }

@@ -5,7 +5,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
-
 public partial class ResultsViewModel : ObservableObject
 {
     public ResultsViewModel()
@@ -13,11 +12,6 @@ public partial class ResultsViewModel : ObservableObject
         foreach (var stud in Settings.Students)
         {
             _students.Add(stud);
-        }
-
-        foreach (var pair in Settings.plagiarismPairs)
-        {
-            PlagiarismPairs.Add(pair);
         }
     }
     [ObservableProperty]
@@ -31,12 +25,35 @@ public partial class ResultsViewModel : ObservableObject
     {
         var column = dataGridCellInfo.Column;
 
-        if (column.Header.ToString().Contains("Task") && column.Header.ToString().Contains("."))
+        if (column != null &&  column.Header != null && column.Header.ToString().Contains("Task") && column.Header.ToString().Contains("."))
         {
             StudentInfo student = dataGridCellInfo.Item as StudentInfo;
             var requirement = GetNthDigit(column.Header.ToString(), 1);
             var subReq = GetNthDigit(column.Header.ToString(), 2);
-            SelectedReason = student.Requirements[int.Parse(requirement.ToString()) - 1].SubRequirements[int.Parse(subReq.ToString()) - 1].Title;
+
+            // Ensure the requirement index is within bounds
+            if (int.TryParse(requirement.ToString(), out int reqIndex) && reqIndex > 0 && reqIndex <= student.Requirements.Count)
+            {
+                var requirementItem = student.Requirements[reqIndex - 1];
+
+                // Ensure the subrequirement index is within bounds
+                if (int.TryParse(subReq.ToString(), out int subReqIndex) && subReqIndex > 0 && subReqIndex <= requirementItem.SubRequirements.Count)
+                {
+                    SelectedReason = requirementItem.SubRequirements[subReqIndex - 1].Title;
+                }
+                else
+                {
+                    // Handle out of bounds subrequirement index
+                    Console.WriteLine("Subrequirement index is out of bounds.");
+                }
+            }
+            else
+            {
+                // Handle out of bounds requirement index
+                Console.WriteLine("Requirement index is out of bounds.");
+            }
+
+
         }
     }
 
@@ -53,7 +70,13 @@ public partial class ResultsViewModel : ObservableObject
             var requirement = GetNthDigit(column.Header.ToString(), 1);
             var subReq = GetNthDigit(column.Header.ToString(), 2);
 
-            studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].SubRequirements[int.Parse(subReq.ToString()) - 1].Points = stud.Requirements[int.Parse(requirement.ToString()) - 1].SubRequirements[int.Parse(subReq.ToString()) - 1].Points;
+            DataGridCell cell = dataGridCellInfo.Column.GetCellContent(dataGridCellInfo.Item).Parent as DataGridCell;
+
+            string cellText = cell.Content.ToString();
+
+            cellText = cellText.Replace("System.Windows.Controls.TextBox: ", "");
+
+            studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].SubRequirements[int.Parse(subReq.ToString()) - 1].Points = int.Parse(cellText);
 
             studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].Points = 0;
 
@@ -85,7 +108,7 @@ public partial class ResultsViewModel : ObservableObject
                 }
             }
         }
-        // If there are fewer than n numerical characters in the input string, you can return a default value or throw an exception.
+
         throw new InvalidOperationException($"No {n}th numerical character found in the input string.");
     }
 }

@@ -81,7 +81,7 @@ public class ScaleProcessor
                 {
                     Title = subtaskElement.Element("title")?.Value,
                     Points = float.Parse(subtaskElement.Element("points")?.Value ?? "0")
-                }).ToList()
+                }).ToObservableCollection()
             }).ToList();
         }
         catch (Exception ex)

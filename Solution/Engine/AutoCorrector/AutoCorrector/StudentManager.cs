@@ -127,68 +127,81 @@ public class StudentManager
         {
             if (!student.CodeCompiles)
             {
-                continue;
-            }
+                foreach (var req in processedScalde)
+                {
+                    Requirement requirement = new Requirement();
 
-            foreach (var requirement in processedScalde)
+                    foreach (var subReq in req.SubRequirements)
+                    {
+                        requirement.SubRequirements.Add(new SubRequirement());
+                    }
+
+                    student.Requirements.Add(requirement);
+                }
+            }
+            else
             {
-                FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
-                var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
-
-                string allSignatures = "";
-                foreach (var signature in signatures)
+                foreach (var requirement in processedScalde)
                 {
-                    allSignatures += signature;
-                    allSignatures += ";";
-                }
-                allSignatures = allSignatures.Remove(allSignatures.Length - 1);
+                    FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
+                    var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
 
-                LLMManager lLMManager = new LLMManager();
-                var functionName = await lLMManager.GetFunctionName($"{allSignatures} \n{requirement.Title}");
-
-                if (functionName.Contains("None"))
-                {
-                    return;
-                }
-
-                FunctionExtractorWrapper functionExtractor = new FunctionExtractorWrapper();
-
-                FileProcessor fileProcessor = new FileProcessor();
-                var includes = fileProcessor.FindIncludes(student.SourceFile!);
-                var function = includes;
-                var extractedFunction = functionExtractor.GetFunction(student.SourceFile, functionName);
-                function += extractedFunction;
-
-                Requirement studReq = new Requirement();
-                studReq.Title = functionName;
-
-                student.Requirements.Add(studReq);
-
-                CorrectionChecker checker = new CorrectionChecker();
-               
-
-                foreach (var subrequirement in requirement.SubRequirements)
-                {
-                    var result = await checker.CheckCorrectness(function, subrequirement.Title, functionName);
-                    SubRequirement subStudReq = new SubRequirement();
-
-                    if (result.Contains("Yes:") || result.Contains("Success!"))
+                    string allSignatures = "";
+                    foreach (var signature in signatures)
                     {
-                        subStudReq.Title = result.Replace("Yes:", "");
-                        subStudReq.Title = subStudReq.Title.Replace("Success!:", "");
-                        subStudReq.Points = subrequirement.Points;
-                        studReq.Points += subStudReq.Points;
+                        allSignatures += signature;
+                        allSignatures += ";";
                     }
-                    else
-                    {
-                        subStudReq.Title = result.Replace("No:", "");
-                        subStudReq.Title = subStudReq.Title.Replace("Fail!", "");
-                    }
-                    studReq.SubRequirements.Add(subStudReq);
-                }
+                    allSignatures = allSignatures.Remove(allSignatures.Length - 1);
 
-                student.Grade += studReq.Points;
+                    LLMManager lLMManager = new LLMManager();
+                    var functionName = await lLMManager.GetFunctionName($"{allSignatures} \n{requirement.Title}");
+
+                    if (functionName.Contains("None"))
+                    {
+                        return;
+                    }
+
+                    FunctionExtractorWrapper functionExtractor = new FunctionExtractorWrapper();
+
+                    FileProcessor fileProcessor = new FileProcessor();
+                    var includes = fileProcessor.FindIncludes(student.SourceFile!);
+                    var function = includes;
+                    var extractedFunction = functionExtractor.GetFunction(student.SourceFile, functionName);
+                    function += extractedFunction;
+
+                    Requirement studReq = new Requirement();
+                    studReq.Title = functionName;
+
+                    student.Requirements.Add(studReq);
+
+                    CorrectionChecker checker = new CorrectionChecker();
+
+
+                    foreach (var subrequirement in requirement.SubRequirements)
+                    {
+                        var result = await checker.CheckCorrectness(function, subrequirement.Title, functionName);
+                        SubRequirement subStudReq = new SubRequirement();
+
+                        if (result.Contains("Yes:") || result.Contains("Success!"))
+                        {
+                            subStudReq.Title = result.Replace("Yes:", "");
+                            subStudReq.Title = subStudReq.Title.Replace("Success!:", "");
+                            subStudReq.Points = subrequirement.Points;
+                            studReq.Points += subStudReq.Points;
+                        }
+                        else
+                        {
+                            subStudReq.Title = result.Replace("No:", "");
+                            subStudReq.Title = subStudReq.Title.Replace("Fail!", "");
+                        }
+                        studReq.SubRequirements.Add(subStudReq);
+                    }
+
+                    student.Grade += studReq.Points;
+                }
             }
+            
         }
         Settings.StudentSample = _students[0];
         Settings.Students = _students;

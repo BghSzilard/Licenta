@@ -1,13 +1,19 @@
-﻿using AutoCorrectorEngine;
+﻿using System.Collections.ObjectModel;
+using AutoCorrectorEngine;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AutoCorrector;
 
-public class StudentInfo: ObservableObject
+public partial class StudentInfo: ObservableObject
 {
-    public string Name { get; set; }
-    public float Grade { get; set; }
-    public bool CodeCompiles { get; set; }
+    [ObservableProperty]
+    private string _name;
+
+    [ObservableProperty]
+    private float _grade;
+
+    [ObservableProperty] 
+    private bool _codeCompiles;
     public string? SourceFile { get; set; }
-    public List<Requirement> Requirements { get; set; } = new List<Requirement>();
+    public ObservableCollection<Requirement> Requirements { get; set; } = new ObservableCollection<Requirement>();
 }

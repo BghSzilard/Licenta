@@ -1,9 +1,13 @@
-﻿namespace AutoCorrectorEngine;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class SubRequirement
+namespace AutoCorrectorEngine;
+
+public partial class SubRequirement: ObservableObject
 {
-    public string Title { get; set; }
-    public float Points { get; set; }
+    [ObservableProperty]
+    private string _title;
+    [ObservableProperty]
+    private float _points;
     public SubRequirement()
     {
         Title = string.Empty;
