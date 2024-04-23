@@ -190,5 +190,11 @@ public class StudentManager
                 student.Grade += studReq.Points;
             }
         }
+        Settings.StudentSample = _students[0];
+        Settings.Students = _students;
+
+        PlagiarismChecker plagiarismChecker = new PlagiarismChecker();
+
+        Settings.plagiarismPairs = await plagiarismChecker.CheckPlagiarism(_students);
     }
 }

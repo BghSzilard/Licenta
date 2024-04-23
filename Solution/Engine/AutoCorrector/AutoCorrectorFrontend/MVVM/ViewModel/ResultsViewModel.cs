@@ -1,20 +1,30 @@
-﻿using System.Collections;
-using System.Text.RegularExpressions;
-using System.Windows.Controls;
-using System.Windows.Data;
+﻿using System.Windows.Controls;
 using AutoCorrector;
 using AutoCorrectorEngine;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using OfficeOpenXml.FormulaParsing.Ranges;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
-public partial class ResultsViewModel: ObservableObject
+public partial class ResultsViewModel : ObservableObject
 {
-    [ObservableProperty]
-    private string _selectedReason;
+    public ResultsViewModel()
+    {
+        foreach (var stud in Settings.Students)
+        {
+            _students.Add(stud);
+        }
 
+        foreach (var pair in Settings.plagiarismPairs)
+        {
+            PlagiarismPairs.Add(pair);
+        }
+    }
+    [ObservableProperty]
+    private List<PlagiarismPair> _plagiarismPairs = new List<PlagiarismPair>();
+    [ObservableProperty]
+    private string? _selectedReason;
+    [ObservableProperty]
     private List<StudentInfo> _students = new List<StudentInfo>();
     [RelayCommand]
     public void SelectedCellsChanged(DataGridCellInfo dataGridCellInfo)
@@ -27,6 +37,40 @@ public partial class ResultsViewModel: ObservableObject
             var requirement = GetNthDigit(column.Header.ToString(), 1);
             var subReq = GetNthDigit(column.Header.ToString(), 2);
             SelectedReason = student.Requirements[int.Parse(requirement.ToString()) - 1].SubRequirements[int.Parse(subReq.ToString()) - 1].Title;
+        }
+    }
+
+    [RelayCommand]
+    public void EditSelectedCell(DataGridCellInfo dataGridCellInfo)
+    {
+        var column = dataGridCellInfo.Column;
+
+        if (column.Header.ToString().Contains("Task") && column.Header.ToString().Contains("."))
+        {
+            StudentInfo stud = dataGridCellInfo.Item as StudentInfo;
+            var studToEdit = Students.FirstOrDefault(x => x.Name == stud.Name);
+
+            var requirement = GetNthDigit(column.Header.ToString(), 1);
+            var subReq = GetNthDigit(column.Header.ToString(), 2);
+
+            studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].SubRequirements[int.Parse(subReq.ToString()) - 1].Points = stud.Requirements[int.Parse(requirement.ToString()) - 1].SubRequirements[int.Parse(subReq.ToString()) - 1].Points;
+
+            studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].Points = 0;
+
+            foreach (var req in studToEdit.Requirements[int.Parse(requirement.ToString()) -1].SubRequirements)
+            {
+                studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].Points += req.Points;
+            }
+
+            studToEdit.Grade = 0;
+
+            foreach (var req in studToEdit.Requirements)
+            {
+                studToEdit.Grade += req.Points;
+            }
+
+            Students.Add(new StudentInfo() { Name = stud.Name });
+            Students.RemoveAt(Students.Count - 1);
         }
     }
 

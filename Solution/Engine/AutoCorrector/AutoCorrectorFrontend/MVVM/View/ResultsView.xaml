@@ -20,10 +20,14 @@
         </Grid.RowDefinitions>
         <Rectangle RadiusX="10" RadiusY="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Fill="#202020"></Rectangle>
         <TextBlock FontSize="30" Margin="40 10 0 0" Grid.Row="0" Text="Results" Foreground="White"></TextBlock>
-        <DataGrid CanUserAddRows="False" SelectionUnit="Cell" Grid.Row="1" Grid.ColumnSpan="2" x:Name="dataGrid" AutoGenerateColumns="False" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1" >
+        <DataGrid  ItemsSource="{Binding Students}" CanUserAddRows="False" SelectionUnit="Cell" Grid.Row="1" Grid.ColumnSpan="2" x:Name="dataGrid" AutoGenerateColumns="False" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1" >
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="SelectedCellsChanged">
                     <b:InvokeCommandAction Command="{Binding SelectedCellsChangedCommand}" CommandParameter="{Binding ElementName=dataGrid, Path=CurrentCell}">
+                    </b:InvokeCommandAction>
+                </b:EventTrigger>
+                <b:EventTrigger EventName="CellEditEnding">
+                    <b:InvokeCommandAction Command="{Binding EditSelectedCellCommand}" CommandParameter="{Binding ElementName=dataGrid, Path=CurrentCell}">
                     </b:InvokeCommandAction>
                 </b:EventTrigger>
             </b:Interaction.Triggers>
@@ -47,11 +51,33 @@
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <TextBlock FontSize="20" Margin="40 10 0 0" Foreground="White" Text="Reason for score: "></TextBlock>
-            <TextBlock Foreground="White" FontSize="20" Margin="0 10 0 0" Text="{Binding SelectedReason}"></TextBlock>
-        </StackPanel>
+        <DockPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <DockPanel DockPanel.Dock="Top">
+                <TextBlock FontSize="20" Margin="40 10 0 0" Foreground="White" Text="Reason for score: "></TextBlock>
+                <TextBlock Foreground="White" FontSize="20" Margin="0 10 0 0" Text="{Binding SelectedReason}" TextWrapping="Wrap"></TextBlock>
+            </DockPanel>
+        </DockPanel>
         <TextBlock  FontSize="30" Margin="40 10 0 0" Grid.Row="3" Foreground="White" Text="Plagiarism"></TextBlock>
-
+        <DataGrid ItemsSource="{Binding PlagiarismPairs}" Grid.Row="4" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#FF3F3F46"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="Padding" Value="10"/>
+                </Style>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="BorderBrush" Value="#FF3F3F46"/>
+                    <Setter Property="BorderThickness" Value="0 0 1 0"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Padding" Value="10,0"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+        
     </Grid>
 </UserControl>
