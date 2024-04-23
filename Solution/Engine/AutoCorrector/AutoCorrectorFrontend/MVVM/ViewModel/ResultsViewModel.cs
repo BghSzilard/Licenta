@@ -68,9 +68,6 @@ public partial class ResultsViewModel : ObservableObject
             {
                 studToEdit.Grade += req.Points;
             }
-
-            Students.Add(new StudentInfo() { Name = stud.Name });
-            Students.RemoveAt(Students.Count - 1);
         }
     }
 

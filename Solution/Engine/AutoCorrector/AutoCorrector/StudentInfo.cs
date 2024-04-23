@@ -1,8 +1,9 @@
 ﻿using AutoCorrectorEngine;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AutoCorrector;
 
-public class StudentInfo
+public class StudentInfo: ObservableObject
 {
     public string Name { get; set; }
     public float Grade { get; set; }

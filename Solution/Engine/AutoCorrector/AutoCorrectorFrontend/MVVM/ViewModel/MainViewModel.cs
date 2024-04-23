@@ -24,6 +24,11 @@ public partial class MainViewModel : ObservableObject
         CurrentView = new SettingsViewModel(NotificationService);
     }
 
+    [RelayCommand]
+    public void NavigatePlagiarism()
+    {
+        CurrentView = new PlagiarismViewModel();
+    }
     [ObservableProperty]
     private ObservableObject _currentView;
     public MainViewModel()
