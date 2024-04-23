@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using AutoCorrector;
 using AutoCorrectorEngine;
 
@@ -17,7 +18,6 @@ namespace AutoCorrectorFrontend.MVVM.View
             InitializeComponent();
             PopulateDataGrid();
         }
-
         private void PopulateDataGrid()
         {
             _students = new List<StudentInfo>
@@ -125,6 +125,5 @@ namespace AutoCorrectorFrontend.MVVM.View
                 }
             }
         }
-
     }
 }
