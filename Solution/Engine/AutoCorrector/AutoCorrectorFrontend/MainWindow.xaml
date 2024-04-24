@@ -13,9 +13,9 @@
         Width="900">
 
 
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <viewModel:MainViewModel></viewModel:MainViewModel>
-    </Window.DataContext>
+    </Window.DataContext>-->
 
     <Grid>
     

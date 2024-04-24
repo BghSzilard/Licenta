@@ -12,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AutoCorrector;
+using AutoCorrectorEngine;
+using AutoCorrectorFrontend.Events;
+using AutoCorrectorFrontend.MVVM.ViewModel;
+using Caliburn.Micro;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoCorrectorFrontend.MVVM.View
 {
@@ -23,6 +29,16 @@ namespace AutoCorrectorFrontend.MVVM.View
         public PlagiarismView()
         {
             InitializeComponent();
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            var row = (AutoCorrectorEngine.PlagiarismChecker.PlagiarismPair)button.DataContext;
+
+            IEventAggregator eventAggregator = ((App)Application.Current).ServiceProvider.GetRequiredService<EventAggregator>();
+
+            await eventAggregator.PublishAsync(new NavigationRequestEvent(typeof(PlagiarismViewModel)), marshal: async action => await action());
         }
     }
 }

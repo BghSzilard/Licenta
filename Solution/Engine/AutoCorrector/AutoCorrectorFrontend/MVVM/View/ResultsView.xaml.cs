@@ -50,32 +50,10 @@ namespace AutoCorrectorFrontend.MVVM.View
 
         private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            //DataGridCell cell = sender as DataGridCell;
-            //if (cell != null)
-            //{
-            //    StudentInfo student = cell.DataContext as StudentInfo;
-            //    await _processExecutor.ExecuteProcess("powershell", "code", student.SourceFile);
-
-            //}
-
             Button button = (Button)sender;
             var row = (StudentInfo)button.DataContext;
 
             await _processExecutor.ExecuteProcess("powershell", "code", row.SourceFile!);
         }
-
-        //private async void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    DataGridCell cell = sender as DataGridCell;
-        //    if (cell != null)
-        //    {
-        //        DataGridColumn column = cell.Column;
-        //        if (column.Header.ToString().Contains("Task"))
-        //        {
-        //            StudentInfo student = cell.DataContext as StudentInfo;
-        //            await _processExecutor.ExecuteProcess("powershell", "code", student.SourceFile);
-        //        }
-        //    }
-        //}
     }
 }

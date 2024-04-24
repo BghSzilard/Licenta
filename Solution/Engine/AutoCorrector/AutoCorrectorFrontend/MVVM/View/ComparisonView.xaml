@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="AutoCorrectorFrontend.MVVM.View.ComparisonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoCorrectorFrontend.MVVM.View" xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Viewer -->
+        <Grid Grid.Column="0">
+            <ItemsControl Name="leftLineNumbers" VerticalAlignment="Top" Margin="5,0,0,0" ItemsSource="{Binding LeftLineNumbers}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Margin="0,0,5,0" FontSize="{Binding DataContext.LeftViewerFontSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="30,0,0,0">
+                <TextBox Name="leftTextView" IsReadOnly="True" FontFamily="Consolas" MouseWheel="leftTextView_MouseWheel" FontSize="{Binding LeftViewerFontSize}">
+                </TextBox>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Right Viewer -->
+        <Grid Grid.Column="1">
+            <ItemsControl Name="rightLineNumbers" VerticalAlignment="Top" Margin="5,0,0,0" ItemsSource="{Binding RightLineNumbers}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Margin="0,0,5,0" FontSize="{Binding DataContext.RightViewerFontSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="30,0,0,0">
+                <TextBox Name="rightTextView" IsReadOnly="True" FontFamily="Consolas" MouseWheel="rightTextView_MouseWheel" FontSize="{Binding RightViewerFontSize}">
+                </TextBox>
+            </ScrollViewer>
+
+        </Grid>
+    </Grid>
+</UserControl>

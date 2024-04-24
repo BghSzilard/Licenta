@@ -1,11 +1,14 @@
-﻿using AutoCorrectorFrontend.MVVM.Services;
+﻿using AutoCorrectorFrontend.Events;
+using AutoCorrectorFrontend.MVVM.Services;
+using Caliburn.Micro;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
-public partial class MainViewModel : ObservableObject
+public partial class MainViewModel : ObservableObject, IHandle<NavigationRequestEvent>
 {
+    private readonly IEventAggregator _eventAggregator;
     public NotificationService NotificationService { get; }
     [RelayCommand]
     public void NavigateHome()
@@ -29,10 +32,23 @@ public partial class MainViewModel : ObservableObject
     {
         CurrentView = new PlagiarismViewModel();
     }
+
+    public Task HandleAsync(NavigationRequestEvent message, CancellationToken cancellationToken)
+    {
+        if (message.ViewModelType == typeof(PlagiarismViewModel))
+        {
+            CurrentView = new ResultsViewModel();
+        }
+
+        return Task.CompletedTask;
+    }
+
     [ObservableProperty]
     private ObservableObject _currentView;
-    public MainViewModel()
+    public MainViewModel(IEventAggregator eventAggregator)
     {
+        _eventAggregator = eventAggregator;
+        _eventAggregator.SubscribeOnPublishedThread(this);
         NotificationService = new NotificationService();
         CurrentView = new HomeViewModel(NotificationService);
     }

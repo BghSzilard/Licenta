@@ -1,6 +1,9 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using AutoCorrectorFrontend.MVVM.ViewModel;
+using Caliburn.Micro;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoCorrectorFrontend
 {
@@ -11,6 +14,7 @@ namespace AutoCorrectorFrontend
     {
         public MainWindow()
         {
+            DataContext = new MainViewModel(((App)Application.Current).ServiceProvider.GetRequiredService<EventAggregator>());
             InitializeComponent();
         }
 
