@@ -21,6 +21,15 @@
         <Rectangle RadiusX="10" RadiusY="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Fill="#202020"></Rectangle>
         <TextBlock FontSize="30" Margin="40 10 0 0" Grid.Row="0" Text="Results" Foreground="White"></TextBlock>
         <DataGrid Margin="0 20 0 0" ItemsSource="{Binding Students}" CanUserAddRows="False" SelectionUnit="Cell" Grid.Row="1" Grid.ColumnSpan="2" x:Name="dataGrid" AutoGenerateColumns="False" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1" >
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Source File">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Open" Height="20" Click="Button_Click" Background="#007ACC" Foreground="White" BorderBrush="#007ACC" BorderThickness="1" Padding="10,5" Margin="10" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="SelectedCellsChanged">
                     <b:InvokeCommandAction Command="{Binding SelectedCellsChangedCommand}" CommandParameter="{Binding ElementName=dataGrid, Path=CurrentCell}">
@@ -50,7 +59,6 @@
                     <Setter Property="FontSize" Value="16"/>
                     <Setter Property="Padding" Value="10,0"/>
                     <Setter Property="FontFamily" Value="Segoe UI"/>
-                    <EventSetter Event="MouseDoubleClick" Handler="DataGridCell_MouseDoubleClick"/>
                 </Style>
             </DataGrid.Resources>
         </DataGrid>

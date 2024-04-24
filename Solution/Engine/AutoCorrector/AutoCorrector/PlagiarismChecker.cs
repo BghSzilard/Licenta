@@ -1,45 +1,112 @@
-﻿using AutoCorrector;
+﻿using System.Collections.ObjectModel;
+using AutoCorrector;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 
 namespace AutoCorrectorEngine;
 
-public class PlagiarismChecker
+public partial class PlagiarismChecker
 {
+    public class Match
+    {
+        public string file1 { get; set; }
+        public string file2 { get; set; }
+        public int start1 { get; set; }
+        public int end1 { get; set; }
+        public int start2 { get; set; }
+        public int end2 { get; set; }
+        public int tokens { get; set; }
+    }
+
+    public class Root
+    {
+        public string id1 { get; set; }
+        public string id2 { get; set; }
+        public Dictionary<string, double> similarities { get; set; }
+        public List<Match> matches { get; set; }
+        public double first_similarity { get; set; }
+        public double second_similarity { get; set; }
+    }
+
+    public partial class ObservableMatch : ObservableObject
+    {
+        [ObservableProperty] private string file1;
+        [ObservableProperty] private string file2;
+        [ObservableProperty] private int start1;
+        [ObservableProperty] private int end1;
+        [ObservableProperty] private int start2;
+        [ObservableProperty] private int end2;
+        [ObservableProperty] private int tokens;
+    }
+    public partial class PlagiarismPair : ObservableObject
+    {
+        [ObservableProperty] private string _id1;
+        [ObservableProperty] private string _id2;
+        public ObservableCollection<ObservableMatch> matches { get; set; }
+        [ObservableProperty] private int first_similarity;
+        [ObservableProperty] private int second_similarity;
+
+        [ObservableProperty] private int average_similarity;
+        [ObservableProperty] private int max_similarity;
+    }
     public async Task<List<PlagiarismPair>> CheckPlagiarism(List<StudentInfo> students)
     {
         ProcessExecutor processExecutor = new ProcessExecutor();
 
-        await processExecutor.ExecuteProcess("powershell", $"java -jar C:\\Users\\z004w26z\\Desktop\\jplag.jar --csv-export -l cpp --result-file={Settings.PlagiarismResFolder}", $"{Settings.UnzippedFolderPath}");
+        await processExecutor.ExecuteProcess("powershell", $"java -jar C:\\Users\\z004w26z\\Desktop\\jplag.jar -l cpp --result-file={Settings.PlagiarismResFolder}", $"{Settings.UnzippedFolderPath}");
 
-        string fileName = "results.csv";
-        string filePath = Path.Combine(Settings.PlagiarismResFolder, fileName);
 
         List<PlagiarismPair> plagiarismPairs = new List<PlagiarismPair>();
 
-        if (File.Exists(filePath))
+
+        if (File.Exists(Settings.PlagiarismResFolder))
         {
-            using (StreamReader reader = new StreamReader(filePath))
+            FileProcessor fileProcessor = new FileProcessor();
+
+            string extractedPath = Settings.PlagiarismResFolder;
+            extractedPath = extractedPath.Replace(".zip", "");
+
+            await fileProcessor.ExtractZip(Settings.PlagiarismResFolder, extractedPath);
+
+            var excludedFiles = new[] { "options.json", "overview.json", "submissionFileIndex.json" };
+
+            var jsonFiles = Directory.EnumerateFiles(extractedPath, "*.json")
+                                     .Where(file => !excludedFiles.Contains(Path.GetFileName(file)));
+
+            foreach (var jsonFile in jsonFiles)
             {
-                string headerLine = reader.ReadLine();
-                // Read the header line if needed
-                // string headerLine = reader.ReadLine();
-
-                // Read the rest of the lines
-                while (!reader.EndOfStream)
+                using (StreamReader file = File.OpenText(jsonFile))
                 {
-                    string line = reader.ReadLine();
-                    // Split the line by comma to get values
-                    string[] values = line.Split(',');
+                    Root deserializedJson = JsonConvert.DeserializeObject<Root>(file.ReadToEnd());
 
-                    var firstStud = students.First(x => values[0].Contains(x.Name));
-                    var secondStud = students.First(x => values[1].Contains(x.Name));
-                    float value = float.Parse(values[2]);
-                    value = value * 100;
-                    int newVal = (int)Math.Round(value);
-                    string score = newVal.ToString() + "%";
-                    plagiarismPairs.Add(new PlagiarismPair { FirstStudent = firstStud.Name, SecondStudent = secondStud.Name, PlagiarismScore = score });
-                    
+                    deserializedJson.id1 = students.First(x => deserializedJson.id1.Contains(x.Name)).Name;
+                    deserializedJson.id2 = students.First(x => deserializedJson.id2.Contains(x.Name)).Name;
+
+                    PlagiarismPair pair = new PlagiarismPair();
+                    pair.matches = new ObservableCollection<ObservableMatch>();
+                    pair.Id1 = students.First(x => deserializedJson.id1.Contains(x.Name)).Name;
+                    pair.Id2 = students.First(x => deserializedJson.id2.Contains(x.Name)).Name;
+                    pair.First_similarity = (int)Math.Round(deserializedJson.first_similarity * 100);
+                    pair.Second_similarity = (int)Math.Round(deserializedJson.second_similarity * 100);
+                    pair.Max_similarity = Math.Max(pair.First_similarity, pair.Second_similarity);
+                    pair.Average_similarity = (pair.First_similarity + pair.Second_similarity) / 2;
+
+                    foreach (var match in deserializedJson.matches)
+                    {
+                        ObservableMatch observableMatch = new ObservableMatch();
+                        observableMatch.Start1 = match.start1;
+                        observableMatch.Start2 = match.start2;
+                        observableMatch.End1 = match.end1;
+                        observableMatch.End2 = match.end2;
+                        observableMatch.File1 = match.file1;
+                        observableMatch.File2 = match.file2;
+                        pair.matches.Add(observableMatch);
+                    }
+                    plagiarismPairs.Add(pair);
                 }
             }
+
+
         }
 
         return plagiarismPairs;

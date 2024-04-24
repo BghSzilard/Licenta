@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using AutoCorrectorEngine;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
-public partial class PlagiarismViewModel: ObservableObject
+public partial class PlagiarismViewModel : ObservableObject
 {
-    public ObservableCollection<PlagiarismPair> PlagiarismPairs { get; set; } = new ObservableCollection<PlagiarismPair>();
+    public ObservableCollection<PlagiarismChecker.PlagiarismPair> PlagiarismPairs { get; set; } = new ObservableCollection<PlagiarismChecker.PlagiarismPair>();
 
     [ObservableProperty]
-    private int _plagiarismThreshold;
+    private int _averagePlahiarismThreshold;
+
+    [ObservableProperty]
+    private int _maxPlagiarismThreshold;
     public PlagiarismViewModel()
     {
-        PlagiarismThreshold = 50;
-        FilterPlagiarismPairs(PlagiarismThreshold);
+        AveragePlahiarismThreshold = 50;
+        MaxPlagiarismThreshold = 50;
+        FilterPlagiarismPairs(AveragePlahiarismThreshold);
     }
 
     private void FilterPlagiarismPairs(int value)
@@ -24,19 +26,14 @@ public partial class PlagiarismViewModel: ObservableObject
 
         foreach (var pair in Settings.PlagiarismPairs)
         {
-            string plagiarismScore = pair.PlagiarismScore;
-            plagiarismScore = plagiarismScore.Replace(" ", "");
-            plagiarismScore = plagiarismScore.Replace("%", "");
-            int plagScore = int.Parse(plagiarismScore);
-
-            if (plagScore >= value)
+            if (pair.First_similarity >= value)
             {
                 PlagiarismPairs.Add(pair);
             }
         }
     }
 
-    partial void OnPlagiarismThresholdChanging(int value)
+    partial void OnAveragePlahiarismThresholdChanging(int value)
     {
         FilterPlagiarismPairs(value);
     }
