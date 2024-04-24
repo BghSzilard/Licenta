@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left Viewer -->
-        <Grid Grid.Column="0">
+        <Grid Grid.Column="0" DataContext="{Binding}">
             <ItemsControl Name="leftLineNumbers" VerticalAlignment="Top" Margin="5,0,0,0" ItemsSource="{Binding LeftLineNumbers}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -22,19 +22,22 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" Margin="0,0,5,0" FontSize="{Binding DataContext.LeftViewerFontSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock Text="{Binding}" Margin="0,0,5,0" FontSize="{Binding Path=LeftViewerFontSize, RelativeSource={RelativeSource AncestorType=Grid}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="30,0,0,0">
                 <TextBox Name="leftTextView" IsReadOnly="True" FontFamily="Consolas" MouseWheel="leftTextView_MouseWheel" FontSize="{Binding LeftViewerFontSize}">
+                    <TextBox.Text>
+                        <Binding Path="LeftTextViewText"/>
+                    </TextBox.Text>
                 </TextBox>
             </ScrollViewer>
         </Grid>
 
         <!-- Right Viewer -->
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" DataContext="{Binding}">
             <ItemsControl Name="rightLineNumbers" VerticalAlignment="Top" Margin="5,0,0,0" ItemsSource="{Binding RightLineNumbers}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -43,16 +46,18 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" Margin="0,0,5,0" FontSize="{Binding DataContext.RightViewerFontSize, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock Text="{Binding}" Margin="0,0,5,0" FontSize="{Binding Path=RightViewerFontSize, RelativeSource={RelativeSource AncestorType=Grid}}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
             <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="30,0,0,0">
                 <TextBox Name="rightTextView" IsReadOnly="True" FontFamily="Consolas" MouseWheel="rightTextView_MouseWheel" FontSize="{Binding RightViewerFontSize}">
+                    <TextBox.Text>
+                        <Binding Path="RightTextViewText"/>
+                    </TextBox.Text>
                 </TextBox>
             </ScrollViewer>
-
         </Grid>
     </Grid>
 </UserControl>

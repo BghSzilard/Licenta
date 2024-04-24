@@ -3,18 +3,19 @@ using System.Windows.Input;
 using AutoCorrectorEngine;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using static AutoCorrectorEngine.PlagiarismChecker;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
 public partial class ComparisonViewModel : ObservableObject
 {
-    public ComparisonViewModel(string leftText, string rightText)
+    public ComparisonViewModel(PlagiarismPair plagiarismPair)
     {
-        LeftTextViewText = leftText;
-        RightTextViewText = rightText;
+        LeftTextViewText = plagiarismPair.SourceFile1;
+        RightTextViewText = plagiarismPair.SourceFile2;
 
-        LeftLineNumbers = GenerateLineNumbers(leftText).ToObservableCollection();
-        RightLineNumbers = GenerateLineNumbers(rightText).ToObservableCollection();
+        LeftLineNumbers = GenerateLineNumbers(LeftTextViewText).ToObservableCollection();
+        RightLineNumbers = GenerateLineNumbers(RightTextViewText).ToObservableCollection();
     }
 
     [ObservableProperty]

@@ -37,7 +37,7 @@ public partial class MainViewModel : ObservableObject, IHandle<NavigationRequest
     {
         if (message.ViewModelType == typeof(PlagiarismViewModel))
         {
-            CurrentView = new ResultsViewModel();
+            CurrentView = new ComparisonViewModel(message.PlagiarismPair);
         }
 
         return Task.CompletedTask;

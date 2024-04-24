@@ -1,11 +1,15 @@
-﻿namespace AutoCorrectorFrontend.Events;
+﻿using static AutoCorrectorEngine.PlagiarismChecker;
+
+namespace AutoCorrectorFrontend.Events;
 
 public class NavigationRequestEvent
 {
     public Type ViewModelType { get; }
 
-    public NavigationRequestEvent(Type viewModelType)
+    public PlagiarismPair PlagiarismPair { get; set; }
+    public NavigationRequestEvent(Type viewModelType, PlagiarismPair plagiarismPair)
     {
         ViewModelType = viewModelType;
+        PlagiarismPair = plagiarismPair;
     }
 }

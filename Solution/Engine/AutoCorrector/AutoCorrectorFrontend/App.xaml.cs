@@ -1,14 +1,9 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 using Caliburn.Micro;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoCorrectorFrontend
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public ServiceProvider ServiceProvider { get; set; }

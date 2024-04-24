@@ -2,6 +2,7 @@
 using AutoCorrector;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using SharpCompress.Common;
 
 namespace AutoCorrectorEngine;
 
@@ -48,6 +49,9 @@ public partial class PlagiarismChecker
 
         [ObservableProperty] private int average_similarity;
         [ObservableProperty] private int max_similarity;
+
+        [ObservableProperty] private string _sourceFile1;
+        [ObservableProperty] private string _sourceFile2;
     }
     public async Task<List<PlagiarismPair>> CheckPlagiarism(List<StudentInfo> students)
     {
@@ -91,6 +95,25 @@ public partial class PlagiarismChecker
                     pair.Max_similarity = Math.Max(pair.First_similarity, pair.Second_similarity);
                     pair.Average_similarity = (pair.First_similarity + pair.Second_similarity) / 2;
 
+                    string sourceFile1 = students.First(x => deserializedJson.id1.Contains(x.Name)).SourceFile!;
+                    string sourceFile2 = students.First(x => deserializedJson.id2.Contains(x.Name)).SourceFile!;
+
+                    using (StreamReader sr = new StreamReader(sourceFile1))
+                    {
+                        // Read the entire file
+                        string fileContent = sr.ReadToEnd();
+
+                        pair.SourceFile1 = fileContent;
+                    }
+
+                    using (StreamReader sr = new StreamReader(sourceFile2))
+                    {
+                        // Read the entire file
+                        string fileContent = sr.ReadToEnd();
+
+                        pair.SourceFile2 = fileContent;
+                    }
+
                     foreach (var match in deserializedJson.matches)
                     {
                         ObservableMatch observableMatch = new ObservableMatch();
@@ -105,10 +128,7 @@ public partial class PlagiarismChecker
                     plagiarismPairs.Add(pair);
                 }
             }
-
-
         }
-
         return plagiarismPairs;
     }
 }

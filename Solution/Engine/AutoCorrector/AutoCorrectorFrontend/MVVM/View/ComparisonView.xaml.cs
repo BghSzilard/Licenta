@@ -29,18 +29,18 @@ namespace AutoCorrectorFrontend.MVVM.View
         private void leftTextView_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             var viewModel = DataContext as ComparisonViewModel;
-            if (viewModel != null && viewModel.ChangeLeftFontSizeCommand.CanExecute(e.Delta))
+            if (viewModel != null && viewModel.ChangeLeftFontSizeCommand.CanExecute(e))
             {
-                viewModel.ChangeLeftFontSizeCommand.Execute(e.Delta);
+                viewModel.ChangeLeftFontSizeCommand.Execute(e);
             }
         }
 
         private void rightTextView_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             var viewModel = DataContext as ComparisonViewModel;
-            if (viewModel != null && viewModel.ChangeRightFontSizeCommand.CanExecute(e.Delta))
+            if (viewModel != null && viewModel.ChangeRightFontSizeCommand.CanExecute(e))
             {
-                viewModel.ChangeRightFontSizeCommand.Execute(e.Delta);
+                viewModel.ChangeRightFontSizeCommand.Execute(e);
             }
         }
     }
