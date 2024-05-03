@@ -21,7 +21,6 @@ namespace AutoCorrectorFrontend.MVVM.View
             if (DataContext is ComparisonViewModel comparisonViewModel)
             {
                 leftCode.Text = comparisonViewModel.LeftTextViewText;
-                leftCode.TextArea.TextView.LineTransformers.Add(new LineColorizer(0, 5, new SolidColorBrush(Colors.Yellow)));
                 rightCode.Text = comparisonViewModel.RightTextViewText;
             }
         }

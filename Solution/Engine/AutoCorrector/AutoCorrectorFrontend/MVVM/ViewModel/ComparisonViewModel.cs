@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Xml;
 using AutoCorrectorEngine;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -12,6 +14,16 @@ namespace AutoCorrectorFrontend.MVVM.ViewModel;
 
 public partial class ComparisonViewModel : ObservableObject
 {
+    public class LineHighlight: ObservableObject
+    {
+        public int StartLine { get; set; }
+        public int EndLine { get; set; }
+        public Color HighlightColor { get; set; }
+    }
+
+    public ObservableCollection<LineHighlight> LineHighlights1 { get; set; } = new ObservableCollection<LineHighlight> ();
+    public ObservableCollection<LineHighlight> LineHighlights2 { get; set; } = new ObservableCollection<LineHighlight> ();
+
     [ObservableProperty]
     private IHighlightingDefinition _highlightingDefinition;
     public ComparisonViewModel(PlagiarismPair plagiarismPair)
@@ -25,6 +37,17 @@ public partial class ComparisonViewModel : ObservableObject
         using (var reader = new StreamReader(Settings.SyntaxPath))
         {
             HighlightingDefinition = HighlightingLoader.Load(new XmlTextReader(reader), HighlightingManager.Instance);
+        }
+
+        var colors = GenerateRandomColors(plagiarismPair.matches.Count);
+
+        int temp = 0;
+
+        foreach (var match in plagiarismPair.matches)
+        {
+            LineHighlights1.Add(new LineHighlight() { StartLine = match.Start1, EndLine = match.End1, HighlightColor = colors[temp] });
+            LineHighlights2.Add(new LineHighlight() { StartLine = match.Start2, EndLine = match.End2, HighlightColor = colors[temp] });
+            temp++;
         }
     }
 
@@ -76,5 +99,24 @@ public partial class ComparisonViewModel : ObservableObject
                 RightViewerFontSize *= 0.9;
             }
         }
+    }
+
+    public List<Color> GenerateRandomColors(int n)
+    {
+        var random = new Random();
+        var colors = new List<Color>
+    {
+        Colors.LightGreen, 
+        Colors.Yellow, 
+        Colors.Orange 
+    };
+
+        for (int i = 3; i < n; i++)
+        {
+            var color = Color.FromRgb((byte)random.Next(256), (byte)random.Next(256), (byte)random.Next(256));
+            colors.Add(color);
+        }
+
+        return colors;
     }
 }
