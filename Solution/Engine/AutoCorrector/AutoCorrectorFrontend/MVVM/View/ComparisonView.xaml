@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AutoCorrectorFrontend.MVVM.View" xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:AutoCorrectorFrontend.MVVM.View" xmlns:b="http://schemas.microsoft.com/xaml/behaviors" xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -14,50 +14,28 @@
 
         <!-- Left Viewer -->
         <Grid Grid.Column="0" DataContext="{Binding}">
-            <ItemsControl Name="leftLineNumbers" VerticalAlignment="Top" Margin="5,0,0,0" ItemsSource="{Binding LeftLineNumbers}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" Margin="0,0,5,0" FontSize="{Binding Path=LeftViewerFontSize, RelativeSource={RelativeSource AncestorType=Grid}}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding FirstName}" FontSize="20" Foreground="White" Margin="10" ></TextBlock>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="30,0,0,0">
-                <TextBox Name="leftTextView" IsReadOnly="True" FontFamily="Consolas" MouseWheel="leftTextView_MouseWheel" FontSize="{Binding LeftViewerFontSize}">
-                    <TextBox.Text>
-                        <Binding Path="LeftTextViewText"/>
-                    </TextBox.Text>
-                </TextBox>
-            </ScrollViewer>
+            <avalonEdit:TextEditor ShowLineNumbers="True" Grid.Row="1" IsReadOnly="True" PreviewMouseWheel="leftTextView_MouseWheel" FontSize="{Binding LeftViewerFontSize}" x:Name="leftCode" SyntaxHighlighting="{Binding HighlightingDefinition}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            </avalonEdit:TextEditor>
+            
         </Grid>
 
         <!-- Right Viewer -->
         <Grid Grid.Column="1" DataContext="{Binding}">
-            <ItemsControl Name="rightLineNumbers" VerticalAlignment="Top" Margin="5,0,0,0" ItemsSource="{Binding RightLineNumbers}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" Margin="0,0,5,0" FontSize="{Binding Path=RightViewerFontSize, RelativeSource={RelativeSource AncestorType=Grid}}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{Binding SecondName}" FontSize="20" Margin="10" Foreground="White"></TextBlock>
 
-            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="30,0,0,0">
-                <TextBox Name="rightTextView" IsReadOnly="True" FontFamily="Consolas" MouseWheel="rightTextView_MouseWheel" FontSize="{Binding RightViewerFontSize}">
-                    <TextBox.Text>
-                        <Binding Path="RightTextViewText"/>
-                    </TextBox.Text>
-                </TextBox>
-            </ScrollViewer>
+            <avalonEdit:TextEditor ShowLineNumbers="True" Grid.Row="1" Grid.Column="1" IsReadOnly="True" x:Name="rightCode" FontFamily="Consolas" PreviewMouseWheel="rightTextView_MouseWheel" SyntaxHighlighting="{Binding HighlightingDefinition}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" FontSize="{Binding RightViewerFontSize}">
+            </avalonEdit:TextEditor>
+
         </Grid>
     </Grid>
 </UserControl>

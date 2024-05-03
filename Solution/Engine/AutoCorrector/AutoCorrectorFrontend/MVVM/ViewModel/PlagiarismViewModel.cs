@@ -15,26 +15,43 @@ public partial class PlagiarismViewModel : ObservableObject
     private int _maxPlagiarismThreshold;
     public PlagiarismViewModel()
     {
-        AveragePlahiarismThreshold = 50;
-        MaxPlagiarismThreshold = 50;
-        FilterPlagiarismPairs(AveragePlahiarismThreshold);
+        AveragePlahiarismThreshold = 30;
+        MaxPlagiarismThreshold = 30;
+        FilterPlagiarismPairs(AveragePlahiarismThreshold, true);
+        FilterPlagiarismPairs(MaxPlagiarismThreshold, false);
     }
 
-    private void FilterPlagiarismPairs(int value)
+    private void FilterPlagiarismPairs(int value, bool avg)
     {
         PlagiarismPairs.Clear();
 
         foreach (var pair in Settings.PlagiarismPairs)
         {
-            if (pair.First_similarity >= value)
+            if (avg)
             {
-                PlagiarismPairs.Add(pair);
+                if (pair.Average_similarity >= value)
+                {
+                    PlagiarismPairs.Add(pair);
+                }
             }
+            else
+            {
+                if (pair.Max_similarity >= value)
+                {
+                    PlagiarismPairs.Add(pair);
+                }
+            }
+           
         }
     }
 
     partial void OnAveragePlahiarismThresholdChanging(int value)
     {
-        FilterPlagiarismPairs(value);
+        FilterPlagiarismPairs(value, true);
+    }
+
+    partial void OnMaxPlagiarismThresholdChanging(int value)
+    {
+        FilterPlagiarismPairs(value, false);
     }
 }

@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using AutoCorrectorFrontend.MVVM.Model;
 using AutoCorrectorFrontend.MVVM.ViewModel;
 
 namespace AutoCorrectorFrontend.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for ComparisonView.xaml
-    /// </summary>
-    public partial class ComparisonView : UserControl
+    public partial class ComparisonView: UserControl
     {
         public ComparisonView()
         {
             InitializeComponent();
+
+            DataContextChanged += ComparisonView_DataContextChanged;
         }
 
+        private void ComparisonView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (DataContext is ComparisonViewModel comparisonViewModel)
+            {
+                leftCode.Text = comparisonViewModel.LeftTextViewText;
+                leftCode.TextArea.TextView.LineTransformers.Add(new LineColorizer(0, 5, new SolidColorBrush(Colors.Yellow)));
+                rightCode.Text = comparisonViewModel.RightTextViewText;
+            }
+        }
         private void leftTextView_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             var viewModel = DataContext as ComparisonViewModel;

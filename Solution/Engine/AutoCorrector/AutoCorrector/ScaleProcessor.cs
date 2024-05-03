@@ -48,7 +48,7 @@ public class ScaleProcessor
                 //processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
                 var processedSubrequirement = subrequirement;
                 //processedSubrequirement.Title = await translate.TranslateToEnglish(subrequirement.Title);
-                processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
+                //processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
                 processedRequirement.SubRequirements.Add(processedSubrequirement);
             }
             processedScale.Add(processedRequirement);

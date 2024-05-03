@@ -23,6 +23,7 @@ public class Settings
     public static List<StudentInfo> Students { get; set; }
     public static string PlagiarismResFolder {  get; set; }
     public static List<PlagiarismChecker.PlagiarismPair> PlagiarismPairs { get; set; }
+    public static string SyntaxPath;
     static Settings()
     {
         SolutionPath = Directory.GetCurrentDirectory();
@@ -43,5 +44,8 @@ public class Settings
         PlagiarismResFolder = "C:\\Users\\z004w26z\\Desktop\\res.zip";
         Students = new List<StudentInfo>();
         PlagiarismPairs = new List<PlagiarismChecker.PlagiarismPair>();
+        SyntaxPath = Path.Combine(SolutionPath, "Syntax");
+        SyntaxPath = Path.Combine(SyntaxPath, "cpp.xshd");
+
     }
 }

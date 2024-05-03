@@ -76,17 +76,32 @@
                 </ControlTemplate>
             </TextBox.Template>
         </TextBox>
-        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" Margin="0 0 0 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="3" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
+        <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" AutoGenerateColumns="False" Margin="0 0 0 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="3" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Source Files">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Open" Height="20" Click="Button_Click" Background="#007ACC" Foreground="White" BorderBrush="#007ACC" BorderThickness="1" Padding="10,5" Margin="10" />
+                            <Button Content="Open" Click="Button_Click" Background="#007ACC" Foreground="White" BorderBrush="#007ACC" BorderThickness="1" Padding="10,5" Margin="10" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="First Student" Binding="{Binding Id1}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Second Student" Binding="{Binding Id2}"></DataGridTextColumn>
+                
+                <DataGridTemplateColumn Header="First Student">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Id1}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Second Student">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Id2}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTextColumn Header="First Similarity" Binding="{Binding First_similarity}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Second Similarity" Binding="{Binding Second_similarity}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Average Similarity" Binding="{Binding Average_similarity}"></DataGridTextColumn>
@@ -111,6 +126,8 @@
                     <Setter Property="FontSize" Value="16"/>
                     <Setter Property="Padding" Value="10,0"/>
                     <Setter Property="FontFamily" Value="Segoe UI"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
                 </Style>
             </DataGrid.Resources>
         </DataGrid>

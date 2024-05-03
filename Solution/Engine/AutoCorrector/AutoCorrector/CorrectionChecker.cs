@@ -1,23 +1,18 @@
-﻿using System.Diagnostics;
-using AutoCorrector;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace AutoCorrectorEngine;
+﻿namespace AutoCorrectorEngine;
 
 public class CorrectionChecker
 {
     public async Task<string> CheckCorrectness(string function, string requirement, string functionName)
     {
-        if (requirement.Contains("correctness"))
-        {
-            return await MakeUnitTests(requirement, function, functionName);
-        }
-        else
-        {
-            LLMManager lLMManager = new LLMManager();
-            var result = await lLMManager.DetermineCorrectness(requirement, function);
-            return result;
-        }
+        //if (requirement.Contains("correctness"))
+        //{
+        //    return await MakeUnitTests(requirement, function, functionName);
+        //}
+
+        LLMManager lLMManager = new LLMManager();
+        var result = await lLMManager.DetermineCorrectness(requirement, function);
+        return result;
+
     }
     public async Task<string> MakeUnitTests(string processedReq, string function, string functionName)
     {
