@@ -13,11 +13,11 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition Height="350"></RowDefinition>
+            <RowDefinition Height="130"></RowDefinition>
+            <RowDefinition Height="380"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock FontSize="46" Foreground="White" Text="Automatically Grade C++ Projects" HorizontalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
+        <TextBlock Margin="0 20 0 0" FontSize="46" Foreground="White" Text="Automatically Grade C++ Projects" HorizontalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
 
         <Grid Grid.Column="0" Grid.Row="1" Margin="30 10 30 5">
             <Border BorderThickness="1,0,1,1" Background="Transparent" Margin="10" AllowDrop="True" Drop="ScaleDrop">
@@ -45,7 +45,7 @@
                 <StackPanel>
                     <TextBlock Foreground="White" Text="Upload Projects" FontSize="30" HorizontalAlignment="Center"></TextBlock>
                     <Image Height="150" Width="150" Source="/Images/Zip.png"></Image>
-                    <TextBlock Foreground="White" Text="Drag &amp; Drop (.xml file)" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Foreground="White" Text="Drag &amp; Drop (.zip file)" FontSize="18" HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Foreground="White" Text="OR" FontSize="16" HorizontalAlignment="Center"></TextBlock>
                     <Button Content="Browse Scale" Style="{StaticResource ModernButtonStyle}" Command="{Binding OpenProjectsCommand}"></Button>
 

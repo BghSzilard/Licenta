@@ -9,13 +9,8 @@
         
         Background="Transparent"
        
-        Height="600"
-        Width="900">
-
-
-    <!--<Window.DataContext>
-        <viewModel:MainViewModel></viewModel:MainViewModel>
-    </Window.DataContext>-->
+        Height="1000"
+        Width="1000">
 
     <Grid>
     

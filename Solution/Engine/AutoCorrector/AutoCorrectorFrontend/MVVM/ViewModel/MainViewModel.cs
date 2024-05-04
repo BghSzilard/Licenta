@@ -18,7 +18,7 @@ public partial class MainViewModel : ObservableObject, IHandle<NavigationRequest
     [RelayCommand]
     public void NavigateDiscovery()
     {
-        CurrentView = new ResultsViewModel();
+        CurrentView = new ResultsViewModel(NotificationService);
     }
 
     [RelayCommand]

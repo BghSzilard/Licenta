@@ -40,8 +40,6 @@ public class StudentManager
         var processedscale = await scaleprocessor.ProcessScale(_scale);
 
         await GradeStudents(processedscale);
-        _notificationService.NotificationText = "Saving Results...";
-        await SaveResults();
     }
 
     private async Task CheckCompilations()
@@ -112,12 +110,6 @@ public class StudentManager
     {
         await _fileProcessor.ExtractZip(Settings.ZipPath, Settings.UnzippedFolderPath);
     }
-    private async Task SaveResults()
-    {
-        FileInfo fileInfo = new FileInfo(Settings.ResultsPath);
-        await _excelManager.SaveExcelFile(_students, fileInfo);
-    }
-
     public async Task GradeStudents(List<Requirement> processedScalde)
     {
         _notificationService.NotificationText = "Grading Students...";

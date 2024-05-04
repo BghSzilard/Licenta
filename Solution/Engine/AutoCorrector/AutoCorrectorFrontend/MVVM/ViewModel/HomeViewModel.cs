@@ -58,6 +58,6 @@ public partial class HomeViewModel : ObservableObject
     {
         StudentManager studentManager = new StudentManager(_notificationService, UploadedZip, UploadedScale);
         await studentManager.Solve();
-        _notificationService.NotificationText = "Results Saved!";
+        _notificationService.NotificationText = "Students Graded!";
     }
 }

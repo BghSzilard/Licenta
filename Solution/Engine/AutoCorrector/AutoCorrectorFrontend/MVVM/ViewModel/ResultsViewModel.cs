@@ -1,23 +1,29 @@
-﻿using System.Windows.Controls;
+﻿using System.IO;
+using System.Windows.Controls;
 using AutoCorrector;
 using AutoCorrectorEngine;
+using AutoCorrectorFrontend.MVVM.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 public partial class ResultsViewModel : ObservableObject
 {
-    public ResultsViewModel()
+    private NotificationService _notificationService;
+    public ResultsViewModel(NotificationService notificationService)
     {
         foreach (var stud in Settings.Students)
         {
             _students.Add(stud);
         }
+
+        _notificationService = notificationService;
     }
     
     [ObservableProperty]
     private string? _selectedReason;
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ResultsReady))]
     private List<StudentInfo> _students = new List<StudentInfo>();
     [RelayCommand]
     public void SelectedCellsChanged(DataGridCellInfo dataGridCellInfo)
@@ -75,7 +81,7 @@ public partial class ResultsViewModel : ObservableObject
 
             cellText = cellText.Replace("System.Windows.Controls.TextBox: ", "");
 
-            studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].SubRequirements[int.Parse(subReq.ToString()) - 1].Points = int.Parse(cellText);
+            studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].SubRequirements[int.Parse(subReq.ToString()) - 1].Points = float.Parse(cellText);
 
             studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].Points = 0;
 
@@ -109,5 +115,16 @@ public partial class ResultsViewModel : ObservableObject
         }
 
         throw new InvalidOperationException($"No {n}th numerical character found in the input string.");
+    }
+
+    public bool ResultsReady => Students.Count > 0;
+
+    [RelayCommand]
+    public async Task SaveResults()
+    {
+        FileInfo fileInfo = new FileInfo(Settings.ResultsPath);
+        ExcelManager excelManager = new ExcelManager();
+        await excelManager.SaveExcelFile(Students, fileInfo);
+        _notificationService.NotificationText = "Results Saved!";
     }
 }

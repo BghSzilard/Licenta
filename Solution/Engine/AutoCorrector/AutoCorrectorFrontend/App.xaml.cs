@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using AutoCorrector;
 using Caliburn.Micro;
 using Microsoft.Extensions.DependencyInjection;
 
