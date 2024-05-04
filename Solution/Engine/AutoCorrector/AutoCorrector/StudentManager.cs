@@ -4,14 +4,12 @@ using AutoCorrectorFrontend.MVVM.Services;
 namespace AutoCorrector;
 public class StudentManager
 {
-    private readonly ExcelManager _excelManager;
     private readonly FileProcessor _fileProcessor;
     private readonly List<StudentInfo> _students;
     private readonly NotificationService _notificationService;
     private string _scale { get; set; }
     public StudentManager(NotificationService notificationService, string uploadedZip, string scale) 
     {
-        _excelManager = new ExcelManager();
         _fileProcessor = new FileProcessor();
         _students = new List<StudentInfo>();
         _notificationService = notificationService;
@@ -52,7 +50,6 @@ public class StudentManager
            
             if (sourceFile != null)
             {
-                //student.CodeCompiles = _fileProcessor.Compiles(sourceFile);
                 if (await processExecutor.ExecuteProcess("powershell.exe", "clang++", sourceFile) == "")
                 {
                     student.CodeCompiles = true;
@@ -113,8 +110,11 @@ public class StudentManager
     public async Task GradeStudents(List<Requirement> processedScalde)
     {
         _notificationService.NotificationText = "Grading Students...";
+
         foreach (var student in _students)
         {
+            int task = 1;
+
             if (!student.CodeCompiles)
             {
                 foreach (var req in processedScalde)
@@ -133,6 +133,8 @@ public class StudentManager
             {
                 foreach (var requirement in processedScalde)
                 {
+                    int subtask = 1;
+
                     FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
                     var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
 
@@ -170,6 +172,7 @@ public class StudentManager
 
                     foreach (var subrequirement in requirement.SubRequirements)
                     {
+                        _notificationService.NotificationText = $"Grading {student.Name} Task {task}.{subtask}";
                         var result = await checker.CheckCorrectness(function, subrequirement.Title, functionName);
                         SubRequirement subStudReq = new SubRequirement();
 
@@ -186,10 +189,15 @@ public class StudentManager
                             subStudReq.Title = subStudReq.Title.Replace("Fail!", "");
                         }
                         studReq.SubRequirements.Add(subStudReq);
+
+                        subtask++;
                     }
 
                     student.Grade += studReq.Points;
+
+                    task++;
                 }
+
             }
             
         }
