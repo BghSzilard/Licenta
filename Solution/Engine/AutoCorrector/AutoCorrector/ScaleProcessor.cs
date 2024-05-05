@@ -82,6 +82,7 @@ public class ScaleProcessor
                 SubRequirements = taskElement.Descendants("subtask").Select(subtaskElement => new SubRequirement
                 {
                     Title = subtaskElement.Element("title")?.Value,
+                    Type = subtaskElement.Element("type")?.Value,
                     Points = float.Parse(subtaskElement.Element("points")?.Value ?? "0")
                 }).ToObservableCollection()
             }).ToList();

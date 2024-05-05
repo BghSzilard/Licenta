@@ -173,25 +173,32 @@ public class StudentManager
 
                         student.Requirements.Add(studReq);
 
-
-
                         foreach (var subrequirement in requirement.SubRequirements)
                         {
                             _notificationService.NotificationText = $"Grading {student.Name} Task {task}.{subtask}";
-                            var result = await checker.CheckMethodCorrectness(function, subrequirement.Title, functionName);
+
+                            string result = "";
+
+                            if (subrequirement.Type != null && subrequirement.Type == "unitTest")
+                            {
+                                result = await checker.MakeUnitTests(subrequirement.Title, function);
+                            }
+                            else
+                            {
+                                result = await checker.CheckMethodCorrectness(function, subrequirement.Title);
+                            }
+
                             SubRequirement subStudReq = new SubRequirement();
 
-                            if (result.Contains("Yes:") || result.Contains("Success!"))
+                            if (result.Contains("Yes:") || result.Contains("All unit tests passed"))
                             {
                                 subStudReq.Title = result.Replace("Yes:", "");
-                                subStudReq.Title = subStudReq.Title.Replace("Success!:", "");
                                 subStudReq.Points = subrequirement.Points;
                                 studReq.Points += subStudReq.Points;
                             }
                             else
                             {
                                 subStudReq.Title = result.Replace("No:", "");
-                                subStudReq.Title = subStudReq.Title.Replace("Fail!", "");
                             }
                             studReq.SubRequirements.Add(subStudReq);
 
