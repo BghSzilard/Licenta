@@ -7,6 +7,50 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="350"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="0 20 0 0" FontSize="46" Foreground="White" Text="Create Scale" HorizontalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
+
+        <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="60 10 0 40" Width="800">
+            <Border BorderThickness="1,0,1,1" Background="Transparent" Margin="20 20 20 20" AllowDrop="True" Drop="DocDrop">
+                <StackPanel Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Margin="0 0 80 0" Height="150" Width="150" Source="/Images/pdf.png"></Image>
+                        <Image Margin="80 0 0 0" Height="150" Width="150" Source="/Images/word.png"></Image>
+                        <Image Margin="160 0 0 0 " Height="150" Width="150" Source="/Images/notepad.png"></Image>
+                    </StackPanel>
+                    <TextBlock Foreground="White" Text="Drag &amp; Drop (.pdf .docx or .txt file)" FontSize="18" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Foreground="White" Text="OR" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+                    <Button Content="Browse Document" Style="{StaticResource ModernButtonStyle}" Command="{Binding OpenDocumentCommand}"></Button>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="Selected Document: "></TextBlock>
+                        <TextBlock HorizontalAlignment="Center" FontSize="20" Foreground="White" Text="{Binding UploadedDocument}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+
+            <Rectangle Stroke="White" StrokeThickness="1" StrokeDashArray="4 4"
+             SnapsToDevicePixels="True" RadiusX="5" RadiusY="5"/>
+        </Grid>
+
+       
+
+
+        <Grid ToolTipService.ShowOnDisabled="True" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" >
+            <Button Width="300" Height="80"
+FontSize="28" FontWeight="Bold" Content="Download Scale" IsEnabled="{Binding DependenciesUploaded}" Style="{StaticResource ModernButtonStyle}" Command="{Binding GradeProjectsCommand}"></Button>
+
+        </Grid>
+
+
     </Grid>
 </UserControl>
