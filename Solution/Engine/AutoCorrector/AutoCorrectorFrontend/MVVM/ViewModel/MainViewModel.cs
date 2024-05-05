@@ -33,6 +33,12 @@ public partial class MainViewModel : ObservableObject, IHandle<NavigationRequest
         CurrentView = new PlagiarismViewModel();
     }
 
+    [RelayCommand]
+    public void NavigateScaleCreator()
+    {
+        CurrentView = new ScaleCreatorViewModel();
+    }
+
     public Task HandleAsync(NavigationRequestEvent message, CancellationToken cancellationToken)
     {
         if (message.ViewModelType == typeof(PlagiarismViewModel))

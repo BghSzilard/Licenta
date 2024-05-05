@@ -15,6 +15,7 @@
     <None Remove="Images\logo.png" />
     <None Remove="Images\plag.png" />
     <None Remove="Images\results.png" />
+    <None Remove="Images\scale.png" />
     <None Remove="Images\settings.png" />
     <None Remove="Images\Upload.png" />
     <None Remove="Images\zip.png" />
@@ -42,6 +43,7 @@
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\plag.png" />
     <Resource Include="Images\results.png" />
+    <Resource Include="Images\scale.png" />
     <Resource Include="Images\settings.png" />
     <Resource Include="Images\Upload.png" />
     <Resource Include="Images\zip.png" />

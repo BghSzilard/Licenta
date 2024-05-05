@@ -31,6 +31,10 @@
                 <view:ComparisonView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:ScaleCreatorViewModel}">
+                <view:ScaleCreatorView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
