@@ -91,6 +91,9 @@ public class LLMManager
             case "autoCorrecter":
                 systemPrompt["content"] = "You are given a requirement regarding a C++ function and the C++ function that is trying to respect the requirement. Your job is to determine whether or not the function respects the whole requirement (you only consider that the function respects the requirement if it fully respects it, make your evaluation rigorous). If it respects it, you write \"Yes: \" and start writing the reason why it respects it, otherwise start your answer with \"No: \" and write the reason the function doesn't / doesn't fully respect the requirement. Your answer mustn't consist of more than 100 tokens";
                 break;
+            case "sourceFileCorrecter":
+                systemPrompt["content"] = "You are given a requirement regarding a C++ source file and the C++ source file. Your job is to determine whether or not the source file respects the whole requirement (you only consider that the source file respects the requirement if it fully respects it, make your evaluation rigorous). If it respects it, you write \"Yes: \" and start writing the reason why it respects it, otherwise start your answer with \"No: \" and write the reason the function doesn't / doesn't fully respect the requirement. Your answer mustn't consist of more than 100 tokens";
+                break;
         }
 
         ((JArray)body["messages"]).Add(systemPrompt);
@@ -107,6 +110,11 @@ public class LLMManager
     public async Task<string> DetermineCorrectness(string requirement, string function)
     {
         return await RunModel("autoCorrecter", $"\"{requirement}\" \n {function}");
+    }
+
+    public async Task<string> DetermineCorrectnessSourceFile(string requirement, string function)
+    {
+        return await RunModel("sourceFileCorrecter", $"\"{requirement}\" \n {function}");
     }
     public async Task<string> ProcessSubtask(string subtask)
     {

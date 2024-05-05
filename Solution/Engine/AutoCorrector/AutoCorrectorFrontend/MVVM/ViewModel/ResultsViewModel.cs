@@ -67,7 +67,7 @@ public partial class ResultsViewModel : ObservableObject
     {
         var column = dataGridCellInfo.Column;
 
-        if (column.Header.ToString().Contains("Task") && column.Header.ToString().Contains("."))
+        if (column.Header.ToString().Contains("Task") && column.Header.ToString().Contains('.'))
         {
             StudentInfo stud = dataGridCellInfo.Item as StudentInfo;
             var studToEdit = Students.FirstOrDefault(x => x.Name == stud.Name);
@@ -97,6 +97,8 @@ public partial class ResultsViewModel : ObservableObject
                 studToEdit.Grade += req.Points;
             }
         }
+
+
     }
 
     private char GetNthDigit(string input, int n)

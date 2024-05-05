@@ -9,6 +9,8 @@ public partial class Requirement: ObservableObject
     public ObservableCollection<SubRequirement> SubRequirements { get; set; }
     
     [ObservableProperty] private float _points;
+
+    [ObservableProperty] private string _type;
     public Requirement()
     {
         Title = string.Empty;

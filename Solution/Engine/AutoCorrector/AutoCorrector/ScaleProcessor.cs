@@ -40,6 +40,7 @@ public class ScaleProcessor
             //processedRequirement.Title = await GetFunctionSignature(requirement.Title);
             //processedRequirement.Title = await translate.TranslateToEnglish(requirement.Title);
             processedRequirement.Title = requirement.Title;
+            processedRequirement.Type = requirement.Type;
             foreach (var subrequirement in requirement.SubRequirements)
             {
                 //SubRequirement processedSubrequirement = new SubRequirement();
@@ -76,6 +77,7 @@ public class ScaleProcessor
             requirements = doc.Descendants("task").Select(taskElement => new Requirement
             {
                 Title = taskElement.Element("title")?.Value,
+                Type = taskElement.Element("type")?.Value,
                 Points = float.Parse(taskElement.Element("points")?.Value ?? "0"),
                 SubRequirements = taskElement.Descendants("subtask").Select(subtaskElement => new SubRequirement
                 {

@@ -21,7 +21,7 @@ public class StudentManager
         await UnzipFile();
         _notificationService.NotificationText = "Projects Unzipped!";
         var folders = Directory.GetDirectories(Settings.UnzippedFolderPath);
-
+        
         _notificationService.NotificationText = "Extracting Source Files...";
 
         foreach (var folder in folders)
@@ -110,6 +110,7 @@ public class StudentManager
     public async Task GradeStudents(List<Requirement> processedScalde)
     {
         _notificationService.NotificationText = "Grading Students...";
+        CorrectionChecker checker = new CorrectionChecker();
 
         foreach (var student in _students)
         {
@@ -120,6 +121,7 @@ public class StudentManager
                 foreach (var req in processedScalde)
                 {
                     Requirement requirement = new Requirement();
+                    requirement.Type = req.Type;
 
                     foreach (var subReq in req.SubRequirements)
                     {
@@ -133,69 +135,106 @@ public class StudentManager
             {
                 foreach (var requirement in processedScalde)
                 {
-                    int subtask = 1;
-
-                    FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
-                    var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
-
-                    string allSignatures = "";
-                    foreach (var signature in signatures)
-                    {
-                        allSignatures += signature;
-                        allSignatures += ";";
-                    }
-                    allSignatures = allSignatures.Remove(allSignatures.Length - 1);
-
-                    LLMManager lLMManager = new LLMManager();
-                    var functionName = await lLMManager.GetFunctionName($"{allSignatures} \n{requirement.Title}");
-
-                    if (functionName.Contains("None"))
-                    {
-                        return;
-                    }
-
-                    FunctionExtractorWrapper functionExtractor = new FunctionExtractorWrapper();
-
-                    FileProcessor fileProcessor = new FileProcessor();
-                    var includes = fileProcessor.FindIncludes(student.SourceFile!);
-                    var function = includes;
-                    var extractedFunction = functionExtractor.GetFunction(student.SourceFile, functionName);
-                    function += extractedFunction;
-
                     Requirement studReq = new Requirement();
-                    studReq.Title = functionName;
+                    studReq.Type = requirement.Type;
 
-                    student.Requirements.Add(studReq);
-
-                    CorrectionChecker checker = new CorrectionChecker();
-
-
-                    foreach (var subrequirement in requirement.SubRequirements)
+                    if (requirement.Type == "method")
                     {
-                        _notificationService.NotificationText = $"Grading {student.Name} Task {task}.{subtask}";
-                        var result = await checker.CheckCorrectness(function, subrequirement.Title, functionName);
-                        SubRequirement subStudReq = new SubRequirement();
+                        int subtask = 1;
 
-                        if (result.Contains("Yes:") || result.Contains("Success!"))
-                        {
-                            subStudReq.Title = result.Replace("Yes:", "");
-                            subStudReq.Title = subStudReq.Title.Replace("Success!:", "");
-                            subStudReq.Points = subrequirement.Points;
-                            studReq.Points += subStudReq.Points;
-                        }
-                        else
-                        {
-                            subStudReq.Title = result.Replace("No:", "");
-                            subStudReq.Title = subStudReq.Title.Replace("Fail!", "");
-                        }
-                        studReq.SubRequirements.Add(subStudReq);
+                        FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
+                        var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
 
-                        subtask++;
+                        string allSignatures = "";
+                        foreach (var signature in signatures)
+                        {
+                            allSignatures += signature;
+                            allSignatures += ";";
+                        }
+                        allSignatures = allSignatures.Remove(allSignatures.Length - 1);
+
+                        LLMManager lLMManager = new LLMManager();
+                        var functionName = await lLMManager.GetFunctionName($"{allSignatures} \n{requirement.Title}");
+
+                        if (functionName.Contains("None"))
+                        {
+                            return;
+                        }
+
+                        FunctionExtractorWrapper functionExtractor = new FunctionExtractorWrapper();
+
+                        FileProcessor fileProcessor = new FileProcessor();
+                        var includes = fileProcessor.FindIncludes(student.SourceFile!);
+                        var function = includes;
+                        var extractedFunction = functionExtractor.GetFunction(student.SourceFile, functionName);
+                        function += extractedFunction;
+
+                        studReq.Title = functionName;
+
+                        student.Requirements.Add(studReq);
+
+
+
+                        foreach (var subrequirement in requirement.SubRequirements)
+                        {
+                            _notificationService.NotificationText = $"Grading {student.Name} Task {task}.{subtask}";
+                            var result = await checker.CheckMethodCorrectness(function, subrequirement.Title, functionName);
+                            SubRequirement subStudReq = new SubRequirement();
+
+                            if (result.Contains("Yes:") || result.Contains("Success!"))
+                            {
+                                subStudReq.Title = result.Replace("Yes:", "");
+                                subStudReq.Title = subStudReq.Title.Replace("Success!:", "");
+                                subStudReq.Points = subrequirement.Points;
+                                studReq.Points += subStudReq.Points;
+                            }
+                            else
+                            {
+                                subStudReq.Title = result.Replace("No:", "");
+                                subStudReq.Title = subStudReq.Title.Replace("Fail!", "");
+                            }
+                            studReq.SubRequirements.Add(subStudReq);
+
+                            subtask++;
+                        }
+
+                        student.Grade += studReq.Points;
+
+                        task++;
                     }
+                    else
+                    {
+                        int subtask = 1;
+                        student.Requirements.Add(studReq);
 
-                    student.Grade += studReq.Points;
+                        foreach (var subrequirement in requirement.SubRequirements)
+                        {
+                            _notificationService.NotificationText = $"Grading {student.Name} Task {task}.{subtask}";
+                            var result = await checker.CheckSourceFileCorrectness(student.SourceFile, subrequirement.Title);
+                            SubRequirement subStudReq = new SubRequirement();
 
-                    task++;
+                            if (result.Contains("Yes:") || result.Contains("Success!"))
+                            {
+                                subStudReq.Title = result.Replace("Yes:", "");
+                                subStudReq.Title = subStudReq.Title.Replace("Success!:", "");
+                                subStudReq.Points = subrequirement.Points;
+                                studReq.Points += subStudReq.Points;
+                            }
+                            else
+                            {
+                                subStudReq.Title = result.Replace("No:", "");
+                                subStudReq.Title = subStudReq.Title.Replace("Fail!", "");
+                            }
+                            studReq.SubRequirements.Add(subStudReq);
+
+                            subtask++;
+                        }
+
+                        student.Grade += studReq.Points;
+
+                        task++;
+                    }
+                   
                 }
 
             }

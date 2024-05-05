@@ -1,19 +1,32 @@
-﻿namespace AutoCorrectorEngine;
+﻿using SharpCompress.Common;
+
+namespace AutoCorrectorEngine;
 
 public class CorrectionChecker
 {
-    public async Task<string> CheckCorrectness(string function, string requirement, string functionName)
+    public async Task<string> CheckMethodCorrectness(string function, string requirement, string functionName)
     {
-        //if (requirement.Contains("correctness"))
-        //{
-        //    return await MakeUnitTests(requirement, function, functionName);
-        //}
-
         LLMManager lLMManager = new LLMManager();
         var result = await lLMManager.DetermineCorrectness(requirement, function);
         return result;
 
     }
+
+    public async Task<string> CheckSourceFileCorrectness(string sourceFile, string requirement)
+    {
+        string fileContent;
+
+        using (StreamReader sr = new StreamReader(sourceFile))
+        {
+            fileContent = sr.ReadToEnd();
+        }
+
+        LLMManager lLMManager = new LLMManager();
+        var result = await lLMManager.DetermineCorrectnessSourceFile(requirement, fileContent);
+        return result;
+
+    }
+
     public async Task<string> MakeUnitTests(string processedReq, string function, string functionName)
     {
         processedReq = processedReq[12..];

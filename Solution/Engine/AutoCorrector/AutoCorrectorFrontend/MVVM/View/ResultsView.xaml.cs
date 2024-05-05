@@ -33,7 +33,12 @@ namespace AutoCorrectorFrontend.MVVM.View
 
             foreach (var requirement in Settings.StudentSample.Requirements)
             {
-                dataGrid.Columns.Add(new DataGridTextColumn { Header = $"Task {index} function", Binding = new Binding($"Requirements[{index - 1}].Title") });
+
+                if (requirement.Type == "method")
+                {
+                    dataGrid.Columns.Add(new DataGridTextColumn { Header = $"Task {index} function", Binding = new Binding($"Requirements[{index - 1}].Title") });
+                }
+
                 dataGrid.Columns.Add(new DataGridTextColumn { Header = $"Task {index} points", Binding = new Binding($"Requirements[{index - 1}].Points") });
 
                 int subIndex = 1;
@@ -44,6 +49,8 @@ namespace AutoCorrectorFrontend.MVVM.View
                     subIndex++;
 
                 }
+
+                
                 index++;
             }
         }
