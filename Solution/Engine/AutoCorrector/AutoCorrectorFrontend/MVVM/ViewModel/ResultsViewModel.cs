@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows.Controls;
+using System.Windows.Media;
 using AutoCorrector;
 using AutoCorrectorEngine;
 using AutoCorrectorFrontend.MVVM.Services;
@@ -77,7 +78,9 @@ public partial class ResultsViewModel : ObservableObject
 
             DataGridCell cell = dataGridCellInfo.Column.GetCellContent(dataGridCellInfo.Item).Parent as DataGridCell;
 
-            string cellText = cell.Content.ToString();
+            ContentPresenter contentPresenter = cell.Content as ContentPresenter;
+
+            string cellText = VisualTreeHelper.GetChild(contentPresenter, 0).ToString();
 
             cellText = cellText.Replace("System.Windows.Controls.TextBox: ", "");
 
