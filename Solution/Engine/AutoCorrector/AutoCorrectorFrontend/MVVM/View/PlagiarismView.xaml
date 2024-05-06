@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Rectangle RadiusX="10" RadiusY="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="#202020"></Rectangle>
+        <Rectangle RadiusX="10" RadiusY="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Fill="#202020"></Rectangle>
         <TextBlock  FontSize="30" Margin="40 10 0 0" Grid.Row="0" Foreground="White" Text="Plagiarism"></TextBlock>
         <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="30 10">
             <Rectangle Fill="#333333" RadiusX="5" RadiusY="5" x:Name="SettingRectangle">
@@ -76,7 +76,7 @@
                 </ControlTemplate>
             </TextBox.Template>
         </TextBox>
-        <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" AutoGenerateColumns="False" Margin="0 0 0 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="3" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
+        <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" AutoGenerateColumns="False" Margin="30 10 30 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="3" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Source Files">
                     <DataGridTemplateColumn.CellTemplate>
@@ -89,7 +89,7 @@
                 <DataGridTemplateColumn Header="First Student">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Id1}" />
+                            <TextBlock Text="{Binding Id1}" VerticalAlignment="Center" TextAlignment="Left" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -97,15 +97,42 @@
                 <DataGridTemplateColumn Header="Second Student">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Id2}" />
+                            <TextBlock Text="{Binding Id2}" VerticalAlignment="Center" TextAlignment="Left"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="First Similarity" Binding="{Binding First_similarity}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Second Similarity" Binding="{Binding Second_similarity}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Average Similarity" Binding="{Binding Average_similarity}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Max Similarity" Binding="{Binding Max_similarity}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="First Similarity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding First_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Second Similarity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Second_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Average Similarity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Average_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Max Similarity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Max_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">

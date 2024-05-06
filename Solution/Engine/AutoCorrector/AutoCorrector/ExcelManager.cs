@@ -1,18 +1,32 @@
 ﻿using OfficeOpenXml;
-
 namespace AutoCorrector;
 
 public class ExcelManager
 {
-    public ExcelManager() 
+    public ExcelManager()
     {
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
     }
-    public async Task SaveExcelFile(List<StudentInfo> data, FileInfo fileInfo)
+    public async Task SaveExcelFile(List<StudentInfo> data)
     {
-        DeleteIfExists(fileInfo);
+        var saveFileDialog = new SaveFileDialog
+        {
+            Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*",
+            DefaultExt = ".xlsx",
+            Title = "Save Excel File",
+            RestoreDirectory = true
+        };
 
-        using var package = new ExcelPackage(fileInfo);
+        FileInfo excelFile = new FileInfo("temp");
+
+        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        {
+            string fileName = saveFileDialog.FileName;
+            excelFile = new FileInfo(fileName);
+            DeleteIfExists(excelFile);
+        }
+
+        using var package = new ExcelPackage(excelFile);
         var ws = package.Workbook.Worksheets.Add("Rezultate");
 
         ws.Cells["A1"].Value = "Name";
@@ -28,8 +42,11 @@ public class ExcelManager
 
         foreach (var requirement in scale)
         {
-            ws.Cells[1, column].Value = $"Task {index} function";
-            column++;
+            if (requirement.Type == "method")
+            {
+                ws.Cells[1, column].Value = $"Task {index} function";
+                column++;
+            }
             ws.Cells[1, column].Value = $"Task {index} points";
             column++;
             var subIndex = 1;
@@ -37,10 +54,10 @@ public class ExcelManager
             {
                 ws.Cells[1, column].Value = $"Task {index}.{subIndex} points";
                 column++;
-                ws.Cells[1, column].Value = $"Task {index}.{subIndex} reason";
-                column++;
                 subIndex++;
             }
+
+            index++;
         }
 
         foreach (var student in data)
@@ -54,16 +71,18 @@ public class ExcelManager
 
             foreach (var requirement in student.Requirements)
             {
-                ws.Cells[row, column].Value = requirement.Title;
-                column++;
+                if (requirement.Type == "method")
+                {
+                    ws.Cells[row, column].Value = requirement.Title;
+                    column++;
+                }
+                
                 ws.Cells[row, column].Value = requirement.Points;
                 column++;
-                
+
                 foreach (var subReq in requirement.SubRequirements)
                 {
                     ws.Cells[row, column].Value = subReq.Points;
-                    column++;
-                    ws.Cells[row, column].Value = subReq.Title;
                     column++;
                 }
             }
@@ -72,6 +91,8 @@ public class ExcelManager
         }
 
         ws.Cells[ws.Dimension.Address].AutoFitColumns();
+
+
         await package.SaveAsync();
     }
 

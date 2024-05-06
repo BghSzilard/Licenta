@@ -30,6 +30,7 @@ namespace AutoCorrectorFrontend.MVVM.View
                         System.IO.Path.GetExtension(file).Equals(".txt", System.StringComparison.OrdinalIgnoreCase))
                     {
                         homeViewModel.UploadedDocument = file;
+                        homeViewModel.OpenDocumentCommand.Execute(null);
                     }
                     else
                     {

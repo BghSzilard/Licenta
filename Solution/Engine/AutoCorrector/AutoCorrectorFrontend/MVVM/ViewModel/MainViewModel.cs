@@ -36,7 +36,7 @@ public partial class MainViewModel : ObservableObject, IHandle<NavigationRequest
     [RelayCommand]
     public void NavigateScaleCreator()
     {
-        CurrentView = new ScaleCreatorViewModel();
+        CurrentView = new ScaleCreatorViewModel(NotificationService);
     }
 
     public Task HandleAsync(NavigationRequestEvent message, CancellationToken cancellationToken)

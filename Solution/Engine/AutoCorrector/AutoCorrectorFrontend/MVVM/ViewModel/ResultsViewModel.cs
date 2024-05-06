@@ -126,7 +126,7 @@ public partial class ResultsViewModel : ObservableObject
     {
         FileInfo fileInfo = new FileInfo(Settings.ResultsPath);
         ExcelManager excelManager = new ExcelManager();
-        await excelManager.SaveExcelFile(Students, fileInfo);
+        await excelManager.SaveExcelFile(Students);
         _notificationService.NotificationText = "Results Saved!";
     }
 }

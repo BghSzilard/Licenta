@@ -17,7 +17,7 @@
     <Border Background="#272537" BorderBrush="Black" BorderThickness="1">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="130"></ColumnDefinition>
+                <ColumnDefinition Width="135"></ColumnDefinition>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -77,7 +77,7 @@
       Command="{Binding NavigateScaleCreatorCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Image Width="35" Source="Images/scale.png" Height="40" Margin="-50 0 0 0"></Image>
-                            <TextBlock Text="Creat Scale" Margin="0 15 0 0"></TextBlock>
+                            <TextBlock Text="Create Scale" Margin="0 15 0 0"></TextBlock>
                         </StackPanel>
 
                     </RadioButton>

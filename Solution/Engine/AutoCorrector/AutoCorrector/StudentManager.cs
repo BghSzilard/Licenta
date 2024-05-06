@@ -116,6 +116,17 @@ public class StudentManager
         {
             int task = 1;
 
+            FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
+            var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
+
+            string allSignatures = "";
+            foreach (var signature in signatures)
+            {
+                allSignatures += signature;
+                allSignatures += ";";
+            }
+            allSignatures = allSignatures.Remove(allSignatures.Length - 1);
+
             if (!student.CodeCompiles)
             {
                 foreach (var req in processedScalde)
@@ -138,28 +149,11 @@ public class StudentManager
                     Requirement studReq = new Requirement();
                     studReq.Type = requirement.Type;
 
+                    int subtask = 1;
                     if (requirement.Type == "method")
                     {
-                        int subtask = 1;
-
-                        FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
-                        var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
-
-                        string allSignatures = "";
-                        foreach (var signature in signatures)
-                        {
-                            allSignatures += signature;
-                            allSignatures += ";";
-                        }
-                        allSignatures = allSignatures.Remove(allSignatures.Length - 1);
-
                         LLMManager lLMManager = new LLMManager();
                         var functionName = await lLMManager.GetFunctionName($"{allSignatures} \n{requirement.Title}");
-
-                        if (functionName.Contains("None"))
-                        {
-                            return;
-                        }
 
                         FunctionExtractorWrapper functionExtractor = new FunctionExtractorWrapper();
 
@@ -211,7 +205,6 @@ public class StudentManager
                     }
                     else
                     {
-                        int subtask = 1;
                         student.Requirements.Add(studReq);
 
                         foreach (var subrequirement in requirement.SubRequirements)
