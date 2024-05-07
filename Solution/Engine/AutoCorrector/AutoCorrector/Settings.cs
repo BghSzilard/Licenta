@@ -24,6 +24,7 @@ public class Settings
     public static string PlagiarismResFolder {  get; set; }
     public static List<PlagiarismChecker.PlagiarismPair> PlagiarismPairs { get; set; }
     public static string SyntaxPath;
+    public static string UnitTestsPath;
     static Settings()
     {
         SolutionPath = Directory.GetCurrentDirectory();
@@ -46,6 +47,6 @@ public class Settings
         PlagiarismPairs = new List<PlagiarismChecker.PlagiarismPair>();
         SyntaxPath = Path.Combine(SolutionPath, "Syntax");
         SyntaxPath = Path.Combine(SyntaxPath, "cpp.xshd");
-
+        UnitTestsPath = Path.Combine(SolutionPath, "UnitTests");
     }
 }

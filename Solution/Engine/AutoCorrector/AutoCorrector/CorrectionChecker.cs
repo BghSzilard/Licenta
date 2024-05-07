@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using SharpCompress.Common;
 
 namespace AutoCorrectorEngine;
 
@@ -33,7 +34,7 @@ public class CorrectionChecker
             StartInfo =
             {
                 FileName = "clang++",
-                Arguments = $"{sourceFilePath} -o temp.exe",
+                Arguments = $"\"{sourceFilePath}\" -o \"{Settings.UnitTestsPath}\\temp.exe\"",
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 CreateNoWindow = true,
@@ -52,54 +53,35 @@ public class CorrectionChecker
             {
                 FileName = fileName,
                 UseShellExecute = false,
-                RedirectStandardOutput = true
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
             }
         };
 
         process.Start();
         return await process.StandardOutput.ReadToEndAsync();
     }
-    public async Task<string> MakeUnitTests(string requirement, string function)
+    public async Task<string> MakeUnitTests(string req, string studentName,  string requirement, string function)
     {
         LLMManager llmManager = new LLMManager();
         var result = await llmManager.WriteUnitTests(requirement, function);
         result = result.Replace("```", "");
         result = result.Replace("cpp", "");
-        string tempFile = "myTempFile.cpp";
-        string path = Path.Combine(Settings.SolutionPath, tempFile);
+        string unitTestFile = Path.Combine(Settings.UnitTestsPath, $"{studentName} {req}.cpp");
+        
+        if (!Directory.Exists(Settings.UnitTestsPath))
+        {
+            Directory.CreateDirectory(Settings.UnitTestsPath);
+        }
 
-        await File.WriteAllTextAsync(path, result);
+        await File.WriteAllTextAsync(unitTestFile, result);
 
-        await CompileAsync(path);
-        string output = await ExecuteAsync("temp.exe");
+        await CompileAsync(unitTestFile);
+        
+        string output = await ExecuteAsync($"\"{Settings.UnitTestsPath}\\temp.exe\"");
 
-        File.Delete(path);
-        File.Delete("temp.exe");
+        File.Delete($"{Settings.UnitTestsPath}\\temp.exe");
 
         return output;
     }
-    //public async Task<string> MakeUnitTests(string processedReq, string function, string functionName)
-    //{
-    //    processedReq = processedReq[12..];
-    //    processedReq = processedReq.Insert(0, "\"");
-    //    processedReq += "\"";
-    //    processedReq = processedReq.Replace(".", "");
-    //    processedReq = processedReq.Replace("\n", "");
-    //    functionName = functionName.Insert(0, "\"");
-    //    functionName += "\"";
-
-    //    var tempFile = Path.Combine(Settings.SolutionPath, "temp.h");
-
-    //    File.WriteAllText(tempFile, function);
-
-    //    tempFile = tempFile.Insert(0, "\"");
-    //    tempFile += "\"";
-    //    var arguemnts = $"python '{Settings.UnitTestScriptPath}' '{processedReq}' '{functionName}' '{tempFile}'";
-    //    ProcessExecutor processExecutor = new ProcessExecutor();
-    //    string result = await processExecutor.ExecuteProcess("powershell", arguemnts, "");
-    //    result = result.Replace("\n", "");
-    //    result = result.Replace("\r", "");
-
-    //    return result;
-    //}
 }

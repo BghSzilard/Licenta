@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using AutoCorrector;
 using AutoCorrectorEngine;
 
@@ -27,18 +30,10 @@ namespace AutoCorrectorFrontend.MVVM.View
             dataGrid.AutoGenerateColumns = false;
 
             var style = new Style(typeof(DataGridCell));
-            //style.Setters.Add(new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
-            //style.Setters.Add(new Setter(VerticalContentAlignmentProperty, VerticalAlignment.Center));
-            //style.Setters.Add(new Setter(HorizontalAlignmentProperty, HorizontalAlignment.Stretch));
-            //style.Setters.Add(new Setter(VerticalAlignmentProperty, VerticalAlignment.Stretch));
             style.Setters.Add(new Setter(Control.FontSizeProperty, 16.0));
 
 
             var nameStyle = new Style(typeof(DataGridCell));
-            //nameStyle.Setters.Add(new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
-            //nameStyle.Setters.Add(new Setter(VerticalContentAlignmentProperty, VerticalAlignment.Center));
-            //nameStyle.Setters.Add(new Setter(HorizontalAlignmentProperty, HorizontalAlignment.Stretch));
-            //nameStyle.Setters.Add(new Setter(VerticalAlignmentProperty, VerticalAlignment.Stretch));
             nameStyle.Setters.Add(new Setter(Control.FontSizeProperty, 16.0));
 
             var columnName = new DataGridTemplateColumn();
@@ -120,7 +115,46 @@ namespace AutoCorrectorFrontend.MVVM.View
                     columnsubReqPoint.CellEditingTemplate.VisualTree = textBoxFactory;
 
                     dataGrid.Columns.Add(columnsubReqPoint);
-                    
+
+                    if (subReq.Type == "unitTest")
+                    {
+                        var columnsubReqButton = new DataGridTemplateColumn();
+
+                        columnsubReqButton.CellTemplate = new DataTemplate();
+                        columnsubReqButton.Header = $"Task {index}.{subIndex} test";
+                        var buttonFactory = new FrameworkElementFactory(typeof(Button));
+
+                        buttonFactory.SetValue(Button.ContentProperty, "Open Test");
+
+                        // Create a new style
+                        Style buttonStyle = new Style(typeof(Button));
+
+                        // Set the properties for the style
+                        buttonStyle.Setters.Add(new Setter(Button.BackgroundProperty, (SolidColorBrush)(new BrushConverter().ConvertFrom("#007ACC"))));
+                        buttonStyle.Setters.Add(new Setter(Button.ForegroundProperty, Brushes.White));
+                        buttonStyle.Setters.Add(new Setter(Button.BorderBrushProperty, (SolidColorBrush)(new BrushConverter().ConvertFrom("#007ACC"))));
+                        buttonStyle.Setters.Add(new Setter(Button.BorderThicknessProperty, new Thickness(1)));
+                        buttonStyle.Setters.Add(new Setter(Button.PaddingProperty, new Thickness(10, 5, 10, 5)));
+                        buttonStyle.Setters.Add(new Setter(Button.MarginProperty, new Thickness(10)));
+
+                        // Set the style to the button
+                        buttonFactory.SetValue(Button.StyleProperty, buttonStyle);
+
+
+                        buttonFactory.SetValue(Button.CommandParameterProperty, $"{index}.{subIndex}");
+
+                        // Set the click event handler of the button
+                        buttonFactory.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Button_ClickTest));
+
+                        // Set the alignment of the button
+                        buttonFactory.SetValue(Button.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+                        buttonFactory.SetValue(Button.VerticalAlignmentProperty, VerticalAlignment.Center);
+
+                        columnsubReqButton.CellTemplate.VisualTree = buttonFactory;
+
+                        dataGrid.Columns.Add(columnsubReqButton);
+                    }
+
                     subIndex++;
 
                 }
@@ -128,6 +162,15 @@ namespace AutoCorrectorFrontend.MVVM.View
                 
                 index++;
             }
+        }
+
+        private async void Button_ClickTest(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            var row = (StudentInfo)button.DataContext;
+            string task = button.CommandParameter as string;
+
+            await _processExecutor.ExecuteProcess("powershell", "code", $"{Path.Combine(Settings.UnitTestsPath, $"{row.Name} {task}.cpp")}");
         }
 
         private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)

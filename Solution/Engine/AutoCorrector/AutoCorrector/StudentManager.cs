@@ -175,7 +175,7 @@ public class StudentManager
 
                             if (subrequirement.Type != null && subrequirement.Type == "unitTest")
                             {
-                                result = await checker.MakeUnitTests(subrequirement.Title, function);
+                                result = await checker.MakeUnitTests($"{task}.{subtask}", student.Name, subrequirement.Title, function);
                             }
                             else
                             {
@@ -194,6 +194,8 @@ public class StudentManager
                             {
                                 subStudReq.Title = result.Replace("No:", "");
                             }
+
+                            subStudReq.Type = subrequirement.Type;
                             studReq.SubRequirements.Add(subStudReq);
 
                             subtask++;
@@ -225,6 +227,7 @@ public class StudentManager
                                 subStudReq.Title = result.Replace("No:", "");
                                 subStudReq.Title = subStudReq.Title.Replace("Fail!", "");
                             }
+
                             studReq.SubRequirements.Add(subStudReq);
 
                             subtask++;
