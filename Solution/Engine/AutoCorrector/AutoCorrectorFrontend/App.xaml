@@ -35,6 +35,10 @@
                 <view:ScaleCreatorView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:ClusterViewModel}">
+                <view:ClusterView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
