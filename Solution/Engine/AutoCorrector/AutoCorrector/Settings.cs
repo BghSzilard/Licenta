@@ -25,6 +25,7 @@ public class Settings
     public static List<PlagiarismChecker.PlagiarismPair> PlagiarismPairs { get; set; }
     public static string SyntaxPath;
     public static string UnitTestsPath;
+    public static List<List<double>> AdjacencyMatrixStudSim = new List<List<double>>();
     static Settings()
     {
         SolutionPath = Directory.GetCurrentDirectory();

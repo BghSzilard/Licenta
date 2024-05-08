@@ -97,10 +97,13 @@ public class StudentManager
         FileProcessor fileProcessor = new FileProcessor();
         var subdirectoryNames = fileProcessor.GetSubdirectoryNames(Settings.UnzippedFolderPath);
 
+        int id = 0;
+
         foreach (var subdirectoryName in subdirectoryNames)
         {
             var studentName = fileProcessor.SeparateString(subdirectoryName, '_');
-            _students.Add(new StudentInfo() { Name = studentName });
+            _students.Add(new StudentInfo() { Name = studentName, Id = id });
+            id++;
         }
     }
     private async Task UnzipFile()
@@ -249,5 +252,45 @@ public class StudentManager
         PlagiarismChecker plagiarismChecker = new PlagiarismChecker();
 
         Settings.PlagiarismPairs = await plagiarismChecker.CheckPlagiarism(_students);
+
+        int counter = 0;
+
+        foreach (var stud in _students)
+        {
+            Settings.AdjacencyMatrixStudSim.Add(new List<double>());
+            foreach (var temp in _students)
+            {
+                Settings.AdjacencyMatrixStudSim[counter].Add(-1);
+            }
+            counter++;
+        }
+
+
+        foreach (var pair in Settings.PlagiarismPairs)
+        {
+            int id1 = _students.First(x => x.Name.Equals(pair.Id1)).Id;
+            int id2 = _students.First(x => x.Name.Equals(pair.Id2)).Id;
+
+            Settings.AdjacencyMatrixStudSim[id1][id2] = pair.Average_similarity;
+        }
+
+        for (int i = 0; i < Settings.AdjacencyMatrixStudSim.Count; i++)
+        {
+            for (int j = 0; j < Settings.AdjacencyMatrixStudSim.Count; j++)
+            {
+                if (i == j)
+                {
+                    Settings.AdjacencyMatrixStudSim[i][j] = 100;
+                }
+                else if (Settings.AdjacencyMatrixStudSim[i][j] == -1)
+                {
+                    Settings.AdjacencyMatrixStudSim[i][j] = Settings.AdjacencyMatrixStudSim[j][i];
+                }
+                else
+                {
+                    Settings.AdjacencyMatrixStudSim[j][i] = Settings.AdjacencyMatrixStudSim[i][j];
+                }
+            }
+        }
     }
 }
