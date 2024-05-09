@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using AutoCorrector;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
@@ -52,12 +53,30 @@ public partial class PlagiarismChecker
 
         [ObservableProperty] private string _sourceFile1;
         [ObservableProperty] private string _sourceFile2;
+
+        public ObservableCollection<int> Cluster { get; set; } = new ObservableCollection<int>();
     }
     public async Task<List<PlagiarismPair>> CheckPlagiarism(List<StudentInfo> students)
     {
         ProcessExecutor processExecutor = new ProcessExecutor();
 
-        await processExecutor.ExecuteProcess("powershell", $"java -jar C:\\Users\\z004w26z\\Desktop\\jplag.jar -l cpp --result-file={Settings.PlagiarismResFolder}", $"{Settings.UnzippedFolderPath}");
+        //if (File.Exists(Settings.PlagiarismResFolder))
+        //{
+        //    File.Delete(Settings.PlagiarismResFolder);
+        //}
+
+        //Process process = new Process();
+        //// Configure the process using the StartInfo properties.
+        //process.StartInfo.FileName = "cmd";
+        //process.StartInfo.Arguments = "java -jar C:\\Users\\z004w26z\\Desktop\\jplag.jar -l cpp --result-file=C:\\Users\\z004w26z\\Desktop\\res.zip C:\\Users\\z004w26z\\Desktop\\Material\\Licenta\\Licenta\\Solution\\Engine\\AutoCorrector\\Unzipped";
+        //process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
+        //process.StartInfo.UseShellExecute = false;
+        //process.StartInfo.CreateNoWindow = true;
+        //process.Start();
+
+        //await process.WaitForExitAsync();
+
+        //await processExecutor.ExecuteProcess("powershell", $"\"C:\\Program Files\\Common Files\\Oracle\\Java\\javapath\\java.exe\" -jar C:\\Users\\z004w26z\\Desktop\\jplag.jar -l cpp --result-file={Settings.PlagiarismResFolder} {Settings.UnzippedFolderPath}", "");
 
 
         List<PlagiarismPair> plagiarismPairs = new List<PlagiarismPair>();

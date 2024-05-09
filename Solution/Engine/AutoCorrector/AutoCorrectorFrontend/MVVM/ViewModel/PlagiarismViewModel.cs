@@ -41,7 +41,6 @@ public partial class PlagiarismViewModel : ObservableObject
                     PlagiarismPairs.Add(pair);
                 }
             }
-           
         }
     }
 

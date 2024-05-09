@@ -15,6 +15,7 @@
     <None Remove="Images\logo.png" />
     <None Remove="Images\notepad.png" />
     <None Remove="Images\pdf.png" />
+    <None Remove="Images\persons.png" />
     <None Remove="Images\plag.png" />
     <None Remove="Images\results.png" />
     <None Remove="Images\scale.png" />
@@ -49,6 +50,7 @@
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\notepad.png" />
     <Resource Include="Images\pdf.png" />
+    <Resource Include="Images\persons.png" />
     <Resource Include="Images\plag.png" />
     <Resource Include="Images\results.png" />
     <Resource Include="Images\scale.png" />

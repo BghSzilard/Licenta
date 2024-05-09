@@ -1,5 +1,6 @@
 ﻿using AutoCorrectorFrontend.Events;
 using AutoCorrectorFrontend.MVVM.Services;
+using AutoCorrectorFrontend.MVVM.View;
 using Caliburn.Micro;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -44,6 +45,10 @@ public partial class MainViewModel : ObservableObject, IHandle<NavigationRequest
         if (message.ViewModelType == typeof(PlagiarismViewModel))
         {
             CurrentView = new ComparisonViewModel(message.PlagiarismPair);
+        }
+        else if (message.ViewModelType == typeof(PlagiarismView))
+        {
+            CurrentView = new ClusterViewModel(message.PlagiarismPair);
         }
 
         return Task.CompletedTask;

@@ -1,6 +1,13 @@
-﻿namespace AutoCorrectorFrontend.MVVM.ViewModel;
+﻿using AutoCorrectorEngine;
+using CommunityToolkit.Mvvm.ComponentModel;
+using static AutoCorrectorEngine.PlagiarismChecker;
 
-public class ClusterViewModel
+namespace AutoCorrectorFrontend.MVVM.ViewModel;
+
+public class ClusterViewModel: ObservableObject
 {
+    public ClusterViewModel(PlagiarismPair plagiarismPair)
+    {
 
+    }
 }

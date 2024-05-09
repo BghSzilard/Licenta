@@ -8,7 +8,7 @@ public class StudentManager
     private readonly List<StudentInfo> _students;
     private readonly NotificationService _notificationService;
     private string _scale { get; set; }
-    public StudentManager(NotificationService notificationService, string uploadedZip, string scale) 
+    public StudentManager(NotificationService notificationService, string uploadedZip, string scale)
     {
         _fileProcessor = new FileProcessor();
         _students = new List<StudentInfo>();
@@ -18,10 +18,16 @@ public class StudentManager
     public async Task Solve()
     {
         _notificationService.NotificationText = "Unzipping Projects...";
+
+        if (Directory.Exists(Settings.UnzippedFolderPath))
+        {
+            Directory.Delete(Settings.UnzippedFolderPath, true);
+        }
+
         await UnzipFile();
         _notificationService.NotificationText = "Projects Unzipped!";
         var folders = Directory.GetDirectories(Settings.UnzippedFolderPath);
-        
+
         _notificationService.NotificationText = "Extracting Source Files...";
 
         foreach (var folder in folders)
@@ -47,7 +53,7 @@ public class StudentManager
         {
             var folderPath = _fileProcessor.GetFolder(Settings.UnzippedFolderPath, student.Name);
             var sourceFile = await _fileProcessor.FindSourceFile(folderPath);
-           
+
             if (sourceFile != null)
             {
                 if (await processExecutor.ExecuteProcess("powershell.exe", "clang++", sourceFile) == "")
@@ -240,11 +246,8 @@ public class StudentManager
 
                         task++;
                     }
-                   
                 }
-
             }
-            
         }
         Settings.StudentSample = _students[0];
         Settings.Students = _students;
@@ -291,6 +294,38 @@ public class StudentManager
                     Settings.AdjacencyMatrixStudSim[j][i] = Settings.AdjacencyMatrixStudSim[i][j];
                 }
             }
+        }
+
+        Cluster cluster = new Cluster();
+
+        int rowCount = Settings.AdjacencyMatrixStudSim.Count;
+        int columnCount = Settings.AdjacencyMatrixStudSim[0].Count;
+
+        double[,] array = new double[rowCount, columnCount];
+
+        for (int i = 0; i < rowCount; i++)
+        {
+            for (int j = 0; j < columnCount; j++)
+            {
+                array[i, j] = Settings.AdjacencyMatrixStudSim[i][j];
+            }
+        }
+
+
+        Settings.Clusters = cluster.CreateClusters(array, 50);
+
+        foreach (var pair in Settings.PlagiarismPairs)
+        {
+            var student1 = Settings.Students.First(x => x.Name == pair.Id1);
+            var student2 = Settings.Students.First(x => x.Name == pair.Id2);
+            var cluster1 = Settings.Clusters.First(x => x.Contains(student1.Id));
+            var cluster2 = Settings.Clusters.First(x => x.Contains(student2.Id));
+
+            if (cluster1 == cluster2)
+            {
+                pair.Cluster = cluster1.ToObservableCollection();
+            }
+
         }
     }
 }

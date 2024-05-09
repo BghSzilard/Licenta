@@ -67,6 +67,8 @@ namespace AutoCorrectorFrontend.MVVM.View
                     Width = nodeDiameter,
                     Height = nodeDiameter,
                     Fill = Brushes.Black,
+                    Stroke = Brushes.White,
+                    StrokeThickness = 2,
                 };
                 Canvas.SetLeft(ellipse, x);
                 Canvas.SetTop(ellipse, y);
@@ -84,8 +86,17 @@ namespace AutoCorrectorFrontend.MVVM.View
                     Foreground = Brushes.Red,
                     FontSize = 16
                 };
+
+                if (Nodes[i].Y < centerY)
+                {
+                    Canvas.SetTop(textBlock, Nodes[i].Y - 20);
+                }
+                else
+                {
+                    Canvas.SetTop(textBlock, Nodes[i].Y + nodeDiameter + 5);
+                }
+
                 Canvas.SetLeft(textBlock, x);
-                Canvas.SetTop(textBlock, y - 20); // Adjust this value to position the TextBlock above the node
                 Canvas.Children.Add(textBlock);
 
             }
@@ -95,8 +106,7 @@ namespace AutoCorrectorFrontend.MVVM.View
             {
                 for (int j = i + 1; j < numNodes; j++)
                 {
-                    if (adjacencyMatrix[i][j] == 1)
-                    {
+                    
                         double nodeRadius = nodeDiameter / 2;
                         Line line = new Line
                         {
@@ -131,7 +141,7 @@ namespace AutoCorrectorFrontend.MVVM.View
 
                         line.MouseEnter += (sender, e) => { ((Line)sender).Stroke = Brushes.Red; };
                         line.MouseLeave += (sender, e) => { ((Line)sender).Stroke = Brushes.Black; };
-                    }
+                    
                 }
             }
 

@@ -13,7 +13,16 @@ public class ProcessExecutor
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
         startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
         startInfo.FileName = $"{command}";
-        startInfo.Arguments = $"\"{arguments}\" ";
+
+        if (arguments.Contains("java"))
+        {
+            startInfo.Arguments = $"{arguments}";
+        }
+        else
+        {
+            startInfo.Arguments = $"\"{arguments}\" ";
+        }
+
         //startInfo.EnvironmentVariables["OLLAMA_HOST"] = "https://c7fb-35-185-246-134.ngrok-free.app";
 
         if (input != "") 

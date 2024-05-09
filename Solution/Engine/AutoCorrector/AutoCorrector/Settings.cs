@@ -26,6 +26,7 @@ public class Settings
     public static string SyntaxPath;
     public static string UnitTestsPath;
     public static List<List<double>> AdjacencyMatrixStudSim = new List<List<double>>();
+    public static List<List<int>> Clusters;
     static Settings()
     {
         SolutionPath = Directory.GetCurrentDirectory();

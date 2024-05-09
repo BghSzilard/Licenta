@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <Rectangle RadiusX="10" RadiusY="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Fill="#202020"></Rectangle>
         <TextBlock FontSize="30" Margin="40 10 0 0" Grid.Row="0" Text="Results" Foreground="White"></TextBlock>
-        <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0 20 0 0" ItemsSource="{Binding Students}" CanUserAddRows="False" SelectionUnit="Cell" Grid.Row="1" Grid.ColumnSpan="2" x:Name="dataGrid" AutoGenerateColumns="False" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1" >
+        <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="40 20 40 0" ItemsSource="{Binding Students}" CanUserAddRows="False" SelectionUnit="Cell" Grid.Row="1" Grid.ColumnSpan="2" x:Name="dataGrid" AutoGenerateColumns="False" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1" >
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Source File">
                     <DataGridTemplateColumn.CellTemplate>
