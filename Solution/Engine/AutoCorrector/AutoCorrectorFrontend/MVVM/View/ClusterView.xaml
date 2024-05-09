@@ -12,5 +12,87 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Canvas x:Name="Canvas" Grid.Column="0"></Canvas>
+        <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" AutoGenerateColumns="False" Margin="0 10 30 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Source Files">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Open" Click="Button_Click" Background="#007ACC" Foreground="White" BorderBrush="#007ACC" BorderThickness="1" Padding="10,5" Margin="10" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="First Student">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Id1}" VerticalAlignment="Center" TextAlignment="Left" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Second Student">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Id2}" VerticalAlignment="Center" TextAlignment="Left"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="First Similarity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding First_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Second Similarity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Second_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Average Similarity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Average_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Max Similarity">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Max_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#FF3F3F46"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="FontFamily" Value="Segoe UI"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                </Style>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="BorderBrush" Value="#FF3F3F46"/>
+                    <Setter Property="BorderThickness" Value="0 0 1 0"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Padding" Value="10,0"/>
+                    <Setter Property="FontFamily" Value="Segoe UI"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
     </Grid>
 </UserControl>

@@ -312,7 +312,7 @@ public class StudentManager
         }
 
 
-        Settings.Clusters = cluster.CreateClusters(array, 50);
+        Settings.Clusters = cluster.CreateClusters(array, 30);
 
         foreach (var pair in Settings.PlagiarismPairs)
         {

@@ -14,7 +14,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AutoCorrectorEngine;
+using AutoCorrectorFrontend.Events;
 using AutoCorrectorFrontend.MVVM.Model;
+using AutoCorrectorFrontend.MVVM.ViewModel;
+using Caliburn.Micro;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoCorrectorFrontend.MVVM.View
 {
@@ -23,6 +27,15 @@ namespace AutoCorrectorFrontend.MVVM.View
     /// </summary>
     public partial class ClusterView : UserControl
     {
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            var row = (AutoCorrectorEngine.PlagiarismChecker.PlagiarismPair)button.DataContext;
+
+            IEventAggregator eventAggregator = ((App)Application.Current).ServiceProvider.GetRequiredService<EventAggregator>();
+
+            await eventAggregator.PublishAsync(new NavigationRequestEvent(typeof(PlagiarismViewModel), row), marshal: async action => await action());
+        }
         public ClusterView()
         {
             InitializeComponent();
