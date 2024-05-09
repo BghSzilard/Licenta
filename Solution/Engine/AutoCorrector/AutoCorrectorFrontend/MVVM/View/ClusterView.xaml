@@ -12,7 +12,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Canvas x:Name="Canvas" Grid.Column="0"></Canvas>
-        <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" AutoGenerateColumns="False" Margin="0 10 30 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
+        <DataGrid x:Name="dataGrid" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" AutoGenerateColumns="False" Margin="0 10 30 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Source Files">
                     <DataGridTemplateColumn.CellTemplate>

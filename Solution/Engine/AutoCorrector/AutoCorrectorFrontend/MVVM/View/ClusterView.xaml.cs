@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AutoCorrectorEngine;
 using AutoCorrectorFrontend.Events;
+using AutoCorrectorFrontend.MVVM.Converters;
 using AutoCorrectorFrontend.MVVM.Model;
 using AutoCorrectorFrontend.MVVM.ViewModel;
 using Caliburn.Micro;
@@ -45,15 +46,18 @@ namespace AutoCorrectorFrontend.MVVM.View
         }
 
         public ObservableCollection<Node> Nodes { get; } = new ObservableCollection<Node>();
+        public ObservableCollection<Edge> Edges { get; } = new ObservableCollection<Edge>();
+
+        List<Line> Lines { get; set; } = new List<Line>();
         private void DrawGraph()
         {
 
-           List<List<double>> adjacencyMatrix = Settings.AdjacencyMatrixStudSim;
+            var viewModel = (ClusterViewModel)this.DataContext;
 
             Canvas.Children.Clear();
             Nodes.Clear();
 
-            int numNodes = adjacencyMatrix.Count;
+            int numNodes = viewModel.Students.Count;
             double centerX = this.ActualWidth / 4;
             double centerY = this.ActualHeight / 2;
             double radius = Math.Min(centerX, centerY) * 0.8; // 80% of the smallest dimension
@@ -72,6 +76,7 @@ namespace AutoCorrectorFrontend.MVVM.View
                 {
                     X = x,
                     Y = y,
+                    Name = viewModel.Students[i].Name,
                 };
                 Nodes.Add(node);
 
@@ -95,7 +100,7 @@ namespace AutoCorrectorFrontend.MVVM.View
                 // Create a TextBlock above the node
                 TextBlock textBlock = new TextBlock
                 {
-                    Text = "sanyi",
+                    Text = node.Name,
                     Foreground = Brushes.Red,
                     FontSize = 16
                 };
@@ -119,46 +124,80 @@ namespace AutoCorrectorFrontend.MVVM.View
             {
                 for (int j = i + 1; j < numNodes; j++)
                 {
+
+                    Edge edge = new Edge
+                    {
+                        Name1 = Nodes[i].Name,
+                        Name2 = Nodes[j].Name,
+                    };
+
+                    double nodeRadius = nodeDiameter / 2;
+                    Line line = new Line
+                    {
+                        X1 = Nodes[i].X + nodeRadius,
+                        Y1 = Nodes[i].Y + nodeRadius,
+                        X2 = Nodes[j].X + nodeRadius,
+                        Y2 = Nodes[j].Y + nodeRadius,
+                        Stroke = Brushes.Black,
+                        StrokeThickness = 6
+                    };
+
+                    Canvas.Children.Add(line);
+                    Lines.Add(line);
+                    Edges.Add(edge);
+
+                    // Calculate the midpoint of the line
+                    double midX = (Nodes[i].X + Nodes[j].X) / 2;
+                    double midY = (Nodes[i].Y + Nodes[j].Y) / 2;
+
+                    //// Create a TextBlock at the midpoint
+                    //TextBlock textBlock = new TextBlock
+                    //{
+                    //    Foreground = Brushes.Red,
+                    //    Visibility = Visibility.Collapsed
+                    //};
+                    //Canvas.SetLeft(textBlock, midX);
+                    //Canvas.SetTop(textBlock, midY - 20); // Adjust this value to position the TextBlock above the edge
+                    //Canvas.Children.Add(textBlock);
+
+                    // Add mouse event handlers to the line
+                    line.MouseEnter += (sender, e) => 
+                    {
+                        int index = Lines.IndexOf((Line)sender);
+                        var edge = Edges[index];
+                        var plagPair = viewModel.PlagiarismPairs.First(x => (x.Id1 == edge.Name1 && x.Id2 == edge.Name2) || (x.Id1 == edge.Name2 && x.Id2 == edge.Name1));
+
+                        int rowIndex = viewModel.PlagiarismPairs.IndexOf(plagPair);
+
+                        DataGridRow row = Extension.GetRow(dataGrid, rowIndex);
+
+                        row.Background = Brushes.Red;
+
+                    };
                     
-                        double nodeRadius = nodeDiameter / 2;
-                        Line line = new Line
-                        {
-                            X1 = Nodes[i].X + nodeRadius,
-                            Y1 = Nodes[i].Y + nodeRadius,
-                            X2 = Nodes[j].X + nodeRadius,
-                            Y2 = Nodes[j].Y + nodeRadius,
-                            Stroke = Brushes.Black,
-                            StrokeThickness = 6
-                        };
+                    line.MouseEnter += (sender, e) => { ((Line)sender).Stroke = Brushes.Red; };
+                    line.MouseLeave += (sender, e) => { ((Line)sender).Stroke = Brushes.Black; };
 
-                        Canvas.Children.Add(line);
+                    line.MouseLeave += (sender, e) =>
+                    {
+                        int index = Lines.IndexOf((Line)sender);
+                        var edge = Edges[index];
+                        var plagPair = viewModel.PlagiarismPairs.First(x => (x.Id1 == edge.Name1 && x.Id2 == edge.Name2) || (x.Id1 == edge.Name2 && x.Id2 == edge.Name1));
 
-                        // Calculate the midpoint of the line
-                        double midX = (Nodes[i].X + Nodes[j].X) / 2;
-                        double midY = (Nodes[i].Y + Nodes[j].Y) / 2;
+                        int rowIndex = viewModel.PlagiarismPairs.IndexOf(plagPair);
 
-                        // Create a TextBlock at the midpoint
-                        TextBlock textBlock = new TextBlock
-                        {
-                            Text = "kecske",
-                            Foreground = Brushes.Red,
-                            Visibility = Visibility.Collapsed
-                        };
-                        Canvas.SetLeft(textBlock, midX);
-                        Canvas.SetTop(textBlock, midY - 20); // Adjust this value to position the TextBlock above the edge
-                        Canvas.Children.Add(textBlock);
+                        DataGridRow row = Extension.GetRow(dataGrid, rowIndex);
 
-                        // Add mouse event handlers to the line
-                        line.MouseEnter += (sender, e) => { textBlock.Visibility = Visibility.Visible; };
-                        line.MouseLeave += (sender, e) => { textBlock.Visibility = Visibility.Collapsed; };
+                        row.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3F3F46"));
+                    };
 
-                        line.MouseEnter += (sender, e) => { ((Line)sender).Stroke = Brushes.Red; };
-                        line.MouseLeave += (sender, e) => { ((Line)sender).Stroke = Brushes.Black; };
-                    
                 }
             }
 
         }
+
+      
+
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
