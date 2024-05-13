@@ -132,14 +132,25 @@ namespace AutoCorrectorFrontend.MVVM.View
                     };
 
                     double nodeRadius = nodeDiameter / 2;
+
+                    var plagPair = viewModel.PlagiarismPairs.First(x => (x.Id1 == edge.Name1 && x.Id2 == edge.Name2) || (x.Id1 == edge.Name2 && x.Id2 == edge.Name1));
+
+                    int avgSim = plagPair.Average_similarity;
+
+                    byte red = (byte)(255 - 2 * avgSim);
+                    Color color = Color.FromRgb(red, 0, 0);
+
+                    double strokeThickness = 0.1 + 0.20 * avgSim;
+
                     Line line = new Line
                     {
                         X1 = Nodes[i].X + nodeRadius,
                         Y1 = Nodes[i].Y + nodeRadius,
                         X2 = Nodes[j].X + nodeRadius,
                         Y2 = Nodes[j].Y + nodeRadius,
-                        Stroke = Brushes.Black,
-                        StrokeThickness = 6
+
+                        Stroke = new SolidColorBrush(color),
+                        StrokeThickness = strokeThickness
                     };
 
                     Canvas.Children.Add(line);
@@ -149,16 +160,6 @@ namespace AutoCorrectorFrontend.MVVM.View
                     // Calculate the midpoint of the line
                     double midX = (Nodes[i].X + Nodes[j].X) / 2;
                     double midY = (Nodes[i].Y + Nodes[j].Y) / 2;
-
-                    //// Create a TextBlock at the midpoint
-                    //TextBlock textBlock = new TextBlock
-                    //{
-                    //    Foreground = Brushes.Red,
-                    //    Visibility = Visibility.Collapsed
-                    //};
-                    //Canvas.SetLeft(textBlock, midX);
-                    //Canvas.SetTop(textBlock, midY - 20); // Adjust this value to position the TextBlock above the edge
-                    //Canvas.Children.Add(textBlock);
 
                     // Add mouse event handlers to the line
                     line.MouseEnter += (sender, e) => 
@@ -175,8 +176,8 @@ namespace AutoCorrectorFrontend.MVVM.View
 
                     };
                     
-                    line.MouseEnter += (sender, e) => { ((Line)sender).Stroke = Brushes.Red; };
-                    line.MouseLeave += (sender, e) => { ((Line)sender).Stroke = Brushes.Black; };
+                    //line.MouseEnter += (sender, e) => { ((Line)sender).Stroke = Brushes.Red; };
+                    //line.MouseLeave += (sender, e) => { ((Line)sender).Stroke = Brushes.Black; };
 
                     line.MouseLeave += (sender, e) =>
                     {

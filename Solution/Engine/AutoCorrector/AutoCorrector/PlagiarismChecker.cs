@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using AutoCorrector;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
 using SharpCompress.Common;
 
@@ -56,28 +57,44 @@ public partial class PlagiarismChecker
 
         public ObservableCollection<int> Cluster { get; set; } = new ObservableCollection<int>();
     }
+
     public async Task<List<PlagiarismPair>> CheckPlagiarism(List<StudentInfo> students)
     {
         ProcessExecutor processExecutor = new ProcessExecutor();
 
-        //if (File.Exists(Settings.PlagiarismResFolder))
-        //{
-        //    File.Delete(Settings.PlagiarismResFolder);
-        //}
+        if (Directory.Exists("C:\\Users\\z004w26z\\Desktop\\res"))
+        {
+            Directory.Delete("C:\\Users\\z004w26z\\Desktop\\res", true);
+        }
 
-        //Process process = new Process();
-        //// Configure the process using the StartInfo properties.
-        //process.StartInfo.FileName = "cmd";
-        //process.StartInfo.Arguments = "java -jar C:\\Users\\z004w26z\\Desktop\\jplag.jar -l cpp --result-file=C:\\Users\\z004w26z\\Desktop\\res.zip C:\\Users\\z004w26z\\Desktop\\Material\\Licenta\\Licenta\\Solution\\Engine\\AutoCorrector\\Unzipped";
-        //process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
-        //process.StartInfo.UseShellExecute = false;
-        //process.StartInfo.CreateNoWindow = true;
-        //process.Start();
+        if (File.Exists("C:\\Users\\z004w26z\\Desktop\\res.zip"))
+        {
+            File.Delete("C:\\Users\\z004w26z\\Desktop\\res.zip");
+        }
 
-        //await process.WaitForExitAsync();
+        Process process = new Process();
 
-        //await processExecutor.ExecuteProcess("powershell", $"\"C:\\Program Files\\Common Files\\Oracle\\Java\\javapath\\java.exe\" -jar C:\\Users\\z004w26z\\Desktop\\jplag.jar -l cpp --result-file={Settings.PlagiarismResFolder} {Settings.UnzippedFolderPath}", "");
+        process.StartInfo.WorkingDirectory = @"C:\Users\z004w26z\Desktop\Material\Licenta\Licenta\Solution\Engine\AutoCorrector";
 
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.RedirectStandardError = true;
+
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.RedirectStandardError = true;
+
+
+        process.StartInfo.FileName = "\"C:\\Program Files\\Common Files\\Oracle\\Java\\javapath\\java.exe\"";
+        process.StartInfo.Arguments = "-jar C:\\Users\\z004w26z\\Desktop\\jplag.jar -l cpp --result-file=C:\\Users\\z004w26z\\Desktop\\res.zip C:\\Users\\z004w26z\\Desktop\\Material\\Licenta\\Licenta\\Solution\\Engine\\AutoCorrector\\Unzipped";
+        process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+        process.Start();
+
+        await Task.Run(() =>
+        {
+            process.WaitForExit();
+            string output = process.StandardOutput.ReadToEnd(); // Read standard output
+            string error = process.StandardError.ReadToEnd(); // Read standard error
+
+        });
 
         List<PlagiarismPair> plagiarismPairs = new List<PlagiarismPair>();
 
