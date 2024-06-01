@@ -76,12 +76,9 @@ public partial class PlagiarismChecker
 
         process.StartInfo.WorkingDirectory = @"C:\Users\z004w26z\Desktop\Material\Licenta\Licenta\Solution\Engine\AutoCorrector";
 
+        
         process.StartInfo.RedirectStandardOutput = true;
         process.StartInfo.RedirectStandardError = true;
-
-        process.StartInfo.RedirectStandardOutput = true;
-        process.StartInfo.RedirectStandardError = true;
-
 
         process.StartInfo.FileName = "\"C:\\Program Files\\Common Files\\Oracle\\Java\\javapath\\java.exe\"";
         process.StartInfo.Arguments = "-jar C:\\Users\\z004w26z\\Desktop\\jplag.jar -l cpp --result-file=C:\\Users\\z004w26z\\Desktop\\res.zip C:\\Users\\z004w26z\\Desktop\\Material\\Licenta\\Licenta\\Solution\\Engine\\AutoCorrector\\Unzipped";
@@ -97,7 +94,6 @@ public partial class PlagiarismChecker
         });
 
         List<PlagiarismPair> plagiarismPairs = new List<PlagiarismPair>();
-
 
         if (File.Exists(Settings.PlagiarismResFolder))
         {

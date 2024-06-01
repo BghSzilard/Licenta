@@ -149,7 +149,6 @@ CXChildVisitResult ASTTraverser::functionExtractorVisitor(CXCursor current_curso
             clang_getSpellingLocation(startLoc, nullptr, &startLine, nullptr, nullptr);
             clang_getSpellingLocation(endLoc, nullptr, &endLine, nullptr, nullptr);
 
-
             std::ifstream inputFile(m_inputFile);
             std::string line;
             for (unsigned i = 1; i <= endLine; ++i) 
@@ -178,7 +177,6 @@ CXChildVisitResult ASTTraverser::dependencyFunctionExtractorVisitor(CXCursor cur
 
     if (clang_getCursorKind(current_cursor) == CXCursor_DeclRefExpr && clang_getCursorKind(clang_getCursorReferenced(current_cursor)) == CXCursor_FunctionDecl)
     {
-        
         m_cursorsToTraverse.push(clang_getCursorReferenced(current_cursor));
 
         CXSourceRange range = clang_getCursorExtent(m_cursorsToTraverse.back());

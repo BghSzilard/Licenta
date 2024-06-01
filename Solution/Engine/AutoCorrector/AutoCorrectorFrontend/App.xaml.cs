@@ -17,6 +17,7 @@ namespace AutoCorrectorFrontend
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            
             mainWindow.Show();
         }
 

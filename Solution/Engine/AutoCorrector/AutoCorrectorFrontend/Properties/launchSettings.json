@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AutoCorrectorFrontend": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

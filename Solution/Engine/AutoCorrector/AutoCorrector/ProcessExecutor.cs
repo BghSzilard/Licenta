@@ -23,8 +23,6 @@ public class ProcessExecutor
             startInfo.Arguments = $"\"{arguments}\" ";
         }
 
-        //startInfo.EnvironmentVariables["OLLAMA_HOST"] = "https://c7fb-35-185-246-134.ngrok-free.app";
-
         if (input != "") 
         {
             if (startInfo.FileName.Contains("powershell"))

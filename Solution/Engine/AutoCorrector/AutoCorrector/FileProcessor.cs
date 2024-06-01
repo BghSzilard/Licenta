@@ -151,6 +151,11 @@ public class FileProcessor
 
         CompilationCheckerWrapper compilationCheckerWrapper = new CompilationCheckerWrapper();
 
+        if (files.Length == 1)
+        {
+            return files[0];
+        }
+
         foreach (var file in files)
         {
             bool containsMain = await Task.Run(() => compilationCheckerWrapper.ContainsMain(file)).ConfigureAwait(false);

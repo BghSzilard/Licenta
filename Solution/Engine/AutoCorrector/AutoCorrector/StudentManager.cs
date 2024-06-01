@@ -1,4 +1,5 @@
-﻿using AutoCorrectorEngine;
+﻿using System.Diagnostics;
+using AutoCorrectorEngine;
 using AutoCorrectorFrontend.MVVM.Services;
 
 namespace AutoCorrector;
@@ -48,29 +49,58 @@ public class StudentManager
 
     private async Task CheckCompilations()
     {
-        ProcessExecutor processExecutor = new ProcessExecutor();
         foreach (var student in _students)
         {
-            var folderPath = _fileProcessor.GetFolder(Settings.UnzippedFolderPath, student.Name);
-            var sourceFile = await _fileProcessor.FindSourceFile(folderPath);
-
-            if (sourceFile != null)
+            using (Process process = new Process())
             {
-                if (await processExecutor.ExecuteProcess("powershell.exe", "clang++", sourceFile) == "")
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+
+                process.StartInfo.FileName = "powershell.exe";
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+                var folderPath = _fileProcessor.GetFolder(Settings.UnzippedFolderPath, student.Name);
+                var sourceFile = await _fileProcessor.FindSourceFile(folderPath);
+
+                if (sourceFile != null)
                 {
-                    student.CodeCompiles = true;
+                    process.StartInfo.Arguments = $"clang++ '{sourceFile}'";
+
+                    process.Start();
+
+                    // Read standard output and standard error simultaneously
+                    var outputTask = process.StandardOutput.ReadToEndAsync();
+                    var errorTask = process.StandardError.ReadToEndAsync();
+
+                    await Task.WhenAll(outputTask, errorTask);
+
+                    string output = outputTask.Result;
+                    string error = errorTask.Result;
+
+                    await process.WaitForExitAsync();
+
+                    if (error == "")
+                    {
+                        student.CodeCompiles = true;
+                    }
+                    else
+                    {
+                        student.CodeCompiles = false;
+                    }
+
+                    student.SourceFile = sourceFile;
+                }
+                else
+                {
+                    student.CodeCompiles = false;
                 }
 
-                student.SourceFile = sourceFile;
+                _notificationService.NotificationText = $"Compilation check made for {student.Name}";
             }
-            else
-            {
-                student.CodeCompiles = false;
-            }
-
-            _notificationService.NotificationText = $"Compilation check made for {student.Name}";
         }
     }
+
+
     private async Task ExtractEssence(string path)
     {
         await _fileProcessor.ExtractArchivesRecursively(path);
@@ -121,21 +151,13 @@ public class StudentManager
         _notificationService.NotificationText = "Grading Students...";
         CorrectionChecker checker = new CorrectionChecker();
 
+        if (Directory.Exists(Settings.UnitTestsPath))
+        {
+            Directory.Delete(Settings.UnitTestsPath, true);
+        }
+
         foreach (var student in _students)
         {
-            int task = 1;
-
-            FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
-            var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
-
-            string allSignatures = "";
-            foreach (var signature in signatures)
-            {
-                allSignatures += signature;
-                allSignatures += ";";
-            }
-            allSignatures = allSignatures.Remove(allSignatures.Length - 1);
-
             if (!student.CodeCompiles)
             {
                 foreach (var req in processedScalde)
@@ -153,6 +175,18 @@ public class StudentManager
             }
             else
             {
+                int task = 1;
+
+                FunctionSignatureExtractorWrapper functionSignatureExtractor = new FunctionSignatureExtractorWrapper();
+                var signatures = functionSignatureExtractor.GetSignatures(student.SourceFile);
+
+                string allSignatures = "";
+                foreach (var signature in signatures)
+                {
+                    allSignatures += signature;
+                    allSignatures += ";";
+                }
+                allSignatures = allSignatures.Remove(allSignatures.Length - 1);
                 foreach (var requirement in processedScalde)
                 {
                     Requirement studReq = new Requirement();

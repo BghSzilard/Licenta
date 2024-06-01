@@ -50,5 +50,7 @@ public class Settings
         SyntaxPath = Path.Combine(SolutionPath, "Syntax");
         SyntaxPath = Path.Combine(SyntaxPath, "cpp.xshd");
         UnitTestsPath = Path.Combine(SolutionPath, "UnitTests");
+
+       
     }
 }

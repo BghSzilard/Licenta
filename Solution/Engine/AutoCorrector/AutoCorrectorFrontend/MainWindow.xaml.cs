@@ -36,10 +36,5 @@ namespace AutoCorrectorFrontend
             else
                 this.WindowState = WindowState.Maximized;
         }
-
-        private void Close_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
     }
 }

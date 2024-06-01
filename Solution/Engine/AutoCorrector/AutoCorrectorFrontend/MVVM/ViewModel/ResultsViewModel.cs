@@ -93,15 +93,13 @@ public partial class ResultsViewModel : ObservableObject
                 studToEdit.Requirements[int.Parse(requirement.ToString()) - 1].Points += req.Points;
             }
 
-            studToEdit.Grade = 0;
+            studToEdit.Grade = 1;
 
             foreach (var req in studToEdit.Requirements)
             {
                 studToEdit.Grade += req.Points;
             }
         }
-
-
     }
 
     private char GetNthDigit(string input, int n)

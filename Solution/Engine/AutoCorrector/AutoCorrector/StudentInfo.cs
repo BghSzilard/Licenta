@@ -10,7 +10,7 @@ public partial class StudentInfo: ObservableObject
     private string _name;
 
     [ObservableProperty]
-    private float _grade;
+    private float _grade = 1;
 
     [ObservableProperty] 
     private bool _codeCompiles;
