@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media;
 using AutoCorrector;
@@ -6,6 +7,8 @@ using AutoCorrectorEngine;
 using AutoCorrectorFrontend.MVVM.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DocumentFormat.OpenXml.Spreadsheet;
+using static Microsoft.Win32.NativeMethods;
 
 namespace AutoCorrectorFrontend.MVVM.ViewModel;
 public partial class ResultsViewModel : ObservableObject
@@ -61,6 +64,10 @@ public partial class ResultsViewModel : ObservableObject
 
 
         }
+        else
+        {
+            SelectedReason = "";
+        }
     }
 
     [RelayCommand]
@@ -99,6 +106,37 @@ public partial class ResultsViewModel : ObservableObject
             {
                 studToEdit.Grade += req.Points;
             }
+        }
+    }
+
+    [RelayCommand]
+    public async void DoubleClick(DataGridCellInfo dataGridCellInfo)
+    {
+        var column = dataGridCellInfo.Column;
+        ProcessExecutor processExecutor = new ProcessExecutor();
+        
+        if (column != null && column.Header.ToString().Contains("function"))
+        {
+            var requirement = GetNthDigit(column.Header.ToString(), 1);
+
+            StudentInfo stud = dataGridCellInfo.Item as StudentInfo;
+
+            int lastIndex = stud.SourceFile!.LastIndexOf('\\');
+
+            
+            string firstPart = stud.SourceFile!.Substring(0, lastIndex);
+            string secondPart = stud.SourceFile!.Substring(lastIndex + 1);
+
+            Process process = new Process();
+
+            process.StartInfo.FileName = "powershell.exe";
+            process.StartInfo.WorkingDirectory = firstPart;
+            process.StartInfo.Arguments = $"code -g \"\"\"{stud.SourceFile}:{stud.Requirements[int.Parse(requirement.ToString()) - 1].Line}\"\"\"";
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.Start();
+            await process.WaitForExitAsync();
+
+            
         }
     }
 

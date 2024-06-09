@@ -15,8 +15,13 @@ public partial class HomeViewModel : ObservableObject
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(DependenciesUploaded))]
-
     private string _uploadedZip;
+
+    [ObservableProperty]
+    private double _opacity = 1;
+
+    [ObservableProperty]
+    private bool _isProcessing = false;
     public bool DependenciesUploaded => UploadedScale != "None" && UploadedZip != "None";
     private NotificationService _notificationService { get; set; }
     public HomeViewModel(NotificationService notificationService)
@@ -57,7 +62,12 @@ public partial class HomeViewModel : ObservableObject
     public async Task GradeProjects()
     {
         StudentManager studentManager = new StudentManager(_notificationService, UploadedZip, UploadedScale);
-        await studentManager.Solve();
+        Opacity = 0.3;
+        IsProcessing = true;
+        await Task.Run(async() => await studentManager.Solve());
         _notificationService.NotificationText = "Students Graded!";
+        IsProcessing = false;
+        Opacity = 1;
     }
+
 }

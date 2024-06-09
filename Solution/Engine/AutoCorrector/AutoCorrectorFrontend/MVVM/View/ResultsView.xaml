@@ -6,6 +6,32 @@
              xmlns:local="clr-namespace:AutoCorrectorFrontend.MVVM.View" xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="CustomScrollViewerStyle" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollViewer">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <!-- This Rectangle is the background above the vertical scrollbar -->
+                            <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Height="5" Fill="Blue"/>
+                            <ScrollContentPresenter Grid.Row="1" Grid.Column="0"/>
+                            <ScrollBar x:Name="PART_VerticalScrollBar" Orientation="Vertical" Grid.Row="1" Grid.Column="1" />
+                            <ScrollBar x:Name="PART_HorizontalScrollBar" Orientation="Horizontal" Grid.Row="2" Grid.Column="0" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350"></ColumnDefinition>
@@ -13,21 +39,20 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Rectangle RadiusX="10" RadiusY="10" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Fill="#202020"></Rectangle>
         <TextBlock FontSize="30" Margin="40 10 0 0" Grid.Row="0" Text="Results" Foreground="White"></TextBlock>
-        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Margin="40 20 40 0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+            <DataGrid Width="auto" SelectionMode="Single" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                   ItemsSource="{Binding Students}" CanUserAddRows="False" SelectionUnit="Cell" 
                   x:Name="dataGrid" AutoGenerateColumns="False" Background="#FF2D2D30" 
-                  Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" 
+                  Foreground="White" GridLinesVisibility="Vertical" RowBackground="#FF3F3F46" 
                   AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" 
-                  BorderThickness="1">
+                  BorderThickness="1" ScrollViewer.CanContentScroll="True"  ScrollViewer.IsDeferredScrollingEnabled="True" Grid.Row="1" Grid.ColumnSpan="2" MaxHeight="440" RowHeight="55" Margin="40 0 40 0" FrozenColumnCount="2">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Source File">
+                    <DataGridTemplateColumn Header="Source File" Width="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Open" Height="Auto" Click="Button_Click" Background="#007ACC" Foreground="White" BorderBrush="#007ACC" BorderThickness="1" Padding="10,5" Margin="10"/>
@@ -39,13 +64,18 @@
                     <b:EventTrigger EventName="SelectedCellsChanged">
                         <b:InvokeCommandAction Command="{Binding SelectedCellsChangedCommand}" CommandParameter="{Binding ElementName=dataGrid, Path=CurrentCell}"/>
                     </b:EventTrigger>
+                    
                     <b:EventTrigger EventName="CellEditEnding">
                         <b:InvokeCommandAction Command="{Binding EditSelectedCellCommand}" CommandParameter="{Binding ElementName=dataGrid, Path=CurrentCell}"/>
                     </b:EventTrigger>
-                </b:Interaction.Triggers>
+                    
+                    <b:EventTrigger EventName="MouseDoubleClick">
+                        <b:InvokeCommandAction Command="{Binding DoubleClickCommand}" CommandParameter="{Binding ElementName=dataGrid, Path=CurrentCell}"/>
+                    </b:EventTrigger>
+            </b:Interaction.Triggers>
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="#FF3F3F46"/>
+                    <Setter Property="Background" Value="#007ACC"/>
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         <Setter Property="FontSize" Value="18"/>
@@ -56,8 +86,8 @@
                         <Setter Property="FontWeight" Value="SemiBold"/>
                     </Style>
                     <Style TargetType="{x:Type DataGridCell}">
-                        <Setter Property="BorderBrush" Value="#FF3F3F46"/>
-                        <Setter Property="BorderThickness" Value="0 0 1 0"/>
+                        <Setter Property="BorderBrush" Value="White"/>
+                        <Setter Property="BorderThickness" Value="0, 0, 1, 1"/>
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="FontSize" Value="16"/>
                         <Setter Property="Padding" Value="10,0"/>
@@ -65,9 +95,9 @@
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
                     </Style>
-                </DataGrid.Resources>
+              
+            </DataGrid.Resources>
             </DataGrid>
-        </ScrollViewer>
         <DockPanel Grid.Row="2" Grid.ColumnSpan="2">
             <DockPanel DockPanel.Dock="Top">
                 <TextBlock FontSize="20" Margin="40 10 0 0" Foreground="White" Text="Reason for score: "></TextBlock>

@@ -24,7 +24,7 @@ public class FileProcessor
         }
     }
 
-    public void ExtractRar(string sourcePath, string destinationPath)
+    public async Task ExtractRar(string sourcePath, string destinationPath)
     {
         try
         {
@@ -33,10 +33,13 @@ public class FileProcessor
             {
                 if (!entry.IsDirectory)
                 {
-                    entry.WriteToDirectory(destinationPath, new SharpCompress.Common.ExtractionOptions()
+                    await Task.Run(() =>
                     {
-                        ExtractFullPath = true,
-                        Overwrite = true
+                        entry.WriteToDirectory(destinationPath, new SharpCompress.Common.ExtractionOptions()
+                        {
+                            ExtractFullPath = true,
+                            Overwrite = true
+                        });
                     });
                 }
             }
@@ -55,13 +58,13 @@ public class FileProcessor
         foreach (string zipFile in zipFiles)
         {
             await ExtractZip(zipFile, rootDirectory);
-            File.Delete(zipFile);
+            await Task.Run(() => { File.Delete(zipFile); });
         }
 
         foreach (string rarFile in rarFiles)
         {
-            ExtractRar(rarFile, rootDirectory);
-            File.Delete(rarFile);
+            await ExtractRar(rarFile, rootDirectory);
+            await Task.Run(() => { File.Delete(rarFile); });
         }
 
         string[] subDirectories = Directory.GetDirectories(rootDirectory);
@@ -145,6 +148,13 @@ public class FileProcessor
         return stringToSeparate.Split(separator)[0];
     }
 
+    public async Task<List<string>> FindHeaders(string path)
+    {
+        List<string> files = Directory.GetFiles(path, "*.h").ToList();
+        files.AddRange(Directory.GetFiles(path, "*.hpp").ToList());
+
+        return files;
+    }
     public async Task<string?> FindSourceFile(string path)
     {
         var files = Directory.GetFiles(path, "*.cpp");

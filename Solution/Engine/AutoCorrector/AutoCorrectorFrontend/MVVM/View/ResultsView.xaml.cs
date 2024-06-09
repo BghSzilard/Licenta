@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using AutoCorrector;
 using AutoCorrectorEngine;
 
@@ -43,7 +45,7 @@ namespace AutoCorrectorFrontend.MVVM.View
             columnName.CellTemplate.VisualTree.SetBinding(TextBlock.TextProperty, new Binding("Name"));
             columnName.CellTemplate.VisualTree.SetValue(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Left);
             columnName.CellTemplate.VisualTree.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-            columnName.CellStyle = style;
+            //columnName.CellStyle = style;
 
             var columnGrade = new DataGridTemplateColumn();
             columnGrade.Header = "Grade";
@@ -52,7 +54,7 @@ namespace AutoCorrectorFrontend.MVVM.View
             columnGrade.CellTemplate.VisualTree.SetBinding(TextBlock.TextProperty, new Binding("Grade"));
             columnGrade.CellTemplate.VisualTree.SetValue(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Center);
             columnGrade.CellTemplate.VisualTree.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-            columnGrade.CellStyle = style;
+            //columnGrade.CellStyle = style;
 
             var columnCompile = new DataGridTemplateColumn();
             columnCompile.Header = "Code Compiles";
@@ -84,15 +86,7 @@ namespace AutoCorrectorFrontend.MVVM.View
                     dataGrid.Columns.Add(columnReqFunc);
                 }
 
-                var columnReqPoint = new DataGridTemplateColumn();
-                columnReqPoint.Header = $"Task {index} points";
-                columnReqPoint.CellTemplate = new DataTemplate(typeof(TextBlock));
-                columnReqPoint.CellTemplate.VisualTree = new FrameworkElementFactory(typeof(TextBlock));
-                columnReqPoint.CellTemplate.VisualTree.SetBinding(TextBlock.TextProperty, new Binding($"Requirements[{index - 1}].Points"));
-                columnReqPoint.CellTemplate.VisualTree.SetValue(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-                columnReqPoint.CellTemplate.VisualTree.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-
-                dataGrid.Columns.Add(columnReqPoint);
+                
 
                 int subIndex = 1;
                 foreach (var subReq in requirement.SubRequirements)
@@ -170,7 +164,7 @@ namespace AutoCorrectorFrontend.MVVM.View
             var row = (StudentInfo)button.DataContext;
             string task = button.CommandParameter as string;
 
-            await _processExecutor.ExecuteProcess("powershell", "code", $"{Path.Combine(Settings.UnitTestsPath, $"{row.Name} {task}.cpp")}");
+            await _processExecutor.ExecuteProcess("powershell", "code", $"{System.IO.Path.Combine(Settings.UnitTestsPath, $"{row.Name} {task}.cpp")}");
         }
 
         private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -178,7 +172,21 @@ namespace AutoCorrectorFrontend.MVVM.View
             Button button = (Button)sender;
             var row = (StudentInfo)button.DataContext;
 
-            await _processExecutor.ExecuteProcess("powershell", "code", row.SourceFile!);
+            string files = $"'{row.SourceFile}'";
+
+            foreach (var header in row.HeaderFiles)
+            {
+                files += " ";
+                files += $"'{header}'";
+            }
+
+            Process process = new Process();
+
+            process.StartInfo.FileName = "powershell.exe";
+            process.StartInfo.Arguments = $"code {files}";
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.Start();
+            await process.WaitForExitAsync();
         }
     }
 }

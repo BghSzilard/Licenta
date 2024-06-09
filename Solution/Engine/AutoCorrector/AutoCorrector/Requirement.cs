@@ -11,6 +11,8 @@ public partial class Requirement: ObservableObject
     [ObservableProperty] private float _points;
 
     [ObservableProperty] private string _type;
+
+    [ObservableProperty] private int _line;
     public Requirement()
     {
         Title = string.Empty;

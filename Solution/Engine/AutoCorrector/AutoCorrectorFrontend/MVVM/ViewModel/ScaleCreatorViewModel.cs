@@ -29,6 +29,12 @@ public partial class ScaleCreatorViewModel : ObservableObject
     [ObservableProperty]
     private bool _scaleLoaded = false;
 
+    [ObservableProperty]
+    private bool _isProcessing = false;
+
+    [ObservableProperty]
+    private double _opacity = 1;
+
     private async Task<string> CreateScale(string doc)
     {
         LLMManager lLMManager = new LLMManager();
@@ -43,31 +49,39 @@ public partial class ScaleCreatorViewModel : ObservableObject
         openFileDialog.Filter = "Doc files (*.pdf, *.docx, *.txt)|*.pdf;*.txt;*.docx";
         if (openFileDialog.ShowDialog() == true)
         {
+            IsProcessing = true;
+            Opacity = 0.3;
             string selectedFileName = openFileDialog.FileName;
             AutoCorrectorEngine.Settings.ProjectsPath = selectedFileName;
             UploadedDocument = selectedFileName;
             _notificationService.NotificationText = "Creating Scale...";
             string doc = "";
 
-            if (selectedFileName.EndsWith(".txt"))
+            await Task.Run(async () =>
             {
-                using (StreamReader sr = new StreamReader(selectedFileName))
+                if (selectedFileName.EndsWith(".txt"))
                 {
-                    doc = sr.ReadToEnd();
+                    using (StreamReader sr = new StreamReader(selectedFileName))
+                    {
+                        doc = sr.ReadToEnd();
+                    }
                 }
-            }
-            else if (selectedFileName.EndsWith(".docx"))
-            {
-                doc = ReadWordDocument(selectedFileName);
-            }
-            else
-            {
-                doc = await ReadPdfFile(selectedFileName);
-            }
+                else if (selectedFileName.EndsWith(".docx"))
+                {
+                    doc = ReadWordDocument(selectedFileName);
+                }
+                else
+                {
+                    doc = await ReadPdfFile(selectedFileName);
+                }
 
-            _scale = await CreateScale(doc);
-            _notificationService.NotificationText = "Scale Created!";
-            ScaleLoaded = true;
+                _scale = await CreateScale(doc);
+                _notificationService.NotificationText = "Scale Created!";
+                ScaleLoaded = true;
+            });
+
+           IsProcessing = false;
+           Opacity = 1;
         }
     }
 

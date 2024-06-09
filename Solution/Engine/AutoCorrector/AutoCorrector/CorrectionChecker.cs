@@ -27,7 +27,7 @@ public class CorrectionChecker
 
     }
 
-    static Task CompileAsync(string sourceFilePath)
+    static async Task CompileAsync(string sourceFilePath)
     {
         var process = new Process
         {
@@ -36,13 +36,13 @@ public class CorrectionChecker
                 FileName = "clang++",
                 Arguments = $"\"{sourceFilePath}\" -o \"{Settings.UnitTestsPath}\\temp.exe\"",
                 UseShellExecute = false,
-                RedirectStandardError = true,
+                RedirectStandardOutput = true,
                 CreateNoWindow = true,
             }
         };
 
         process.Start();
-        return process.WaitForExitAsync();
+        await process.StandardOutput.ReadToEndAsync();
     }
 
     static async Task<string> ExecuteAsync(string fileName)

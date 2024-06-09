@@ -21,4 +21,5 @@ public:
 	}
 
 	String^ GetFunction(String^ translationUnit, String^ functionName);
+	int GetFirstLineNumber(String^ translationUnit, String^ functionName);
 };

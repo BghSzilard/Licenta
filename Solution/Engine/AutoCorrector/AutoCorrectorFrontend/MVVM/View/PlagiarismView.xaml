@@ -81,7 +81,7 @@
                 </ControlTemplate>
             </TextBox.Template>
         </TextBox>
-        <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" AutoGenerateColumns="False" Margin="30 10 30 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="3" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Horizontal" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
+        <DataGrid HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsReadOnly="True" AutoGenerateColumns="False" Margin="30 10 30 0" ItemsSource="{Binding PlagiarismPairs}" Grid.Row="3" Grid.ColumnSpan="2" CanUserAddRows="False" SelectionUnit="Cell" Background="#FF2D2D30" Foreground="White" GridLinesVisibility="Vertical" RowBackground="#FF3F3F46" AlternatingRowBackground="#FF2D2D30" RowHeaderWidth="0" BorderBrush="#FF3F3F46" BorderThickness="1">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Source Files">
                     <DataGridTemplateColumn.CellTemplate>
@@ -139,10 +139,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Cluster">
+                <DataGridTemplateColumn Header="Cluster" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBlock Text="{Binding Cluster.Count}" VerticalAlignment="Center" TextAlignment="Center" Margin="0 0 5 0">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
@@ -187,7 +187,7 @@
             </DataGrid.Columns>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#FF3F3F46"/>
+                    <Setter Property="Background" Value="#007ACC"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="FontSize" Value="18"/>
@@ -198,8 +198,8 @@
                     <Setter Property="FontWeight" Value="SemiBold"/>
                 </Style>
                 <Style TargetType="{x:Type DataGridCell}">
-                    <Setter Property="BorderBrush" Value="#FF3F3F46"/>
-                    <Setter Property="BorderThickness" Value="0 0 1 0"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="BorderThickness" Value="0, 0, 1, 1"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="FontSize" Value="16"/>
                     <Setter Property="Padding" Value="10,0"/>

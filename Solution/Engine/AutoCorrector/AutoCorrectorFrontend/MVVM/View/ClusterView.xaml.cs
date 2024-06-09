@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using AutoCorrectorEngine;
 using AutoCorrectorFrontend.Events;
 using AutoCorrectorFrontend.MVVM.Converters;
 using AutoCorrectorFrontend.MVVM.Model;
@@ -23,9 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoCorrectorFrontend.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for ClusterView.xaml
-    /// </summary>
     public partial class ClusterView : UserControl
     {
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -49,6 +35,38 @@ namespace AutoCorrectorFrontend.MVVM.View
         public ObservableCollection<Edge> Edges { get; } = new ObservableCollection<Edge>();
 
         List<Line> Lines { get; set; } = new List<Line>();
+
+        public Line CreateLine(Node node1, Node node2, double nodeRadius, SolidColorBrush color, double strokeThickness)
+        {
+            // Calculate the difference in x and y coordinates between the two nodes
+            double dx = node2.X - node1.X;
+            double dy = node2.Y - node1.Y;
+
+            // Calculate the distance between the centers of the nodes
+            double distance = Math.Sqrt(dx * dx + dy * dy);
+
+            // Calculate the unit vector components in the direction from node1 to node2
+            double ux = dx / distance;
+            double uy = dy / distance;
+
+            // Calculate the start and end points of the line on the edge of the nodes
+            double startX = node1.X + nodeRadius * ux;
+            double startY = node1.Y + nodeRadius * uy;
+            double endX = node2.X - nodeRadius * ux;
+            double endY = node2.Y - nodeRadius * uy;
+
+            // Create and return the line
+            return new Line
+            {
+                X1 = startX + nodeRadius,
+                Y1 = startY + nodeRadius,
+                X2 = endX + nodeRadius,
+                Y2 = endY + nodeRadius,
+
+                Stroke = color,
+                StrokeThickness = strokeThickness
+            };
+        }
         private void DrawGraph()
         {
 
@@ -96,27 +114,6 @@ namespace AutoCorrectorFrontend.MVVM.View
                 ellipse.MouseEnter += (sender, e) => { ((Ellipse)sender).Fill = Brushes.Red; };
                 ellipse.MouseLeave += (sender, e) => { ((Ellipse)sender).Fill = Brushes.Black; };
 
-
-                // Create a TextBlock above the node
-                TextBlock textBlock = new TextBlock
-                {
-                    Text = node.Name,
-                    Foreground = Brushes.Red,
-                    FontSize = 16
-                };
-
-                if (Nodes[i].Y < centerY)
-                {
-                    Canvas.SetTop(textBlock, Nodes[i].Y - 20);
-                }
-                else
-                {
-                    Canvas.SetTop(textBlock, Nodes[i].Y + nodeDiameter + 5);
-                }
-
-                Canvas.SetLeft(textBlock, x);
-                Canvas.Children.Add(textBlock);
-
             }
 
             // Draw edges
@@ -142,16 +139,8 @@ namespace AutoCorrectorFrontend.MVVM.View
 
                     double strokeThickness = 0.1 + 0.20 * avgSim;
 
-                    Line line = new Line
-                    {
-                        X1 = Nodes[i].X + nodeRadius,
-                        Y1 = Nodes[i].Y + nodeRadius,
-                        X2 = Nodes[j].X + nodeRadius,
-                        Y2 = Nodes[j].Y + nodeRadius,
 
-                        Stroke = new SolidColorBrush(color),
-                        StrokeThickness = strokeThickness
-                    };
+                    var line = CreateLine(Nodes[i], Nodes[j], nodeRadius, new SolidColorBrush(color), strokeThickness);
 
                     Canvas.Children.Add(line);
                     Lines.Add(line);
@@ -162,7 +151,7 @@ namespace AutoCorrectorFrontend.MVVM.View
                     double midY = (Nodes[i].Y + Nodes[j].Y) / 2;
 
                     // Add mouse event handlers to the line
-                    line.MouseEnter += (sender, e) => 
+                    line.MouseEnter += (sender, e) =>
                     {
                         int index = Lines.IndexOf((Line)sender);
                         var edge = Edges[index];
@@ -175,7 +164,7 @@ namespace AutoCorrectorFrontend.MVVM.View
                         row.Background = Brushes.Red;
 
                     };
-                    
+
                     //line.MouseEnter += (sender, e) => { ((Line)sender).Stroke = Brushes.Red; };
                     //line.MouseLeave += (sender, e) => { ((Line)sender).Stroke = Brushes.Black; };
 
@@ -195,9 +184,32 @@ namespace AutoCorrectorFrontend.MVVM.View
                 }
             }
 
+            for (int i = 0; i < numNodes; i++)
+            {
+
+                TextBlock textBlock = new TextBlock
+                {
+                    Text = Nodes[i].Name,
+                    Foreground = Brushes.White,
+                    FontSize = 16
+                };
+
+                if (Nodes[i].Y < centerY)
+                {
+                    Canvas.SetTop(textBlock, Nodes[i].Y - 25);
+                }
+                else
+                {
+                    Canvas.SetTop(textBlock, Nodes[i].Y + nodeDiameter + 5);
+                }
+
+                Canvas.SetLeft(textBlock, Nodes[i].X - Nodes[i].Name.Length);
+                Canvas.Children.Add(textBlock);
+
+            }
         }
 
-      
+
 
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -205,6 +217,6 @@ namespace AutoCorrectorFrontend.MVVM.View
             // Redraw the graph whenever the window size changes
             DrawGraph();
         }
-        
+
     }
 }

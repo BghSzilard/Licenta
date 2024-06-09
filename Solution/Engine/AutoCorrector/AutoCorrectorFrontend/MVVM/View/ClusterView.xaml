@@ -22,7 +22,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Student 1" Width="80">
+                <DataGridTemplateColumn Header="Student 1">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Id1}" VerticalAlignment="Center" TextAlignment="Left" />
@@ -30,7 +30,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Student 2" Width="80">
+                <DataGridTemplateColumn Header="Student 2">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Id2}" VerticalAlignment="Center" TextAlignment="Left"/>
@@ -38,7 +38,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="First Similarity" Width="110">
+                <DataGridTemplateColumn Header="First Similarity">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding First_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
@@ -46,7 +46,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Second Similarity" Width="110">
+                <DataGridTemplateColumn Header="Second Similarity" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Second_similarity}" VerticalAlignment="Center" TextAlignment="Center"/>
@@ -58,7 +58,7 @@
             </DataGrid.Columns>
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#FF3F3F46"/>
+                    <Setter Property="Background" Value="#007ACC"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="FontSize" Value="14"/>
@@ -69,8 +69,8 @@
                     <Setter Property="FontWeight" Value="SemiBold"/>
                 </Style>
                 <Style TargetType="{x:Type DataGridCell}">
-                    <Setter Property="BorderBrush" Value="#FF3F3F46"/>
-                    <Setter Property="BorderThickness" Value="0 0 1 0"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="BorderThickness" Value="0, 0, 1, 1"/>
                     <Setter Property="Foreground" Value="White"/>
                     <Setter Property="FontSize" Value="14"/>
                     <Setter Property="Padding" Value="10,0"/>

@@ -13,4 +13,6 @@ class MYNATIVELIB_APIFUNCB FunctionExtractor
 public:
 
 	std::string extractFunction(std::string translationUnit, std::string functionName);
+	
+	int getFunctionFirstLineNumber(std::string translationUnit, std::string functionName);
 };

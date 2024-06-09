@@ -29,27 +29,21 @@ public class ScaleProcessor
     }
     public async Task<List<Requirement>> ProcessScale(string path)
     {
-        Translate translate = new Translate();
-
-        var requirements = ReadXMLFile(path);
+        
+        var requirements = await ReadXMLFile(path);
         List<Requirement> processedScale = new List<Requirement>();
         foreach (var requirement in requirements)
         {
             Requirement processedRequirement = new Requirement();
             _notificationService.NotificationText = $"Processing Requirement: {requirement.Title}";
-            //processedRequirement.Title = await GetFunctionSignature(requirement.Title);
-            //processedRequirement.Title = await translate.TranslateToEnglish(requirement.Title);
+            
             processedRequirement.Title = requirement.Title;
             processedRequirement.Type = requirement.Type;
             foreach (var subrequirement in requirement.SubRequirements)
             {
-                //SubRequirement processedSubrequirement = new SubRequirement();
-                //processedSubrequirement.Points = subrequirement.Points;
-                //_notificationService.NotificationText = $"Processing Subrequirement: {subrequirement.Title}";
-                //processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
+                
                 var processedSubrequirement = subrequirement;
-                //processedSubrequirement.Title = await translate.TranslateToEnglish(subrequirement.Title);
-                //processedSubrequirement.Title = await ProcessSubtask(subrequirement.Title);
+                
                 processedRequirement.SubRequirements.Add(processedSubrequirement);
             }
             processedScale.Add(processedRequirement);
@@ -66,26 +60,30 @@ public class ScaleProcessor
         return await lLMManager.ProcessSubtask(subrequirement);
     }
    
-    private List<Requirement> ReadXMLFile(string filePath)
+    private async Task<List<Requirement>> ReadXMLFile(string filePath)
     {
         List<Requirement> requirements = new List<Requirement>();
 
         try
         {
-            XDocument doc = XDocument.Load(filePath);
-
-            requirements = doc.Descendants("task").Select(taskElement => new Requirement
+            requirements = await Task.Run(() =>
             {
-                Title = taskElement.Element("title")?.Value,
-                Type = taskElement.Element("type")?.Value,
-                Points = float.Parse(taskElement.Element("points")?.Value ?? "0"),
-                SubRequirements = taskElement.Descendants("subtask").Select(subtaskElement => new SubRequirement
+                XDocument doc = XDocument.Load(filePath);
+
+                return doc.Descendants("task").Select(taskElement => new Requirement
                 {
-                    Title = subtaskElement.Element("title")?.Value,
-                    Type = subtaskElement.Element("type")?.Value,
-                    Points = float.Parse(subtaskElement.Element("points")?.Value ?? "0")
-                }).ToObservableCollection()
-            }).ToList();
+                    Title = taskElement.Element("title")?.Value,
+                    Type = taskElement.Element("type")?.Value,
+                    Points = float.Parse(taskElement.Element("points")?.Value ?? "0"),
+                    SubRequirements = taskElement.Descendants("subtask").Select(subtaskElement => new SubRequirement
+                    {
+                        Title = subtaskElement.Element("title")?.Value,
+                        Type = subtaskElement.Element("type")?.Value,
+                        Points = float.Parse(subtaskElement.Element("points")?.Value ?? "0")
+                    }).ToObservableCollection()
+                }).ToList();
+            });
+
         }
         catch (Exception ex)
         {

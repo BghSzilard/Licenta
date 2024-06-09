@@ -19,7 +19,7 @@ public class StudentManager
     public async Task Solve()
     {
         _notificationService.NotificationText = "Unzipping Projects...";
-
+        
         if (Directory.Exists(Settings.UnzippedFolderPath))
         {
             Directory.Delete(Settings.UnzippedFolderPath, true);
@@ -61,6 +61,7 @@ public class StudentManager
 
                 var folderPath = _fileProcessor.GetFolder(Settings.UnzippedFolderPath, student.Name);
                 var sourceFile = await _fileProcessor.FindSourceFile(folderPath);
+                var headerFiles = await _fileProcessor.FindHeaders(folderPath);
 
                 if (sourceFile != null)
                 {
@@ -89,6 +90,7 @@ public class StudentManager
                     }
 
                     student.SourceFile = sourceFile;
+                    student.HeaderFiles = headerFiles;
                 }
                 else
                 {
@@ -118,7 +120,10 @@ public class StudentManager
 
             if (!extensions.Contains(extension))
             {
-                file.Delete();
+                await Task.Run(() =>
+                {
+                    file.Delete();
+                });
             }
         }
 
@@ -151,10 +156,13 @@ public class StudentManager
         _notificationService.NotificationText = "Grading Students...";
         CorrectionChecker checker = new CorrectionChecker();
 
-        if (Directory.Exists(Settings.UnitTestsPath))
+        await Task.Run(() =>
         {
-            Directory.Delete(Settings.UnitTestsPath, true);
-        }
+            if (Directory.Exists(Settings.UnitTestsPath))
+            {
+                Directory.Delete(Settings.UnitTestsPath, true);
+            }
+        });
 
         foreach (var student in _students)
         {
@@ -204,6 +212,9 @@ public class StudentManager
                         var includes = fileProcessor.FindIncludes(student.SourceFile!);
                         var function = includes;
                         var extractedFunction = functionExtractor.GetFunction(student.SourceFile, functionName);
+                        int line = functionExtractor.GetFirstLineNumber(student.SourceFile, functionName);
+                        studReq.Line = line;
+
                         function += extractedFunction;
 
                         studReq.Title = functionName;
