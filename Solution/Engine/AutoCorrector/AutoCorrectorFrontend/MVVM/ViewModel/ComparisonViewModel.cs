@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml;
 using AutoCorrectorEngine;
+using AutoCorrectorFrontend.MVVM.Model;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -21,15 +22,74 @@ public partial class ComparisonViewModel : ObservableObject
         public Color HighlightColor { get; set; }
     }
 
+    public ObservableCollection<Square> Squares1 = new ObservableCollection<Square>();
+    public ObservableCollection<Square> Squares2 = new ObservableCollection<Square>();
+
     public ObservableCollection<LineHighlight> LineHighlights1 { get; set; } = new ObservableCollection<LineHighlight> ();
     public ObservableCollection<LineHighlight> LineHighlights2 { get; set; } = new ObservableCollection<LineHighlight> ();
 
     [ObservableProperty]
     private IHighlightingDefinition _highlightingDefinition;
+
+    [ObservableProperty]
+    private int _selectedFile1Id;
+
+    [ObservableProperty]
+    private int _selectedFile2Id;
+
+    private PlagiarismPair _plagiarismPair = new PlagiarismPair();
+
+    private List<Color> _colors = new List<Color>();
+    partial void OnSelectedFile1IdChanged(int oldValue, int newValue)
+    {
+        LeftTextViewText = _plagiarismPair.Files1.Where(x => x.Id == newValue).ToList()[0].Content;
+        SelectedFile1Id = newValue;
+        LineHighlights1.Clear();
+        LineHighlights2.Clear();
+        UpdateHighlights();
+    }
+
+    private void UpdateHighlights()
+    {
+        int temp = 0;
+
+        foreach (var match in _plagiarismPair.matches)
+        {
+            if (match.File1.Id == SelectedFile1Id)
+            {
+                LineHighlights1.Add(new LineHighlight() { StartLine = match.Start1, EndLine = match.End1, HighlightColor = _colors[temp] });
+            }
+
+            if (match.File2.Id == SelectedFile2Id)
+            {
+                LineHighlights2.Add(new LineHighlight() { StartLine = match.Start2, EndLine = match.End2, HighlightColor = _colors[temp] });
+            }
+
+            temp++;
+        }
+    }
+
     public ComparisonViewModel(PlagiarismPair plagiarismPair)
     {
-        LeftTextViewText = plagiarismPair.SourceFile1;
-        RightTextViewText = plagiarismPair.SourceFile2;
+        _plagiarismPair = plagiarismPair;
+
+        _colors = GenerateRandomColors(plagiarismPair.matches.Count);
+
+        SelectedFile1Id = 1;
+        SelectedFile2Id = 1;
+
+        for (int i = 0; i < plagiarismPair.Files1.Count; i++)
+        {
+            Squares1.Add(new Square { Number = i + 1 });
+        }
+
+        for (int i = 0; i < plagiarismPair.Files2.Count; i++)
+        {
+            Squares2.Add(new Square { Number = i + 1});
+        }
+
+        LeftTextViewText = plagiarismPair.Files1.Where(x => x.Id == 1).ToList()[0].Content;
+        RightTextViewText = plagiarismPair.Files2.Where(x => x.Id == 1).ToList()[0].Content;
 
         FirstName = plagiarismPair.Id1;
         SecondName = plagiarismPair.Id2;
@@ -39,16 +99,8 @@ public partial class ComparisonViewModel : ObservableObject
             HighlightingDefinition = HighlightingLoader.Load(new XmlTextReader(reader), HighlightingManager.Instance);
         }
 
-        var colors = GenerateRandomColors(plagiarismPair.matches.Count);
 
-        int temp = 0;
-
-        foreach (var match in plagiarismPair.matches)
-        {
-            LineHighlights1.Add(new LineHighlight() { StartLine = match.Start1, EndLine = match.End1, HighlightColor = colors[temp] });
-            LineHighlights2.Add(new LineHighlight() { StartLine = match.Start2, EndLine = match.End2, HighlightColor = colors[temp] });
-            temp++;
-        }
+       UpdateHighlights();
     }
 
     [ObservableProperty]

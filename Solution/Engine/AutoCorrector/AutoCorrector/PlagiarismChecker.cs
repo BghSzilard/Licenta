@@ -33,8 +33,9 @@ public partial class PlagiarismChecker
 
     public partial class ObservableMatch : ObservableObject
     {
-        [ObservableProperty] private string file1;
-        [ObservableProperty] private string file2;
+        [ObservableProperty] private int _id;
+        [ObservableProperty] private SourceFile file1;
+        [ObservableProperty] private SourceFile file2;
         [ObservableProperty] private int start1;
         [ObservableProperty] private int end1;
         [ObservableProperty] private int start2;
@@ -43,6 +44,7 @@ public partial class PlagiarismChecker
     }
     public partial class PlagiarismPair : ObservableObject
     {
+
         [ObservableProperty] private string _id1;
         [ObservableProperty] private string _id2;
         public ObservableCollection<ObservableMatch> matches { get; set; }
@@ -52,9 +54,8 @@ public partial class PlagiarismChecker
         [ObservableProperty] private int average_similarity;
         [ObservableProperty] private int max_similarity;
 
-        [ObservableProperty] private string _sourceFile1;
-        [ObservableProperty] private string _sourceFile2;
-
+        public ObservableCollection<SourceFile> Files1 = new ObservableCollection<SourceFile>();
+        public ObservableCollection<SourceFile> Files2 = new ObservableCollection<SourceFile>();
         public ObservableCollection<int> Cluster { get; set; } = new ObservableCollection<int>();
     }
 
@@ -111,6 +112,8 @@ public partial class PlagiarismChecker
 
             foreach (var jsonFile in jsonFiles)
             {
+                HashSet<string> alreadyUsedFiles = new HashSet<string>();
+
                 using (StreamReader file = File.OpenText(jsonFile))
                 {
                     Root deserializedJson = JsonConvert.DeserializeObject<Root>(file.ReadToEnd());
@@ -127,36 +130,65 @@ public partial class PlagiarismChecker
                     pair.Max_similarity = Math.Max(pair.First_similarity, pair.Second_similarity);
                     pair.Average_similarity = (pair.First_similarity + pair.Second_similarity) / 2;
 
-                    string sourceFile1 = students.First(x => deserializedJson.id1.Contains(x.Name)).SourceFile!;
-                    string sourceFile2 = students.First(x => deserializedJson.id2.Contains(x.Name)).SourceFile!;
-
-                    using (StreamReader sr = new StreamReader(sourceFile1))
-                    {
-                        // Read the entire file
-                        string fileContent = sr.ReadToEnd();
-
-                        pair.SourceFile1 = fileContent;
-                    }
-
-                    using (StreamReader sr = new StreamReader(sourceFile2))
-                    {
-                        // Read the entire file
-                        string fileContent = sr.ReadToEnd();
-
-                        pair.SourceFile2 = fileContent;
-                    }
-
+                    int i = 1;
+                    int j = 1;
+                    int matchId = 1;
+                    alreadyUsedFiles.Clear();
                     foreach (var match in deserializedJson.matches)
                     {
+                        
+                        string filePath1 = Path.Combine(extractedPath, "files", match.file1);
+                        string filePath2 = Path.Combine(extractedPath, "files", match.file2);
+                        
+                        if (!alreadyUsedFiles.Contains(match.file1))
+                        {
+                            using (StreamReader sr = new StreamReader(filePath1))
+                            {
+                                string fileContent = sr.ReadToEnd();
+
+                                SourceFile sourceFile = new SourceFile();
+                                sourceFile.Name = match.file1;
+                                sourceFile.Content = fileContent;
+                                sourceFile.Id = i;
+
+                                pair.Files1.Add(sourceFile);
+                                ++i;
+                            }
+
+                            alreadyUsedFiles.Add(match.file1);
+                        }
+                       
+
+                        if (!alreadyUsedFiles.Contains(match.file2))
+                        {
+                            using (StreamReader sr = new StreamReader(filePath2))
+                            {
+                                string fileContent = sr.ReadToEnd();
+
+                                SourceFile sourceFile = new SourceFile();
+                                sourceFile.Name = match.file2;
+                                sourceFile.Content = fileContent;
+                                sourceFile.Id = j;
+
+                                pair.Files2.Add(sourceFile);
+                                ++j;
+                            }
+
+                            alreadyUsedFiles.Add(match.file2);
+                        }
+
                         ObservableMatch observableMatch = new ObservableMatch();
                         observableMatch.Start1 = match.start1;
                         observableMatch.Start2 = match.start2;
                         observableMatch.End1 = match.end1;
                         observableMatch.End2 = match.end2;
-                        observableMatch.File1 = match.file1;
-                        observableMatch.File2 = match.file2;
+                        observableMatch.File1 = pair.Files1[pair.Files1.Count - 1];
+                        observableMatch.File2 = pair.Files2[pair.Files2.Count - 1];
+                        observableMatch.Id = matchId;
                         pair.matches.Add(observableMatch);
+                        matchId++;
                     }
+
                     plagiarismPairs.Add(pair);
                 }
             }

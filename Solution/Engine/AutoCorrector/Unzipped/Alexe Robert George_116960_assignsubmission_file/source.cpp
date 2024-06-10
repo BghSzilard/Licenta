@@ -97,32 +97,6 @@ void bubbleSort(std::vector<int> &arr) {
     }
 }
 
-void printOrderedNumbers(const vector<int>& numbers) {
-    
-    vector<int> sortedNumbers = numbers;
-    sort(sortedNumbers.begin(), sortedNumbers.end(), std::greater<int>()); 
-
-    vector<int> oddNumbers; // Vector for storing odd numbers
-    vector<int> evenNumbers; // Vector for storing even numbers
-
-    // Separate odd and even numbers into separate vectors
-    for (int n : sortedNumbers) {
-        if (n % 2 == 0) {
-            evenNumbers.push_back(n);
-        } else {
-            oddNumbers.push_back(n);
-        }
-    }
-
-    // Print odd numbers followed by even numbers
-    for (int n : oddNumbers) {
-        cout << n << " ";
-    }
-    for (int n : evenNumbers) {
-        cout << n << " ";
-    }
-}
-
 int main()
 {
     fibonacci(4);

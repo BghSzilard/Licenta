@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AutoCorrectorFrontend.MVVM.View" xmlns:b="http://schemas.microsoft.com/xaml/behaviors" xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:behaviours="clr-namespace:AutoCorrectorFrontend.MVVM.Behaviours"
+             xmlns:local="clr-namespace:AutoCorrectorFrontend.MVVM.View" xmlns:b="http://schemas.microsoft.com/xaml/behaviors" xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:behaviours="clr-namespace:AutoCorrectorFrontend.MVVM.Behaviours" xmlns:local1="clr-namespace:AutoCorrectorFrontend.MVVM.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <local1:BooleanToBrushConverter x:Key="BoolToBrushConverter"></local1:BooleanToBrushConverter>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -13,16 +18,17 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left Viewer -->
-        <Grid Grid.Column="0" DataContext="{Binding}">
+        <Grid Grid.Column="0" DataContext="{Binding}" Name="LeftGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding FirstName}" FontSize="20" Foreground="White" Margin="10" ></TextBlock>
 
             <avalonEdit:TextEditor ShowLineNumbers="True" Grid.Row="1" IsReadOnly="True" PreviewMouseWheel="leftTextView_MouseWheel" FontSize="{Binding LeftViewerFontSize}" x:Name="leftCode" SyntaxHighlighting="{Binding HighlightingDefinition}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <b:Interaction.Behaviors>
-                    <behaviours:LineHighlightBehavior LineHighlights ="{Binding LineHighlights1}"></behaviours:LineHighlightBehavior> 
+                    <behaviours:LineHighlightBehavior LineHighlights ="{Binding LineHighlights1}"></behaviours:LineHighlightBehavior>
                 </b:Interaction.Behaviors>
             </avalonEdit:TextEditor>
             
