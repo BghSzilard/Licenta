@@ -2,9 +2,7 @@
 using System.Diagnostics;
 using AutoCorrector;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
-using SharpCompress.Common;
 
 namespace AutoCorrectorEngine;
 
@@ -63,26 +61,24 @@ public partial class PlagiarismChecker
     {
         ProcessExecutor processExecutor = new ProcessExecutor();
 
-        if (Directory.Exists("C:\\Users\\z004w26z\\Desktop\\res"))
+        if (Directory.Exists(Settings.PlagiarismResFolder))
         {
-            Directory.Delete("C:\\Users\\z004w26z\\Desktop\\res", true);
+            Directory.Delete(Settings.PlagiarismResFolder, true);
         }
 
-        if (File.Exists("C:\\Users\\z004w26z\\Desktop\\res.zip"))
+        if (File.Exists(Settings.PlagiarismResZip))
         {
-            File.Delete("C:\\Users\\z004w26z\\Desktop\\res.zip");
+            File.Delete(Settings.PlagiarismResZip);
         }
 
         Process process = new Process();
 
-        process.StartInfo.WorkingDirectory = @"C:\Users\z004w26z\Desktop\Material\Licenta\Licenta\Solution\Engine\AutoCorrector";
-
-        
         process.StartInfo.RedirectStandardOutput = true;
         process.StartInfo.RedirectStandardError = true;
 
-        process.StartInfo.FileName = "\"C:\\Program Files\\Common Files\\Oracle\\Java\\javapath\\java.exe\"";
-        process.StartInfo.Arguments = "-jar C:\\Users\\z004w26z\\Desktop\\jplag.jar -l cpp --result-file=C:\\Users\\z004w26z\\Desktop\\res.zip C:\\Users\\z004w26z\\Desktop\\Material\\Licenta\\Licenta\\Solution\\Engine\\AutoCorrector\\Unzipped";
+        //process.StartInfo.FileName = "\"C:\\Program Files\\Common Files\\Oracle\\Java\\javapath\\java.exe\"";
+        process.StartInfo.FileName = "java.exe";
+        process.StartInfo.Arguments = $"-jar {Settings.JplagPath} -l cpp --result-file={Settings.PlagiarismResZip} {Settings.UnzippedFolderPath}";
         process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
         process.Start();
 
@@ -96,18 +92,15 @@ public partial class PlagiarismChecker
 
         List<PlagiarismPair> plagiarismPairs = new List<PlagiarismPair>();
 
-        if (File.Exists(Settings.PlagiarismResFolder))
+        if (File.Exists(Settings.PlagiarismResZip))
         {
             FileProcessor fileProcessor = new FileProcessor();
-
-            string extractedPath = Settings.PlagiarismResFolder;
-            extractedPath = extractedPath.Replace(".zip", "");
-
-            await fileProcessor.ExtractZip(Settings.PlagiarismResFolder, extractedPath);
+            
+            await fileProcessor.ExtractZip(Settings.PlagiarismResZip, Settings.PlagiarismResFolder);
 
             var excludedFiles = new[] { "options.json", "overview.json", "submissionFileIndex.json" };
 
-            var jsonFiles = Directory.EnumerateFiles(extractedPath, "*.json")
+            var jsonFiles = Directory.EnumerateFiles(Settings.PlagiarismResFolder, "*.json")
                                      .Where(file => !excludedFiles.Contains(Path.GetFileName(file)));
 
             foreach (var jsonFile in jsonFiles)
@@ -136,10 +129,10 @@ public partial class PlagiarismChecker
                     alreadyUsedFiles.Clear();
                     foreach (var match in deserializedJson.matches)
                     {
-                        
-                        string filePath1 = Path.Combine(extractedPath, "files", match.file1);
-                        string filePath2 = Path.Combine(extractedPath, "files", match.file2);
-                        
+
+                        string filePath1 = Path.Combine(Settings.PlagiarismResFolder, "files", match.file1);
+                        string filePath2 = Path.Combine(Settings.PlagiarismResFolder, "files", match.file2);
+
                         if (!alreadyUsedFiles.Contains(match.file1))
                         {
                             using (StreamReader sr = new StreamReader(filePath1))
@@ -157,7 +150,7 @@ public partial class PlagiarismChecker
 
                             alreadyUsedFiles.Add(match.file1);
                         }
-                       
+
 
                         if (!alreadyUsedFiles.Contains(match.file2))
                         {

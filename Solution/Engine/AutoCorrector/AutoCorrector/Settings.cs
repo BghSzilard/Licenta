@@ -21,7 +21,9 @@ public class Settings
     public static int PlagiarismThreshold {  get; set; }
     public static StudentInfo StudentSample {  get; set; }
     public static List<StudentInfo> Students { get; set; }
+    public static string PlagiarismResZip {  get; set; }
     public static string PlagiarismResFolder {  get; set; }
+    public static string JplagPath {  get; set; }
     public static List<PlagiarismChecker.PlagiarismPair> PlagiarismPairs { get; set; }
     public static string SyntaxPath;
     public static string UnitTestsPath;
@@ -34,6 +36,7 @@ public class Settings
         {
             SolutionPath = Directory.GetParent(SolutionPath)!.FullName;
         }
+        JplagPath = Path.Combine(SolutionPath, "Jplag//jplag.jar");
         ResultsPath = Path.Combine(SolutionPath, "Results.xlsx");
         UnzippedFolderPath = Path.Combine(SolutionPath, "Unzipped");
         ScriptsPath = Path.Combine(SolutionPath, "Scripts");
@@ -44,13 +47,12 @@ public class Settings
         ModDecPath = Path.Combine(ModelFilesPath, "modDec");
         ConverterPath = Path.Combine(ModelFilesPath, "converter");
         MatchFinderScriptPath = Path.Combine(ScriptsPath, "MatchFinder.py");
-        PlagiarismResFolder = "C:\\Users\\z004w26z\\Desktop\\res.zip";
+        PlagiarismResZip = Path.Combine(SolutionPath, "res.zip");
+        PlagiarismResFolder = Path.Combine(SolutionPath, "res");
         Students = new List<StudentInfo>();
         PlagiarismPairs = new List<PlagiarismChecker.PlagiarismPair>();
         SyntaxPath = Path.Combine(SolutionPath, "Syntax");
         SyntaxPath = Path.Combine(SyntaxPath, "cpp.xshd");
         UnitTestsPath = Path.Combine(SolutionPath, "UnitTests");
-
-       
     }
 }
