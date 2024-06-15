@@ -17,7 +17,7 @@ public partial class SettingsViewModel : ObservableObject
     public List<string> Options { get; } = Enum.GetNames(typeof(LLMOptions)).ToList();
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsServerSelected))]
-    private string _selectedOption = LLMOptions.Local.ToString();
+    private string _selectedOption = LLMOptions.Server.ToString();
 
     [ObservableProperty]
     private string _selectedServer = "";
@@ -37,12 +37,6 @@ public partial class SettingsViewModel : ObservableObject
         {
             Settings.LLMRunningLocation = "Local";
         }
-    }
-
-    partial void OnPlagiarismThresholdChanged(int value)
-    {
-        Settings.PlagiarismThreshold = PlagiarismThreshold;
-        _notificationService.NotificationText = $"Plagiarism threshold changed to {Settings.PlagiarismThreshold}";
     }
 
     [RelayCommand]

@@ -229,7 +229,14 @@ public class StudentManager
 
                             if (subrequirement.Type != null && subrequirement.Type == "unitTest")
                             {
-                                result = await checker.MakeUnitTests($"{task}.{subtask}", student.Name, subrequirement.Title, function);
+                                try
+                                {
+                                    result = await checker.MakeUnitTests($"{task}.{subtask}", student.Name, subrequirement.Title, function);
+                                }
+                                catch(Exception ex)
+                                {
+                                    result = ex.ToString();
+                                }
                             }
                             else
                             {
