@@ -22,8 +22,4 @@
     <ProjectReference Include="..\AutoCorrectorLibWrapper\AutoCorrectorLibWrapper.vcxproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;C:\Users\z004w26z\Desktop\Material\Licenta\Licenta\Solution\Engine\AutoCorrector\x64\$(Configuration)\*&quot; &quot;C:\Users\z004w26z\Desktop\Material\Licenta\Licenta\Solution\Engine\AutoCorrector\AutoCorrector\bin\$(Configuration)\net7.0-windows7.0\&quot; /Y" />
-  </Target>
-
 </Project>

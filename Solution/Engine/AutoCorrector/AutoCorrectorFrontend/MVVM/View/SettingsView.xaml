@@ -41,7 +41,7 @@
             <StackPanel Margin="10">
                 <TextBlock Foreground="White" Height="40" FontSize="20" Text="LLM Running Location: "/>
             </StackPanel>
-            <ComboBox x:Name="ThresholdTextBox" HorizontalAlignment="Right" Margin="0 0 50 0" Height="30" Width="90" FontSize="20" Grid.Column="1" Grid.Row="0" Text="{Binding PlagiarismThreshold}" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOption}">
+            <ComboBox x:Name="ThresholdTextBox" HorizontalAlignment="Right" Margin="0 0 50 0" Height="30" Width="90" FontSize="20" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOption}" >
                
             </ComboBox>
 
@@ -59,7 +59,7 @@
             <StackPanel Margin="10" Grid.Row="1">
                 <TextBlock Foreground="White" Height="40" FontSize="20" Text="Api Key: "/>
             </StackPanel>
-            <TextBox x:Name="apiKey" HorizontalAlignment="Right" Text="05d1354737d556199fd699294221fa327d70519941d67ab98f53285058e81d96" Margin="0 0 50 0" Height="30" Width="90" FontSize="20" Grid.Column="1" Grid.Row="1">
+            <TextBox x:Name="apiKey" HorizontalAlignment="Right" Text="{Binding ApiKey, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 50 0" Height="30" Width="90" FontSize="20" Grid.Column="1" Grid.Row="1">
                 
 
             </TextBox>
