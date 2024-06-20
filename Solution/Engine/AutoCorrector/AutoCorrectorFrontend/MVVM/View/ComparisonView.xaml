@@ -39,6 +39,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding SecondName}" FontSize="20" Margin="10" Foreground="White"></TextBlock>
 

@@ -43,6 +43,7 @@ public class StudentManager
 
         ScaleProcessor scaleprocessor = new ScaleProcessor(_notificationService);
         var processedscale = await scaleprocessor.ProcessScale(_scale);
+        Settings.Requirements = processedscale;
 
         await GradeStudents(processedscale);
     }

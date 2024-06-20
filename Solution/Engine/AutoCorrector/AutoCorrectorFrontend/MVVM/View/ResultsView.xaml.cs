@@ -70,18 +70,29 @@ namespace AutoCorrectorFrontend.MVVM.View
 
             int index = 1;
 
-            foreach (var requirement in Settings.StudentSample.Requirements)
+            foreach (var requirement in Settings.Requirements)
             {
 
                 if (requirement.Type == "method")
                 {
                     var columnReqFunc = new DataGridTemplateColumn();
                     columnReqFunc.Header = $"Task {index} function";
-                    columnReqFunc.CellTemplate = new DataTemplate(typeof(TextBlock));
-                    columnReqFunc.CellTemplate.VisualTree = new FrameworkElementFactory(typeof(TextBlock));
-                    columnReqFunc.CellTemplate.VisualTree.SetBinding(TextBlock.TextProperty, new Binding($"Requirements[{index - 1}].Title"));
-                    columnReqFunc.CellTemplate.VisualTree.SetValue(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-                    columnReqFunc.CellTemplate.VisualTree.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+
+                    // Create a DataTemplate for the header with a ToolTip
+                    var headerTemplate = new DataTemplate();
+                    var headerTextBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
+                    headerTextBlockFactory.SetValue(TextBlock.TextProperty, $"Task {index} function");
+                    headerTextBlockFactory.SetValue(TextBlock.ToolTipProperty, requirement.Title);
+                    headerTemplate.VisualTree = headerTextBlockFactory;
+                    columnReqFunc.HeaderTemplate = headerTemplate;
+
+                    // Create a DataTemplate for the cell content
+                    columnReqFunc.CellTemplate = new DataTemplate();
+                    var cellTextBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
+                    cellTextBlockFactory.SetBinding(TextBlock.TextProperty, new Binding($"Requirements[{index - 1}].Title"));
+                    cellTextBlockFactory.SetValue(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+                    cellTextBlockFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+                    columnReqFunc.CellTemplate.VisualTree = cellTextBlockFactory;
 
                     dataGrid.Columns.Add(columnReqFunc);
                 }
@@ -92,23 +103,36 @@ namespace AutoCorrectorFrontend.MVVM.View
                 foreach (var subReq in requirement.SubRequirements)
                 {
                     var columnsubReqPoint = new DataGridTemplateColumn();
-
-                    columnsubReqPoint.CellTemplate = new DataTemplate();
                     columnsubReqPoint.Header = $"Task {index}.{subIndex} points";
+
+                    // Create a DataTemplate for the header with a ToolTip
+                    var headerTemplate = new DataTemplate();
+                    var headerTextBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
+                    headerTextBlockFactory.SetValue(TextBlock.TextProperty, $"Task {index}.{subIndex} points");
+                    headerTextBlockFactory.SetValue(TextBlock.ToolTipProperty, subReq.Title);
+                    headerTemplate.VisualTree = headerTextBlockFactory;
+                    columnsubReqPoint.HeaderTemplate = headerTemplate;
+
+                    // Create a DataTemplate for the cell content
+                    var cellTemplate = new DataTemplate();
                     var textBlockFactory = new FrameworkElementFactory(typeof(TextBlock));
                     textBlockFactory.SetBinding(TextBlock.TextProperty, new Binding($"Requirements[{index - 1}].SubRequirements[{subIndex - 1}].Points"));
                     textBlockFactory.SetValue(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Center);
                     textBlockFactory.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-                    columnsubReqPoint.CellTemplate.VisualTree = textBlockFactory;
+                    cellTemplate.VisualTree = textBlockFactory;
+                    columnsubReqPoint.CellTemplate = cellTemplate;
 
-                    columnsubReqPoint.CellEditingTemplate = new DataTemplate();
+                    // Create a DataTemplate for the cell editing content
+                    var cellEditingTemplate = new DataTemplate();
                     var textBoxFactory = new FrameworkElementFactory(typeof(TextBox));
                     textBoxFactory.SetBinding(TextBox.TextProperty, new Binding($"Requirements[{index - 1}].SubRequirements[{subIndex - 1}].Points"));
                     textBoxFactory.SetValue(TextBox.HorizontalAlignmentProperty, HorizontalAlignment.Stretch); // Stretch horizontally
                     textBoxFactory.SetValue(TextBox.VerticalAlignmentProperty, VerticalAlignment.Stretch); // Stretch vertically
-                    columnsubReqPoint.CellEditingTemplate.VisualTree = textBoxFactory;
+                    cellEditingTemplate.VisualTree = textBoxFactory;
+                    columnsubReqPoint.CellEditingTemplate = cellEditingTemplate;
 
                     dataGrid.Columns.Add(columnsubReqPoint);
+
 
                     if (subReq.Type == "unitTest")
                     {

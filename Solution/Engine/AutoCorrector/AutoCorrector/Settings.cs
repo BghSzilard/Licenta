@@ -19,6 +19,7 @@ public class Settings
     public static StudentInfo StudentSample {  get; set; }
     public static List<StudentInfo> Students { get; set; }
     public static string PlagiarismResZip {  get; set; }
+    public static List<Requirement> Requirements { get; set; } = new List<Requirement>();
     public static string PlagiarismResFolder {  get; set; }
     public static string JplagPath {  get; set; }
     public static List<PlagiarismChecker.PlagiarismPair> PlagiarismPairs { get; set; }
