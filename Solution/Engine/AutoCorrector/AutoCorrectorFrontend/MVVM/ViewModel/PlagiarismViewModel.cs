@@ -29,14 +29,14 @@ public partial class PlagiarismViewModel : ObservableObject
         {
             if (avg)
             {
-                if (pair.Average_similarity >= value)
+                if (pair.Average_similarity >= value && pair.Max_similarity > 0)
                 {
                     PlagiarismPairs.Add(pair);
                 }
             }
             else
             {
-                if (pair.Max_similarity >= value)
+                if (pair.Max_similarity >= value && pair.Max_similarity > 0)
                 {
                     PlagiarismPairs.Add(pair);
                 }

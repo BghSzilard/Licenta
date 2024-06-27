@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using SharpCompress.Common;
 
 namespace AutoCorrectorEngine;
 
@@ -81,15 +80,31 @@ public class CorrectionChecker
         process.Start();
         return await process.StandardOutput.ReadToEndAsync();
     }
-    public async Task<string> MakeUnitTests(string req, string studentName,  string requirement, string function)
+    private static string RemoveUpToFirstNewline(string input)
     {
-        
+        int newlineIndex = input.IndexOf('\n');
+        if (newlineIndex >= 0)
+        {
+            // Remove everything up to and including the first newline character
+            return input.Substring(newlineIndex + 1);
+        }
+        else
+        {
+            // No newline character found, return the original string
+            return input;
+        }
+    }
+    public async Task<string> MakeUnitTests(string req, string studentName, string requirement, string function)
+    {
+
         LLMManager llmManager = new LLMManager();
         var result = await llmManager.WriteUnitTests(requirement, function);
         result = result.Replace("```", "");
         result = result.Replace("cpp", "");
+        result = RemoveUpToFirstNewline(result);
+
         string unitTestFile = Path.Combine(Settings.UnitTestsPath, $"{studentName} {req}.cpp");
-        
+
         if (!Directory.Exists(Settings.UnitTestsPath))
         {
             Directory.CreateDirectory(Settings.UnitTestsPath);
@@ -107,8 +122,6 @@ public class CorrectionChecker
         }
 
         string output = await ExecuteAsync($"\"{Settings.UnitTestsPath}\\{studentName}.exe\"");
-
-        //File.Delete($"{Settings.UnitTestsPath}\\{studentName}.exe");
 
         return output;
     }

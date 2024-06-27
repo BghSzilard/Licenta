@@ -53,11 +53,9 @@ void ASTTraverser::traverseASTExtractor()
 
     auto visitorWrapper = [](CXCursor current_cursor, CXCursor parent, CXClientData client_data) -> CXChildVisitResult
         {
-            // Cast client_data to ASTTraverser* and call MainVisitor
             return static_cast<ASTTraverser*>(client_data)->signatureExtractorVisitor(current_cursor, parent, nullptr);
         };
 
-    // Pass 'this' as client_data
     clang_visitChildren(cursor, visitorWrapper, this);
 }
 
@@ -91,13 +89,11 @@ std::string ASTTraverser::getFunction(const std::string& functionName)
 
     auto visitorWrapper = [](CXCursor current_cursor, CXCursor parent, CXClientData client_data) -> CXChildVisitResult
         {
-            // Cast client_data to ASTTraverser* and call MainVisitor
             return static_cast<ASTTraverser*>(client_data)->functionExtractorVisitor(current_cursor, parent, nullptr);
         };
 
     auto auxVisitorWrapper = [](CXCursor current_cursor, CXCursor parent, CXClientData client_data) -> CXChildVisitResult
         {
-            // Cast client_data to ASTTraverser* and call MainVisitor
             return static_cast<ASTTraverser*>(client_data)->dependencyFunctionExtractorVisitor(current_cursor, parent, nullptr);
         };
 
@@ -234,11 +230,9 @@ CXChildVisitResult ASTTraverser::MainVisitor(CXCursor current_cursor, CXCursor p
         CXString function_name = clang_getCursorSpelling(current_cursor);
         if (clang_getCString(function_name) && strcmp(clang_getCString(function_name), "main") == 0)
         {
-            // Check if it's the correct signature for the main function
             CXType function_type = clang_getCursorType(current_cursor);
             CXType canonical_function_type = clang_getCanonicalType(function_type);
 
-            // Check if it's either int main(void) or int main()
             if (clang_getNumArgTypes(canonical_function_type) == 0)
             {
                 m_foundMain = true;

@@ -1,14 +1,11 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using AutoCorrector;
+using AutoCorrectorEngine;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
-using AutoCorrector;
-using AutoCorrectorEngine;
 
 namespace AutoCorrectorFrontend.MVVM.View
 {
@@ -28,7 +25,7 @@ namespace AutoCorrectorFrontend.MVVM.View
         }
         private void PopulateDataGrid()
         {
-           
+
             dataGrid.AutoGenerateColumns = false;
 
             var style = new Style(typeof(DataGridCell));
@@ -97,7 +94,7 @@ namespace AutoCorrectorFrontend.MVVM.View
                     dataGrid.Columns.Add(columnReqFunc);
                 }
 
-                
+
 
                 int subIndex = 1;
                 foreach (var subReq in requirement.SubRequirements)
@@ -177,7 +174,7 @@ namespace AutoCorrectorFrontend.MVVM.View
 
                 }
 
-                
+
                 index++;
             }
         }

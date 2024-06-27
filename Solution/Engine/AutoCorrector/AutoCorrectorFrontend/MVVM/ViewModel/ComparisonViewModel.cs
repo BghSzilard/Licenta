@@ -49,6 +49,15 @@ public partial class ComparisonViewModel : ObservableObject
         UpdateHighlights();
     }
 
+    partial void OnSelectedFile2IdChanged(int oldValue, int newValue)
+    {
+        RightTextViewText = _plagiarismPair.Files2.Where(x => x.Id == newValue).ToList()[0].Content;
+        SelectedFile2Id = newValue;
+        LineHighlights1.Clear();
+        LineHighlights2.Clear();
+        UpdateHighlights();
+    }
+
     private void UpdateHighlights()
     {
         int temp = 0;

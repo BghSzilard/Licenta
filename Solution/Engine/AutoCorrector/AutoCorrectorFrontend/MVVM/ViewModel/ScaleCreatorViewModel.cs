@@ -94,22 +94,32 @@ public partial class ScaleCreatorViewModel : ObservableObject
         }
     }
 
-    public static Task<string> ReadPdfFile(string fileName)
+    public Task<string> ReadPdfFile(string fileName)
     {
         StringBuilder text = new StringBuilder();
 
-        using (PdfReader reader = new PdfReader(fileName))
+        try
         {
-            PdfDocument pdfDoc = new PdfDocument(reader);
-            for (int i = 1; i <= pdfDoc.GetNumberOfPages(); i++)
-            {
-                ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-                string currentText = PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(i), strategy);
-                text.Append(currentText);
-            }
-        }
 
-        return Task.FromResult(text.ToString());
+            using (PdfReader reader = new PdfReader(fileName))
+            {
+                PdfDocument pdfDoc = new PdfDocument(reader);
+                for (int i = 1; i <= pdfDoc.GetNumberOfPages(); i++)
+                {
+                    ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+                    string currentText = PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(i), strategy);
+                    text.Append(currentText);
+                }
+            }
+
+            return Task.FromResult(text.ToString());
+        }
+        catch(Exception ex)
+        {
+            _notificationService.NotificationText = "Could not create scale! Please try reuploading!";
+            return Task.FromResult("Error");
+        }
+        
     }
 
     [RelayCommand]

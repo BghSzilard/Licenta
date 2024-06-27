@@ -51,7 +51,7 @@ private:
 	bool m_foundMain = false;
 	std::string m_functionName = "";
 	std::string m_functionBody = "";
-	int m_functionLine;
+	int m_functionLine = 0;
 	std::queue<CXCursor> m_cursorsToTraverse;
 	std::set<CXCursor, CompareCXCursor> m_cursorsTraversed;
 };
